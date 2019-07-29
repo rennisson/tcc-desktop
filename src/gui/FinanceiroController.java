@@ -5,21 +5,27 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
-public class PedidosController implements Initializable {
+public class FinanceiroController implements Initializable {
+
+	@FXML
+	AnchorPane parent;
 	
 	@FXML
-	private AnchorPane parent;
+	private Rectangle arrowFinanceiro;
 	
 	@FXML
-	private Rectangle arrowPedidos;
+	ComboBox<String> cbAno;
+	
+	@FXML
+	ComboBox<String> cbMes;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		arrowPedidos.setVisible(true);
+		arrowFinanceiro.setVisible(true);
 	}
-	
 	
 }

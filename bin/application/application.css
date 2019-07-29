@@ -1,5 +1,9 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
+.image-view:hover {
+	-fx-cursor:hand;
+}
+
 .button {
     -fx-background-color: #353535;
     -fx-text-fill: #FFFFFF;

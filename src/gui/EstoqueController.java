@@ -8,18 +8,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
-public class PedidosController implements Initializable {
+public class EstoqueController implements Initializable {
 	
 	@FXML
-	private AnchorPane parent;
+	AnchorPane parent;
 	
 	@FXML
-	private Rectangle arrowPedidos;
+	private Rectangle arrowEstoque;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		arrowPedidos.setVisible(true);
+		arrowEstoque.setVisible(true);
 	}
-	
 	
 }

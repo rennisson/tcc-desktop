@@ -5,19 +5,20 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="ancora" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ViewController">
-   <children>
-      <VBox prefHeight="548.0" prefWidth="207.0" style="-fx-background-color: #353535;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+<BorderPane fx:id="borderPane" style="-fx-background-color: #353535;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ViewController">
+   <left>
+      <VBox prefHeight="548.0" prefWidth="207.0" style="-fx-background-color: #353535;" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="223.0" fitWidth="216.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@img/logo.png" />
                </image>
                <VBox.margin>
-                  <Insets />
+                  <Insets left="5.0" right="5.0" />
                </VBox.margin>
             </ImageView>
             <Button fx:id="btnPedidos" alignment="BASELINE_LEFT" graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBtnPedidosAction" prefHeight="48.0" prefWidth="209.0" text="Pedidos">
@@ -66,10 +67,51 @@
                </padding>
             </Button>
          </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" />
+         </BorderPane.margin>
       </VBox>
-      <Pane fx:id="arrowPedidos" layoutX="216.0" layoutY="237.0" prefHeight="50.0" prefWidth="50.0" rotate="45.0" style="-fx-background-color: #FFFFFF;" visible="false" />
-      <Pane fx:id="arrowEstoque" layoutX="216.0" layoutY="286.0" prefHeight="50.0" prefWidth="50.0" rotate="45.0" style="-fx-background-color: #FFF;" visible="false" />
-      <Pane fx:id="arrowFinanceiro" layoutX="216.0" layoutY="334.0" prefHeight="50.0" prefWidth="50.0" rotate="45.0" style="-fx-background-color: #FFF;" visible="false" />
-      <AnchorPane fx:id="root" layoutX="216.0" prefHeight="800.0" prefWidth="1067.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="216.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-   </children>
-</AnchorPane>
+   </left>
+   <top>
+      <HBox alignment="CENTER_RIGHT" fillHeight="false" nodeOrientation="LEFT_TO_RIGHT" onMouseDragged="#stay" onMousePressed="#move" prefHeight="37.0" prefWidth="1191.0" style="-fx-background-color: #353535;" BorderPane.alignment="TOP_LEFT">
+         <children>
+            <ImageView fx:id="imgMin" fitHeight="20.0" fitWidth="30.0" onMouseClicked="#min" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/icons8_minus_24px.png" />
+               </image>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </ImageView>
+            <ImageView fx:id="imgMax" fitHeight="20.0" fitWidth="30.0" onMouseClicked="#max" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/icons8_maximize_window_26px.png" />
+               </image>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </ImageView>
+            <ImageView fx:id="imgClose" fitHeight="34.0" fitWidth="46.0" onMouseClicked="#close" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <image>
+                  <Image url="@img/icons8_close_window_48px.png" />
+               </image>
+            </ImageView>
+         </children>
+         <BorderPane.margin>
+            <Insets right="5.0" top="5.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+   <center>
+      <AnchorPane fx:id="root" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #353535;" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="5.0" right="5.0" />
+         </BorderPane.margin></AnchorPane>
+   </center>
+   <opaqueInsets>
+      <Insets bottom="5.0" top="5.0" />
+   </opaqueInsets>
+</BorderPane>

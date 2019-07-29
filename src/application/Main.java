@@ -2,13 +2,13 @@ package application;
 	
 import java.io.IOException;
 
-import gui.ViewController;
+import gui.FXResizeHelper;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application {
@@ -23,6 +23,11 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			stage.setScene(scene);
 			stage.setTitle("Danessa Cakes");
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.setMinHeight(500);
+			stage.setMinWidth(1200);
+			FXResizeHelper listener = new FXResizeHelper(stage, 0, 5);
+			stage.centerOnScreen();
 			stage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
