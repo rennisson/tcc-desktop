@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" style="-fx-background-color: #353535;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ViewController">
+<BorderPane fx:id="borderPane" style="-fx-background-color: #353535;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ViewController">
    <left>
       <VBox prefHeight="548.0" prefWidth="207.0" style="-fx-background-color: #353535;" BorderPane.alignment="CENTER">
          <children>
@@ -75,7 +75,7 @@
    <top>
       <HBox alignment="CENTER_RIGHT" fillHeight="false" nodeOrientation="LEFT_TO_RIGHT" onMouseDragged="#stay" onMousePressed="#move" prefHeight="37.0" prefWidth="1191.0" style="-fx-background-color: #353535;" BorderPane.alignment="TOP_LEFT">
          <children>
-            <ImageView fx:id="imgMin" fitHeight="20.0" fitWidth="30.0" onMouseClicked="#min" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgMin" fitHeight="20.0" fitWidth="30.0" onMouseClicked="#min" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                <image>
                   <Image url="@img/icons8_minus_24px.png" />
                </image>
@@ -83,7 +83,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </ImageView>
-            <ImageView fx:id="imgMax" fitHeight="20.0" fitWidth="30.0" onMouseClicked="#max" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgMax" fitHeight="20.0" fitWidth="30.0" onMouseClicked="#max" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                <image>
                   <Image url="@img/icons8_maximize_window_26px.png" />
                </image>
@@ -91,7 +91,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </ImageView>
-            <ImageView fx:id="imgClose" fitHeight="34.0" fitWidth="46.0" onMouseClicked="#close" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgClose" fitHeight="34.0" fitWidth="46.0" onMouseClicked="#close" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
