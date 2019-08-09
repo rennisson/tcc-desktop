@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.entities.Cliente;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
@@ -39,7 +40,7 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 		
-		Connection conn = DB.getConnection();
-		DB.closeConnection();
+		Cliente obj = new Cliente(1, "rennisson.alves@gmail.com", "rennisson", "11-981936306");
+		System.out.println(obj);
 	}
 }
