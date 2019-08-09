@@ -1,7 +1,9 @@
 package application;
 	
 import java.io.IOException;
+import java.sql.Connection;
 
+import db.DB;
 import gui.FXResizeHelper;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -36,5 +38,8 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
+		
+		Connection conn = DB.getConnection();
+		DB.closeConnection();
 	}
 }
