@@ -1,17 +1,16 @@
 package application;
 	
 import java.io.IOException;
-import java.sql.Connection;
 
-import db.DB;
 import gui.FXResizeHelper;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.entities.Cliente;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import model.entities.Pedido;
 
 
 public class Main extends Application {
@@ -41,6 +40,8 @@ public class Main extends Application {
 		launch(args);
 		
 		Cliente obj = new Cliente(1, "rennisson.alves@gmail.com", "rennisson", "11-981936306");
-		System.out.println(obj);
+		
+		Pedido pedido = new Pedido(1, "Bolo de cenoura", 1, obj);
+		System.out.println(pedido);
 	}
 }
