@@ -6,10 +6,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" style="-fx-background-color: #353535;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ViewController">
+<BorderPane fx:id="borderPane" style="-fx-background-color: #353535;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ViewController">
    <left>
       <VBox prefHeight="548.0" prefWidth="207.0" style="-fx-background-color: #353535;" BorderPane.alignment="CENTER">
          <children>
@@ -72,41 +71,8 @@
          </BorderPane.margin>
       </VBox>
    </left>
-   <top>
-      <HBox alignment="CENTER_RIGHT" fillHeight="false" nodeOrientation="LEFT_TO_RIGHT" onMouseDragged="#stay" onMousePressed="#move" prefHeight="37.0" prefWidth="1191.0" style="-fx-background-color: #353535;" BorderPane.alignment="TOP_LEFT">
-         <children>
-            <ImageView fx:id="imgMin" fitHeight="20.0" fitWidth="30.0" onMouseClicked="#min" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
-               <image>
-                  <Image url="@img/icons8_minus_24px.png" />
-               </image>
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </ImageView>
-            <ImageView fx:id="imgMax" fitHeight="20.0" fitWidth="30.0" onMouseClicked="#max" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
-               <image>
-                  <Image url="@img/icons8_maximize_window_26px.png" />
-               </image>
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </ImageView>
-            <ImageView fx:id="imgClose" fitHeight="34.0" fitWidth="46.0" onMouseClicked="#close" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <image>
-                  <Image url="@img/icons8_close_window_48px.png" />
-               </image>
-            </ImageView>
-         </children>
-         <BorderPane.margin>
-            <Insets right="5.0" top="5.0" />
-         </BorderPane.margin>
-      </HBox>
-   </top>
    <center>
-      <AnchorPane fx:id="root" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #353535;" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="root" minHeight="-Infinity" prefHeight="200.0" style="-fx-background-color: #353535; -fx-cursor: default;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="5.0" right="5.0" />
          </BorderPane.margin></AnchorPane>
@@ -114,4 +80,29 @@
    <opaqueInsets>
       <Insets bottom="5.0" top="5.0" />
    </opaqueInsets>
+   <top>
+      <AnchorPane prefHeight="37.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane onMouseDragged="#stay" onMousePressed="#move" prefHeight="37.0" prefWidth="916.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="5.0" />
+            <ImageView fx:id="imgMin" fitHeight="20.0" fitWidth="30.0" layoutX="926.0" layoutY="10.0" onMouseClicked="#min" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="60.0">
+               <image>
+                  <Image url="@img/icons8_minus_24px.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgMax" fitHeight="20.0" fitWidth="30.0" layoutX="946.0" layoutY="9.0" onMouseClicked="#max" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="35.0">
+               <image>
+                  <Image url="@img/icons8_maximize_window_26px.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imgClose" fitHeight="34.0" fitWidth="46.0" layoutX="966.0" layoutY="3.0" onMouseClicked="#close" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0">
+               <image>
+                  <Image url="@img/icons8_close_window_48px.png" />
+               </image>
+            </ImageView>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" />
+         </BorderPane.margin>
+      </AnchorPane>
+   </top>
 </BorderPane>

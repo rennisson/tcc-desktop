@@ -28,8 +28,10 @@ public class Main extends Application {
 			stage.initStyle(StageStyle.UNDECORATED);
 			stage.setMinHeight(500);
 			stage.setMinWidth(1200);
-			FXResizeHelper listener = new FXResizeHelper(stage, 0, 10);
 			stage.centerOnScreen();
+			
+			FXResizeHelper listener = new FXResizeHelper(stage, 0, 10);
+			
 			stage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
