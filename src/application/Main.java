@@ -45,8 +45,14 @@ public class Main extends Application {
 		
 		ClienteDao clienteDao = DaoFactory.createClienteDao();
 		
-		Cliente cliente = new Cliente(null, "gabriel@gmail.com", "gabriel", "11-123456789");
-		clienteDao.insert(cliente);
-		System.out.println("Inserted! New id: " + cliente.getCodigo());
+		Cliente cliente = clienteDao.findById(2);
+		System.out.println(cliente);
+		
+		System.out.println();
+		
+		cliente.setNome("gabriel hamilton");
+		cliente.setEmail("gabrielgh@gmail.com");
+		clienteDao.update(cliente);
+		System.out.println(cliente);
 	}
 }

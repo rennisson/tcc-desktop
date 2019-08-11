@@ -59,8 +59,27 @@ public class ClienteDaoJDBC implements ClienteDao {
 
 	@Override
 	public void update(Cliente obj) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
 		
+		try {
+			st = conn.prepareStatement(
+					"UPDATE cliente "
+					+ "SET email = ?, nome= ?, telefone = ? "
+					+ "WHERE codigo = ?");
+			
+			st.setString(1, obj.getEmail());
+			st.setString(2, obj.getNome());
+			st.setString(3, obj.getTelefone());
+			st.setInt(4, obj.getCodigo());
+			
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override
@@ -71,8 +90,33 @@ public class ClienteDaoJDBC implements ClienteDao {
 
 	@Override
 	public Cliente findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement(
+					"SELECT cliente.* "
+					+ "FROM cliente "
+					+ "WHERE cliente.codigo = ?");
+
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			if (rs.next()) {
+				Cliente obj = new Cliente();
+				obj.setCodigo(rs.getInt("codigo"));
+				obj.setNome(rs.getString("nome"));
+				obj.setEmail(rs.getString("email"));
+				obj.setTelefone(rs.getString("telefone"));
+				return obj;
+			}
+			return null;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
 	}
 
 	@Override
