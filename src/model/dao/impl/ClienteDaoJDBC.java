@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import db.DB;
 import db.DbException;
 import model.dao.ClienteDao;
 import model.entities.Cliente;
@@ -42,6 +43,7 @@ public class ClienteDaoJDBC implements ClienteDao {
 					int id = rs.getInt(1);
 					obj.setCodigo(id);
 				}
+				DB.closeResultSet(rs);
 			}
 			else {
 				throw new DbException("Erro inesperado! Nenhuma linha afetada!");
@@ -49,6 +51,9 @@ public class ClienteDaoJDBC implements ClienteDao {
 		}
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
 		}
 	}
 
