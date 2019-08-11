@@ -9,6 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.dao.ClienteDao;
+import model.dao.DaoFactory;
 import model.entities.Cliente;
 import model.entities.Pedido;
 
@@ -41,9 +43,10 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 		
-		Cliente obj = new Cliente(1, "rennisson.alves@gmail.com", "rennisson", "11-981936306");
+		ClienteDao clienteDao = DaoFactory.createClienteDao();
 		
-		Pedido pedido = new Pedido(1, "Bolo de cenoura", 1, obj);
-		System.out.println(pedido);
+		Cliente cliente = new Cliente(null, "gabriel@gmail.com", "gabriel", "11-123456789");
+		clienteDao.insert(cliente);
+		System.out.println("Inserted! New id: " + cliente.getCodigo());
 	}
 }
