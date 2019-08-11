@@ -101,11 +101,7 @@ public class ClienteDaoJDBC implements ClienteDao {
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
-				Cliente obj = new Cliente();
-				obj.setCodigo(rs.getInt("codigo"));
-				obj.setNome(rs.getString("nome"));
-				obj.setEmail(rs.getString("email"));
-				obj.setTelefone(rs.getString("telefone"));
+				Cliente obj = instantiateCliente(rs);
 				return obj;
 			}
 			return null;
@@ -117,6 +113,15 @@ public class ClienteDaoJDBC implements ClienteDao {
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
 		}
+	}
+
+	private Cliente instantiateCliente(ResultSet rs) throws SQLException {
+		Cliente obj = new Cliente();
+		obj.setCodigo(rs.getInt("codigo"));
+		obj.setNome(rs.getString("nome"));
+		obj.setEmail(rs.getString("email"));
+		obj.setTelefone(rs.getString("telefone"));
+		return obj;
 	}
 
 	@Override
