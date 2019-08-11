@@ -1,6 +1,7 @@
 package application;
 	
 import java.io.IOException;
+import java.util.List;
 
 import gui.FXResizeHelper;
 import javafx.application.Application;
@@ -12,7 +13,6 @@ import javafx.stage.StageStyle;
 import model.dao.ClienteDao;
 import model.dao.DaoFactory;
 import model.entities.Cliente;
-import model.entities.Pedido;
 
 
 public class Main extends Application {
@@ -54,5 +54,13 @@ public class Main extends Application {
 		cliente.setEmail("gabrielgh@gmail.com");
 		clienteDao.update(cliente);
 		System.out.println(cliente);
+		
+		System.out.println();
+		
+		System.out.println("\n=== TEST 3: seller findAll =====");
+		List<Cliente> list = clienteDao.findAll();
+		for (Cliente obj : list) {
+			System.out.println(obj);
+		}
 	}
 }
