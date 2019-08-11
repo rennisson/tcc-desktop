@@ -2,6 +2,7 @@ package application;
 	
 import java.io.IOException;
 import java.util.List;
+import java.util.Scanner;
 
 import gui.FXResizeHelper;
 import javafx.application.Application;
@@ -44,23 +45,10 @@ public class Main extends Application {
 		launch(args);
 		
 		ClienteDao clienteDao = DaoFactory.createClienteDao();
-		
-		Cliente cliente = clienteDao.findById(2);
-		System.out.println(cliente);
-		
-		System.out.println();
-		
-		cliente.setNome("gabriel hamilton");
-		cliente.setEmail("gabrielgh@gmail.com");
-		clienteDao.update(cliente);
-		System.out.println(cliente);
-		
-		System.out.println();
-		
-		System.out.println("\n=== TEST 3: seller findAll =====");
-		List<Cliente> list = clienteDao.findAll();
-		for (Cliente obj : list) {
-			System.out.println(obj);
-		}
+		Scanner sc = new Scanner(System.in);
+		System.out.println("\n=== TEST 3: seller delete =====");
+		System.out.print("ID: ");
+		int id = sc.nextInt();
+		clienteDao.deleteById(id);
 	}
 }
