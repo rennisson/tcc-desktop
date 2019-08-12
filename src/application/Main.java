@@ -18,15 +18,15 @@ import model.entities.Cliente;
 
 public class Main extends Application {
 	
-	Scene scene;
+	private static Scene mainScene;
 	
 	@Override
 	public void start(Stage stage) throws Exception {
 		try {
 			Parent parent = FXMLLoader.load(getClass().getResource("/gui/View.fxml"));
-			scene = new Scene(parent);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			stage.setScene(scene);
+			mainScene = new Scene(parent);
+			mainScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			stage.setScene(mainScene);
 			stage.setTitle("Danessa Cakes");
 			stage.initStyle(StageStyle.UNDECORATED);
 			stage.setMinHeight(500);
@@ -39,6 +39,10 @@ public class Main extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static Scene getMainScene() {
+		return mainScene;
 	}
 	
 	public static void main(String[] args) {
