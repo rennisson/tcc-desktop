@@ -43,12 +43,5 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
-		
-		ClienteDao clienteDao = DaoFactory.createClienteDao();
-		Scanner sc = new Scanner(System.in);
-		System.out.println("\n=== TEST 3: seller delete =====");
-		System.out.print("ID: ");
-		int id = sc.nextInt();
-		clienteDao.deleteById(id);
 	}
 }

@@ -47,7 +47,7 @@ public class ViewController implements Initializable {
 	private ImageView imgClose;
 	
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	public void initialize(URL uri, ResourceBundle rb) {
 		borderPane.setRight(null);
 		borderPane.setBottom(null);	
 		
