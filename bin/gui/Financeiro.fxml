@@ -6,18 +6,17 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FinanceiroController">
+<AnchorPane fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FinanceiroController">
    <children>
-      <SplitPane dividerPositions="0.9058380414312618" prefHeight="633.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.5" prefHeight="633.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
             <AnchorPane style="-fx-background-color: #353535;">
                <children>
-                  <ComboBox fx:id="cbAno" editable="true" layoutX="217.0" layoutY="6.0" prefHeight="25.0" prefWidth="150.0" promptText="ANO" />
-                  <ComboBox fx:id="cbMes" editable="true" layoutX="61.0" layoutY="6.0" prefHeight="25.0" prefWidth="150.0" promptText="MÊS" />
-                  <TableView editable="true" layoutY="38.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="593.0" prefWidth="742.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="38.0">
+                  <TableView editable="true" layoutY="45.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="584.0" prefWidth="755.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.0">
                      <columns>
                         <TableColumn editable="false" prefWidth="171.0" sortable="false" text="Pedido" />
                         <TableColumn prefWidth="194.0" text="Preço (R$)" />
@@ -30,8 +29,17 @@
                         <Insets />
                      </opaqueInsets>
                   </TableView>
-                  <Button layoutX="374.0" layoutY="6.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Pedidos pendentes" />
-                  <Button layoutX="532.0" layoutY="6.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Pedidos concluídos" />
+                  <ToolBar prefHeight="40.0" prefWidth="755.0" style="-fx-background-color: #AB2C2C; -fx-border-style: none;">
+                     <items>
+                        <ComboBox fx:id="cbAno" prefHeight="25.0" prefWidth="150.0" promptText="ANO" />
+                        <ComboBox fx:id="cbMes" prefHeight="25.0" prefWidth="150.0" promptText="MÊS" />
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Pedidos pendentes" />
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Pedidos concluídos" />
+                     </items>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" top="10.0" />
+                     </padding>
+                  </ToolBar>
                </children>
             </AnchorPane>
             <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: #353535;" />

@@ -55,7 +55,7 @@ public class ViewController implements Initializable {
 	}
 
 	public void onBtnEstoqueAction() throws IOException {
-		loadView("/gui/kEstoque.fxml");
+		loadView("/gui/Estoque.fxml");
 	}
 
 	public void onBtnFinanceiroAction() throws IOException {
