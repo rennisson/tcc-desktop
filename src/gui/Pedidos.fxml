@@ -11,12 +11,12 @@
    <children>
       <SplitPane dividerPositions="0.9058380414312618" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
-            <TableView editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT">
+            <TableView fx:id="tableViewPedidos" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT">
                <columns>
-                  <TableColumn editable="false" prefWidth="171.0" sortable="false" text="Data" />
-                  <TableColumn prefWidth="194.0" text="Cliente" />
-                  <TableColumn prefWidth="186.0" text="Pedidos" />
-                  <TableColumn prefWidth="167.0" text="Preço Total (R$)" />
+                  <TableColumn fx:id="tableColumnData" editable="false" prefWidth="171.0" sortable="false" text="Data" />
+                  <TableColumn fx:id="tableColumnCliente" prefWidth="194.0" text="Cliente" />
+                  <TableColumn fx:id="tableColumnPedido" prefWidth="186.0" text="Pedidos" />
+                  <TableColumn fx:id="tableColumnPreco" prefWidth="167.0" text="Preço Total (R$)" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

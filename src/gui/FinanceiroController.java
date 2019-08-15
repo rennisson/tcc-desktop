@@ -8,21 +8,22 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
 public class FinanceiroController implements Initializable {
 
 	@FXML
-	AnchorPane parent;
+	private AnchorPane parent;
 	
 	@FXML
 	private Rectangle arrowFinanceiro;
 	
 	@FXML
-	ComboBox<String> cbAno;
+	private ComboBox<String> cbAno;
 	
-	ObservableList<String> anos = 
+	private ObservableList<String> anos = 
 		    FXCollections.observableArrayList(
 		        "2019",
 		        "2020",
@@ -39,9 +40,9 @@ public class FinanceiroController implements Initializable {
 		        "2031");
 	
 	@FXML
-	ComboBox<String> cbMes;
+	private ComboBox<String> cbMes;
 	
-	ObservableList<String> meses = 
+	private ObservableList<String> meses = 
 		    FXCollections.observableArrayList(
 		        "Janeiro",
 		        "Fevereiro",
@@ -58,6 +59,10 @@ public class FinanceiroController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		initComponents();
+	}
+
+	private void initComponents() {
 		arrowFinanceiro.setVisible(true);
 		
 		cbAno.setValue("Ano");

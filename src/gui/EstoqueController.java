@@ -11,13 +11,17 @@ import javafx.scene.shape.Rectangle;
 public class EstoqueController implements Initializable {
 	
 	@FXML
-	AnchorPane parent;
+	private AnchorPane parent;
 	
 	@FXML
 	private Rectangle arrowEstoque;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		initComponents();
+	}
+
+	private void initComponents() {
 		arrowEstoque.setVisible(true);
 	}
 	

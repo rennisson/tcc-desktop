@@ -9,16 +9,18 @@ public class Pedido implements Serializable {
 	private Integer codigo;
 	private String nome;
 	private Integer quantidade;
+	private Double precoTotal;
 	
 	private Cliente cliente;
 	
 	public Pedido() {
 	}
 
-	public Pedido(Integer codigo, String nome, Integer quantidade, Cliente cliente) {
+	public Pedido(Integer codigo, String nome, Integer quantidade, Double precoTotal, Cliente cliente) {
 		this.codigo = codigo;
 		this.nome = nome;
 		this.quantidade = quantidade;
+		this.precoTotal = precoTotal;
 		this.cliente = cliente;
 	}
 
@@ -44,6 +46,14 @@ public class Pedido implements Serializable {
 
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
+	}
+	
+	public Double getPrecoTotal() {
+		return precoTotal;
+	}
+
+	public void setPrecoTotal(Double precoTotal) {
+		this.precoTotal = precoTotal;
 	}
 
 	public Cliente getCliente() {
@@ -81,9 +91,7 @@ public class Pedido implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Pedido [codigo=" + codigo + ", nome=" + nome + ", quantidade=" + quantidade + ", cliente=" + cliente
+		return "Pedido [codigo=" + codigo + ", nome=" + nome + ", quantidade=" + quantidade + ", preço total=" + precoTotal + ", cliente=" + cliente
 				+ "]";
-	}
-	
-	
+	}	
 }
