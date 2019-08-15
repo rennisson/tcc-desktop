@@ -39,8 +39,12 @@ public class PedidosController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		arrowPedidos.setVisible(true);
+		initComponents();
 		initializeNodes();
+	}
+
+	private void initComponents() {
+		arrowPedidos.setVisible(true);
 	}
 
 	private void initializeNodes() {

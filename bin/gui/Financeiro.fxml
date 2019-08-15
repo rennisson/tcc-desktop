@@ -16,10 +16,10 @@
          <items>
             <AnchorPane style="-fx-background-color: #353535;">
                <children>
-                  <TableView editable="true" layoutY="45.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="584.0" prefWidth="755.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.0">
+                  <TableView fx:id="tableViewFinanceiro" editable="true" layoutY="45.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="584.0" prefWidth="755.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.0">
                      <columns>
-                        <TableColumn editable="false" prefWidth="171.0" sortable="false" text="Pedido" />
-                        <TableColumn prefWidth="194.0" text="Preço (R$)" />
+                        <TableColumn fx:id="tableColumnNomePedido" editable="false" prefWidth="171.0" sortable="false" text="Pedido" />
+                        <TableColumn fx:id="tableColumnPreco" prefWidth="194.0" text="Preço (R$)" />
                         <TableColumn prefWidth="167.0" text="Preço Total (R$)" />
                      </columns>
                      <columnResizePolicy>

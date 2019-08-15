@@ -8,9 +8,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
+import model.entities.Pedido;
+import model.entities.Produto;
 
 public class FinanceiroController implements Initializable {
 
@@ -56,12 +60,22 @@ public class FinanceiroController implements Initializable {
 		        "Outubro",
 		        "Novembro",
 		        "Dezembro");
+	
+	@FXML
+	private TableView<Pedido> tableViewFinanceiro;
+	
+	@FXML
+	private TableColumn<Produto, String> tableColumnNomePedido;
+	
+	@FXML
+	private TableColumn<Produto, Double> tableColumnPreco;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		initComponents();
+		initializeNodes();
 	}
-
+	
 	private void initComponents() {
 		arrowFinanceiro.setVisible(true);
 		
@@ -71,5 +85,10 @@ public class FinanceiroController implements Initializable {
 		cbMes.setValue("Mês");
 		cbMes.setItems(meses);
 	}
-	
+
+	private void initializeNodes() {
+		tableColumnNomePedido.setCellValueFactory(new PropertyValueFactory<>("Pedido"));
+		tableColumnPreco.setCellValueFactory(new PropertyValueFactory<>("Preco"));
+	}
+
 }
