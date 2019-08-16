@@ -3,14 +3,13 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
-import application.Main;
 import gui.util.Alerts;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -48,19 +47,25 @@ public class ViewController implements Initializable {
 
 	@Override
 	public void initialize(URL uri, ResourceBundle rb) {
-		loadView2("/gui/Pedidos.fxml");
+		loadView("/gui/Pedidos.fxml", (PedidosController controller) -> {
+			controller.setPedidoService(new PedidoService());
+			controller.updateTableView();
+		});
 	}
 
 	public void onBtnPedidosAction() throws IOException {
-		loadView2("/gui/Pedidos.fxml");
+		loadView("/gui/Pedidos.fxml", (PedidosController controller) -> {
+			controller.setPedidoService(new PedidoService());
+			controller.updateTableView();
+		});
 	}
 
 	public void onBtnEstoqueAction() throws IOException {
-		loadView("/gui/Estoque.fxml");
+		loadView("/gui/Estoque.fxml", x -> {});
 	}
 
 	public void onBtnFinanceiroAction() throws IOException {
-		loadView("/gui/Financeiro.fxml");
+		loadView("/gui/Financeiro.fxml", x -> {});
 	}
 
 	@FXML
@@ -102,26 +107,14 @@ public class ViewController implements Initializable {
 		stage.setY(event.getScreenY() - yOffset);
 	}
 
-	private synchronized void loadView(String absoluteName) {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-			AnchorPane newAnchor = loader.load();
-			root.getChildren().setAll(newAnchor);
-		}
-		catch (IOException e) {
-			Alerts.showAlert("IOException", "Error loading view", e.getMessage(), AlertType.ERROR);
-		}
-	}
-	
-	private synchronized void loadView2(String absoluteName) {
+	private synchronized <T> void loadView(String absoluteName, Consumer<T> initializingAction) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			AnchorPane newAnchor = loader.load();
 			root.getChildren().setAll(newAnchor);
 			
-			PedidosController controller = loader.getController();
-			controller.setPedidoService(new PedidoService());
-			controller.updateTableView();
+			T controller = loader.getController();
+			initializingAction.accept(controller);
 		}
 		catch (IOException e) {
 			Alerts.showAlert("IOException", "Error loading view", e.getMessage(), AlertType.ERROR);
