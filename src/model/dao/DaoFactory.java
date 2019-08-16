@@ -12,7 +12,7 @@ public class DaoFactory {
 	}
 	
 	public static PedidoDao createPedidoDao() {
-		return new PedidoDaoJDBC();
+		return new PedidoDaoJDBC(DB.getConnection());
 	}
 	
 	public static EnderecoDao createEnderecoDao() {
