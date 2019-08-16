@@ -18,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.services.PedidoService;
 
 public class ViewController implements Initializable {
 
@@ -47,11 +48,11 @@ public class ViewController implements Initializable {
 
 	@Override
 	public void initialize(URL uri, ResourceBundle rb) {
-		loadView("/gui/Pedidos.fxml");
+		loadView2("/gui/Pedidos.fxml");
 	}
 
 	public void onBtnPedidosAction() throws IOException {
-		loadView("/gui/Pedidos.fxml");
+		loadView2("/gui/Pedidos.fxml");
 	}
 
 	public void onBtnEstoqueAction() throws IOException {
@@ -106,6 +107,21 @@ public class ViewController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			AnchorPane newAnchor = loader.load();
 			root.getChildren().setAll(newAnchor);
+		}
+		catch (IOException e) {
+			Alerts.showAlert("IOException", "Error loading view", e.getMessage(), AlertType.ERROR);
+		}
+	}
+	
+	private synchronized void loadView2(String absoluteName) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+			AnchorPane newAnchor = loader.load();
+			root.getChildren().setAll(newAnchor);
+			
+			PedidosController controller = loader.getController();
+			controller.setPedidoService(new PedidoService());
+			controller.updateTableView();
 		}
 		catch (IOException e) {
 			Alerts.showAlert("IOException", "Error loading view", e.getMessage(), AlertType.ERROR);

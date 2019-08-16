@@ -81,7 +81,7 @@
       <Insets bottom="5.0" top="5.0" />
    </opaqueInsets>
    <top>
-      <AnchorPane prefHeight="37.0" prefWidth="1000.0" style="-fx-background-color: #0B0B0B;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="37.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
             <AnchorPane onMouseDragged="#stay" onMousePressed="#move" prefHeight="37.0" prefWidth="916.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="5.0" />
             <ImageView fx:id="imgMin" fitHeight="20.0" fitWidth="30.0" layoutX="926.0" layoutY="10.0" onMouseClicked="#min" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="60.0">

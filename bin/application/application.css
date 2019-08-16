@@ -45,7 +45,7 @@
 .table-view .column-header-background .filler {
   -fx-cell-size : 20;
   -fx-background-color: #AB2C2C;
-	-fx-border-color: rgba(0,0,0,0.2);
+  -fx-border-color: rgba(0,0,0,0.2);
 }
 
 .table-view .column-header .label{
@@ -58,16 +58,15 @@
    -fx-cell-size: 30;
   -fx-alignment: center-left;
   -fx-text-fill: #000000;
-  -fx-alignment: CENTER_LEFT;
+  -fx-alignment: CENTER;
 }
 
 .table-row-cell:selected {
-    -fx-background-color:  rgb(127, 172, 243);
+    -fx-background-color:  rgb(171, 44, 44);
  }
 
  .table-row-cell:selected .text {
         -fx-fill: white;
-
  }
 /* scroll bar starts here */
 
@@ -82,7 +81,7 @@
 .table-view .scroll-bar:horizontal .track,
 .table-view .scroll-bar:vertical .track{
 	-fx-background-color: transparent;
-	-fx-border-color:derive(  #2D75E8,80%);
+	-fx-border-color: derive(#AB2C2C,80%);
 	-fx-background-radius: 2em;
 	-fx-border-radius:2em;
 }
@@ -90,7 +89,7 @@
 /* The main scrollbar **thumb** CSS class which we drag every time (movable) */
 .table-view .scroll-bar:horizontal .thumb,
 .table-view .scroll-bar:vertical .thumb {
-    -fx-background-color:derive( #2D75E8,90%);
+    -fx-background-color:derive(#AB2C2C,90%);
 	-fx-background-insets: 2, 0, 0;
 	-fx-background-radius: 2em;
 

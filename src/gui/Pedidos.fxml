@@ -9,13 +9,15 @@
 
 <AnchorPane fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PedidosController">
    <children>
-      <SplitPane dividerPositions="0.9058380414312618" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Rectangle fx:id="arrowPedidos" fill="WHITE" height="50.0" layoutY="235.0" rotate="45.0" stroke="WHITE" strokeType="INSIDE" width="50.0" />
+      <SplitPane dividerPositions="0.8307522123893806" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
             <TableView fx:id="tableViewPedidos" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT">
                <columns>
-                  <TableColumn fx:id="tableColumnData" editable="false" prefWidth="171.0" sortable="false" text="Data" />
+                  <TableColumn fx:id="tableColumnCodigo" editable="false" prefWidth="171.0" sortable="false" text="Codigo" />
                   <TableColumn fx:id="tableColumnCliente" prefWidth="194.0" text="Cliente" />
-                  <TableColumn fx:id="tableColumnPedido" prefWidth="186.0" text="Pedidos" />
+                  <TableColumn fx:id="tableColumnPedido" prefWidth="151.0" text="Pedidos" />
+                  <TableColumn fx:id="tableColumnQuantidade" prefWidth="110.0" text="Quantidade" />
                   <TableColumn fx:id="tableColumnPreco" prefWidth="167.0" text="Preço Total (R$)" />
                </columns>
                <columnResizePolicy>
@@ -31,6 +33,5 @@
             <Insets bottom="-2.0" left="-2.0" right="-2.0" top="-2.0" />
          </padding>
       </SplitPane>
-      <Rectangle fx:id="arrowPedidos" fill="WHITE" height="50.0" layoutY="235.0" rotate="45.0" stroke="WHITE" strokeType="INSIDE" width="50.0" />
    </children>
 </AnchorPane>
