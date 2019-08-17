@@ -5,11 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import db.DB;
 import db.DbException;
 import model.dao.EnderecoDao;
+import model.entities.Cliente;
 import model.entities.Endereco;
 
 public class EnderecoDaoJDBC implements EnderecoDao {
@@ -94,8 +98,53 @@ public class EnderecoDaoJDBC implements EnderecoDao {
 
 	@Override
 	public Endereco findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement(
+					"SELECT endereco.*,cliente.nome as CliNome, cliente.email as CliEmail, cliente.telefone as CliTel "
+					+ "FROM endereco INNER JOIN cliente "
+					+ "ON endereco.cli_codigo = cliente.codigo "
+					+ "WHERE endereco.cli_codigo = ?");
+
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			
+			Map<Integer, Cliente> map = new HashMap<>();
+			
+			if (rs.next()) {
+				
+				Cliente cliente = map.get(rs.getInt("cli_codigo"));
+				
+				if(cliente == null) {
+					cliente = instantiateCliente(rs);
+					map.put(rs.getInt("cli_codigo"), cliente);
+				}
+				Endereco obj = instantiateEndereco(rs, cliente);
+				return obj;
+			}
+			return null;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
+
+	private Endereco instantiateEndereco(ResultSet rs, Cliente cliente) throws SQLException {
+		Endereco obj = new Endereco();
+		obj.setCep(rs.getString("cep"));
+		obj.setRua(rs.getString("nome"));
+		obj.setComplemento(rs.getString("complemento"));
+		obj.setBairro(rs.getString("bairro"));
+		obj.setCidade(rs.getString("cidade"));
+		obj.setEstado(rs.getString("estado"));
+		obj.setNumero(rs.getString("numero"));
+		obj.setCliente(cliente);
+		return obj;
 	}
 
 	@Override
@@ -104,4 +153,12 @@ public class EnderecoDaoJDBC implements EnderecoDao {
 		return null;
 	}
 	
+	private Cliente instantiateCliente(ResultSet rs) throws SQLException {
+		Cliente obj = new Cliente();
+		obj.setCodigo(rs.getInt("cli_codigo"));
+		obj.setNome(rs.getString("CliNome"));
+		obj.setEmail(rs.getString("CliEmail"));
+		obj.setTelefone(rs.getString("CliTel"));
+		return obj;
+	}
 }
