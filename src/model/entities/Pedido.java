@@ -2,6 +2,8 @@ package model.entities;
 
 import java.io.Serializable;
 
+import javafx.scene.control.Button;
+
 public class Pedido implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -10,6 +12,8 @@ public class Pedido implements Serializable {
 	private String nome;
 	private Integer quantidade;
 	private Double precoTotal;
+	private Button btnEditar;
+	private Button btnExcluir;
 	
 	private Cliente cliente;
 	
@@ -22,6 +26,8 @@ public class Pedido implements Serializable {
 		this.quantidade = quantidade;
 		this.precoTotal = precoTotal;
 		this.cliente = cliente;
+		this.btnEditar = new Button("Editar");
+		this.btnExcluir = new Button("Excluir");
 	}
 
 	public Integer getCodigo() {
@@ -54,6 +60,14 @@ public class Pedido implements Serializable {
 
 	public void setPrecoTotal(Double precoTotal) {
 		this.precoTotal = precoTotal;
+	}
+
+	public Button getBtnEditar() {
+		return btnEditar;
+	}
+
+	public Button getBtnExcluir() {
+		return btnExcluir;
 	}
 
 	public Cliente getCliente() {

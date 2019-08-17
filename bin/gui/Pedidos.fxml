@@ -19,6 +19,8 @@
                   <TableColumn fx:id="tableColumnPedido" prefWidth="151.0" text="Pedidos" />
                   <TableColumn fx:id="tableColumnQuantidade" prefWidth="110.0" text="Quantidade" />
                   <TableColumn fx:id="tableColumnPreco" prefWidth="167.0" text="Preço Total (R$)" />
+                  <TableColumn fx:id="tableColumnEDITAR" prefWidth="75.0" text="Editar" />
+                  <TableColumn fx:id="tableColumnEXCLUIR" prefWidth="75.0" text="Excluir" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
