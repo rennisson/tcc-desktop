@@ -116,15 +116,6 @@ public class PedidoDaoJDBC implements PedidoDao {
 		return null;
 		
 	}
-	
-	private Pedido instantiatePedido(ResultSet rs, Cliente cliente) throws SQLException {
-		Pedido obj = new Pedido();
-		obj.setCodigo(rs.getInt("codigo"));
-		obj.setNome(rs.getString("nome"));
-		obj.setQuantidade(rs.getInt("quantidade"));
-		obj.setCliente(cliente);
-		return obj;
-	}
 
 	@Override
 	public List<Pedido> findAll() {
@@ -168,6 +159,15 @@ public class PedidoDaoJDBC implements PedidoDao {
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
 		}
+	}
+	
+	private Pedido instantiatePedido(ResultSet rs, Cliente cliente) throws SQLException {
+		Pedido obj = new Pedido();
+		obj.setCodigo(rs.getInt("codigo"));
+		obj.setNome(rs.getString("nome"));
+		obj.setQuantidade(rs.getInt("quantidade"));
+		obj.setCliente(cliente);
+		return obj;
 	}
 
 	private Cliente instantiateCliente(ResultSet rs) throws SQLException {

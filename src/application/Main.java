@@ -11,8 +11,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.dao.DaoFactory;
+import model.dao.EnderecoDao;
 import model.dao.PedidoDao;
 import model.entities.Cliente;
+import model.entities.Endereco;
 import model.entities.Pedido;
 
 
@@ -47,5 +49,11 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
+		
+		EnderecoDao enderecoDao = DaoFactory.createEnderecoDao();
+		System.out.println("\n=== TEST 4: seller insert =====");
+		Endereco newEnd = new Endereco("05801-110", "Rua vitalina", "SP", "São Paulo", "Jd. Mirante", "", "11", new Cliente(1, "remis", "remis", "00000"));
+		enderecoDao.insert(newEnd);
+		System.out.println("Inserted!");
 	}
 }

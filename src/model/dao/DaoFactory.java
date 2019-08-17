@@ -16,6 +16,6 @@ public class DaoFactory {
 	}
 	
 	public static EnderecoDao createEnderecoDao() {
-		return new EnderecoDaoJDBC();
+		return new EnderecoDaoJDBC(DB.getConnection());
 	}
 }
