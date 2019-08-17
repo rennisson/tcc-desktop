@@ -14,6 +14,7 @@ import db.DB;
 import db.DbException;
 import model.dao.PedidoDao;
 import model.entities.Cliente;
+import model.entities.Endereco;
 import model.entities.Pedido;
 
 public class PedidoDaoJDBC implements PedidoDao {
@@ -119,7 +120,39 @@ public class PedidoDaoJDBC implements PedidoDao {
 
 	@Override
 	public List<Pedido> findAll() {
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement(
+					"SELECT pedido.*, cliente.nome as CliNome, cliente.email as CliEmail, cliente.telefone as CliTel "
+					+ "FROM pedido INNER JOIN cliente "
+					+ "ON pedido.cliente_codigo = cliente.codigo ");
+
+			rs = st.executeQuery();
+
+			List<Pedido> list = new ArrayList<>();
+			Map<Integer, Cliente> map = new HashMap<>();
+
+			while (rs.next()) {
+				
+				Cliente cliente = map.get(rs.getInt("cliente_codigo"));
+				
+				if (cliente == null) {
+					cliente = instantiateCliente(rs);
+					map.put(rs.getInt("cliente_codigo"), cliente);
+				}
+				Pedido obj = instantiatePedido(rs, cliente);
+				list.add(obj);
+			}
+			return list;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
 	}
 
 	@Override

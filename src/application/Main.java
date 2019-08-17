@@ -73,5 +73,9 @@ public class Main extends Application {
 		System.out.println("\n=== TEST 3: pedido findByCliente =====");
 		List<Pedido> pedido = pedidoDao.findByCliente(cliente);
 		System.out.println(pedido);
+		
+		System.out.println("\n=== TEST 3: pedido findAll =====");
+		pedido = pedidoDao.findAll();
+		System.out.println(pedido);
 	}
 }
