@@ -1,6 +1,7 @@
 package application;
 	
 import java.io.IOException;
+import java.util.List;
 
 import gui.FXResizeHelper;
 import javafx.application.Application;
@@ -58,5 +59,11 @@ public class Main extends Application {
 		
 		Endereco endereco = enderecoDao.findById(2);
 		System.out.println(endereco);
+		
+		System.out.println("\n=== TEST 3: seller findAll =====");
+		List<Endereco> list = enderecoDao.findAll();
+		for (Endereco obj : list) {
+			System.out.println(obj);
+		}
 	}
 }

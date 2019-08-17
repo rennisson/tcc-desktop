@@ -112,7 +112,7 @@ public class EnderecoDaoJDBC implements EnderecoDao {
 			
 			Map<Integer, Cliente> map = new HashMap<>();
 			
-			if (rs.next()) {
+			while (rs.next()) {
 				
 				Cliente cliente = map.get(rs.getInt("cli_codigo"));
 				
@@ -149,8 +149,39 @@ public class EnderecoDaoJDBC implements EnderecoDao {
 
 	@Override
 	public List<Endereco> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement(
+					"SELECT endereco.*, cliente.nome as CliNome, cliente.email as CliEmail, cliente.telefone as CliTel "
+					+ "FROM endereco INNER JOIN cliente "
+					+ "ON endereco.cli_codigo = cliente.codigo ");
+
+			rs = st.executeQuery();
+
+			List<Endereco> list = new ArrayList<>();
+			Map<Integer, Cliente> map = new HashMap<>();
+
+			while (rs.next()) {
+				
+				Cliente cliente = map.get(rs.getInt("cli_codigo"));
+				
+				if (cliente == null) {
+					cliente = instantiateCliente(rs);
+					map.put(rs.getInt("cli_codigo"), cliente);
+				}
+				Endereco obj = instantiateEndereco(rs, cliente);
+				list.add(obj);
+			}
+			return list;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
 	}
 	
 	private Cliente instantiateCliente(ResultSet rs) throws SQLException {
