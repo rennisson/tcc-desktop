@@ -77,5 +77,9 @@ public class Main extends Application {
 		System.out.println("\n=== TEST 3: pedido findAll =====");
 		pedido = pedidoDao.findAll();
 		System.out.println(pedido);
+		
+		System.out.println("\n=== TEST 3: pedido findById =====");
+		Pedido pedido2 = pedidoDao.findById(2);
+		System.out.println(pedido2);
 	}
 }
