@@ -152,19 +152,6 @@ public class EnderecoDaoJDBC implements EnderecoDao {
 		}
 	}
 
-	private Endereco instantiateEndereco(ResultSet rs, Cliente cliente) throws SQLException {
-		Endereco obj = new Endereco();
-		obj.setCep(rs.getString("cep"));
-		obj.setRua(rs.getString("nome"));
-		obj.setComplemento(rs.getString("complemento"));
-		obj.setBairro(rs.getString("bairro"));
-		obj.setCidade(rs.getString("cidade"));
-		obj.setEstado(rs.getString("estado"));
-		obj.setNumero(rs.getString("numero"));
-		obj.setCliente(cliente);
-		return obj;
-	}
-
 	@Override
 	public List<Endereco> findAll() {
 		PreparedStatement st = null;
@@ -200,6 +187,19 @@ public class EnderecoDaoJDBC implements EnderecoDao {
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
 		}
+	}
+	
+	private Endereco instantiateEndereco(ResultSet rs, Cliente cliente) throws SQLException {
+		Endereco obj = new Endereco();
+		obj.setCep(rs.getString("cep"));
+		obj.setRua(rs.getString("nome"));
+		obj.setComplemento(rs.getString("complemento"));
+		obj.setBairro(rs.getString("bairro"));
+		obj.setCidade(rs.getString("cidade"));
+		obj.setEstado(rs.getString("estado"));
+		obj.setNumero(rs.getString("numero"));
+		obj.setCliente(cliente);
+		return obj;
 	}
 	
 	private Cliente instantiateCliente(ResultSet rs) throws SQLException {

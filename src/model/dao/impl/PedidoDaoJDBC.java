@@ -128,7 +128,7 @@ public class PedidoDaoJDBC implements PedidoDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT pedido.*,cliente.nome as CliNome "
+					"SELECT pedido.*,cliente.nome as CliNome, cliente.email as CliEmail, cliente.telefone as CliTel "
 					+ "FROM pedido INNER JOIN cliente "
 					+ "ON pedido.cliente_codigo = cliente.codigo "
 					+ "WHERE cliente_codigo = ?");
@@ -141,11 +141,11 @@ public class PedidoDaoJDBC implements PedidoDao {
 			
 			while (rs.next()) {
 				
-				Cliente cli = map.get(rs.getInt("cliente_codigo"));
+				cliente = map.get(rs.getInt("codigo"));
 				
-				if (cli == null) {
-					cli = instantiateCliente(rs);
-					map.put(rs.getInt("cliente_codigo"), cli);
+				if (cliente == null) {
+					cliente = instantiateCliente(rs);
+					map.put(rs.getInt("cliente_codigo"), cliente);
 				}			
 				Pedido obj = instantiatePedido(rs, cliente);
 				list.add(obj);
@@ -173,9 +173,9 @@ public class PedidoDaoJDBC implements PedidoDao {
 	private Cliente instantiateCliente(ResultSet rs) throws SQLException {
 		Cliente obj = new Cliente();
 		obj.setCodigo(rs.getInt("codigo"));
-		obj.setNome(rs.getString("nome"));
-		obj.setEmail(rs.getString("email"));
-		obj.setTelefone(rs.getString("telefone"));
+		obj.setNome(rs.getString("CliNome"));
+		obj.setEmail(rs.getString("CliEmail"));
+		obj.setTelefone(rs.getString("CliTel"));
 		return obj;
 	}
 	

@@ -14,8 +14,10 @@ import javafx.stage.StageStyle;
 import model.dao.ClienteDao;
 import model.dao.DaoFactory;
 import model.dao.EnderecoDao;
+import model.dao.PedidoDao;
 import model.entities.Cliente;
 import model.entities.Endereco;
+import model.entities.Pedido;
 
 
 public class Main extends Application {
@@ -52,13 +54,14 @@ public class Main extends Application {
 		
 		EnderecoDao enderecoDao = DaoFactory.createEnderecoDao();
 		ClienteDao clienteDao = DaoFactory.createClienteDao();
+		PedidoDao pedidoDao = DaoFactory.createPedidoDao();
 		
-		Cliente cliente = clienteDao.findById(2);
+		Cliente cliente = clienteDao.findById(1);
 		
 		//Endereco newEnd = new Endereco("54321", "lago", "sp", "sao paulo", "pq do lago", "", "13", cliente);
 		//enderecoDao.insert(newEnd);
 		
-		Endereco endereco = enderecoDao.findById(2);
+		Endereco endereco = enderecoDao.findById(1);
 		System.out.println(endereco);
 		
 		System.out.println("\n=== TEST 3: seller findAll =====");
@@ -66,13 +69,9 @@ public class Main extends Application {
 		for (Endereco obj : list) {
 			System.out.println(obj);
 		}
-		Scanner sc = new Scanner(System.in);
-		System.out.println("\n=== TEST 6: seller delete =====");
-		System.out.println("Enter id for delete test: ");
-		int id = sc.nextInt();
-		enderecoDao.deleteById(id);
-		System.out.println("Delete completed");
 		
-		sc.close();
+		System.out.println("\n=== TEST 3: pedido findByCliente =====");
+		List<Pedido> pedido = pedidoDao.findByCliente(cliente);
+		System.out.println(pedido);
 	}
 }
