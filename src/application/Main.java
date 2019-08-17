@@ -2,6 +2,7 @@ package application;
 	
 import java.io.IOException;
 import java.util.List;
+import java.util.Scanner;
 
 import gui.FXResizeHelper;
 import javafx.application.Application;
@@ -65,5 +66,13 @@ public class Main extends Application {
 		for (Endereco obj : list) {
 			System.out.println(obj);
 		}
+		Scanner sc = new Scanner(System.in);
+		System.out.println("\n=== TEST 6: seller delete =====");
+		System.out.println("Enter id for delete test: ");
+		int id = sc.nextInt();
+		enderecoDao.deleteById(id);
+		System.out.println("Delete completed");
+		
+		sc.close();
 	}
 }
