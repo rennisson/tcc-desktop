@@ -5,15 +5,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Callback;
 import model.entities.Cliente;
 import model.entities.Pedido;
 import model.services.PedidoService;
@@ -35,7 +39,7 @@ public class PedidosController implements Initializable {
 	private TableColumn<Pedido, Integer> tableColumnCodigo;
 	
 	@FXML
-	private TableColumn<Cliente, String> tableColumnCliente;
+	private TableColumn<Pedido, String> tableColumnCliente;
 	
 	@FXML
 	private TableColumn<Pedido, String> tableColumnPedido;
@@ -64,7 +68,14 @@ public class PedidosController implements Initializable {
 
 	private void initializeNodes() {
 		tableColumnCodigo.setCellValueFactory(new PropertyValueFactory<>("Codigo"));
-		tableColumnCliente.setCellValueFactory(new PropertyValueFactory<>("Cliente"));
+		
+		tableColumnCliente.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Pedido,String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Pedido, String> param) {
+				return new SimpleStringProperty(param.getValue().getCliente().getNome());
+			}
+		});
+		
 		tableColumnPedido.setCellValueFactory(new PropertyValueFactory<>("Nome"));
 		tableColumnQuantidade.setCellValueFactory(new PropertyValueFactory<>("Quantidade"));
 		tableColumnPreco.setCellValueFactory(new PropertyValueFactory<>("precoTotal"));

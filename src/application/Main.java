@@ -51,35 +51,5 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
-		
-		EnderecoDao enderecoDao = DaoFactory.createEnderecoDao();
-		ClienteDao clienteDao = DaoFactory.createClienteDao();
-		PedidoDao pedidoDao = DaoFactory.createPedidoDao();
-		
-		Cliente cliente = clienteDao.findById(1);
-		
-		//Endereco newEnd = new Endereco("54321", "lago", "sp", "sao paulo", "pq do lago", "", "13", cliente);
-		//enderecoDao.insert(newEnd);
-		
-		Endereco endereco = enderecoDao.findById(1);
-		System.out.println(endereco);
-		
-		System.out.println("\n=== TEST 3: seller findAll =====");
-		List<Endereco> list = enderecoDao.findAll();
-		for (Endereco obj : list) {
-			System.out.println(obj);
-		}
-		
-		System.out.println("\n=== TEST 3: pedido findByCliente =====");
-		List<Pedido> pedido = pedidoDao.findByCliente(cliente);
-		System.out.println(pedido);
-		
-		System.out.println("\n=== TEST 3: pedido findAll =====");
-		pedido = pedidoDao.findAll();
-		System.out.println(pedido);
-		
-		System.out.println("\n=== TEST 3: pedido findById =====");
-		Pedido pedido2 = pedidoDao.findById(2);
-		System.out.println(pedido2);
 	}
 }
