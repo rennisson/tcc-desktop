@@ -59,8 +59,31 @@ public class EnderecoDaoJDBC implements EnderecoDao {
 
 	@Override
 	public void update(Endereco obj) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
 		
+		try {
+			st = conn.prepareStatement(
+					"UPDATE endereco "
+					+ "SET cep = ?, nome = ?, complemento = ?, bairro = ?, cidade = ?, estado = ?, numero = ? "
+					+ "WHERE codigo_cliente = ?");
+			
+			st.setString(1, obj.getCep());
+			st.setString(2, obj.getRua());
+			st.setString(3, obj.getComplemento());
+			st.setString(4, obj.getBairro());
+			st.setString(5, obj.getCidade());
+			st.setString(6, obj.getEstado());
+			st.setString(7, obj.getNumero());
+			st.setInt(8, obj.getCliente().getCodigo());
+			
+			st.executeUpdate();
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override

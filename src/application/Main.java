@@ -51,9 +51,5 @@ public class Main extends Application {
 		launch(args);
 		
 		EnderecoDao enderecoDao = DaoFactory.createEnderecoDao();
-		System.out.println("\n=== TEST 4: seller insert =====");
-		Endereco newEnd = new Endereco("05801-110", "Rua vitalina", "SP", "São Paulo", "Jd. Mirante", "", "11", new Cliente(1, "remis", "remis", "00000"));
-		enderecoDao.insert(newEnd);
-		System.out.println("Inserted!");
 	}
 }
