@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="479.0" prefWidth="569.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<AnchorPane prefHeight="479.0" prefWidth="569.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="gui.PedidoFormController">
    <children>
       <GridPane prefHeight="386.0" prefWidth="490.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>
@@ -46,9 +46,9 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField editable="false" GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtCodigo" editable="false" GridPane.columnIndex="1" />
+            <TextField fx:id="txtDesc" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtQuantidade" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label textFill="RED" GridPane.columnIndex="2" />
             <Label textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Label textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="2" />
@@ -77,9 +77,9 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="txtClienteNome" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="txtTelefone" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Label GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Label GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Label textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="5" />
@@ -87,19 +87,19 @@
             <Label textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="7" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <children>
-                  <Button mnemonicParsing="false" text="Salvar">
+                  <Button fx:id="btnSalvar" mnemonicParsing="false" onAction="#onBtnSalvar" text="Salvar">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" text="Cancelar">
+                  <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#onBtnCancelar" text="Cancelar">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
                </children>
             </HBox>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="txtPrecoTotal" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="3" />
          </children>
       </GridPane>

@@ -100,7 +100,7 @@ public class PedidosController implements Initializable {
 					}
 					setGraphic(button);
 					button.setOnAction(
-							event -> createDialogForm("/gui/PedidoForm.fxml", Utils.currentStage(event)));
+							event -> createDialogForm(obj, "/gui/PedidoForm.fxml", Utils.currentStage(event)));
 				}
 		});
 		
@@ -116,7 +116,7 @@ public class PedidosController implements Initializable {
 					}
 					setGraphic(button);
 					button.setOnAction(
-							event -> createDialogForm("/gui/PedidoForm.fxml", Utils.currentStage(event)));
+							event -> createDialogForm(obj, "/gui/PedidoForm.fxml", Utils.currentStage(event)));
 				}
 		});
 	}
@@ -131,10 +131,14 @@ public class PedidosController implements Initializable {
 		initEditButtons();
 	}
 	
-	private void createDialogForm(String absoluteName, Stage parentStage) {
+	private void createDialogForm(Pedido obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			
+			PedidoFormController controller = loader.getController();
+			controller.setPedido(obj);
+			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("DETALHES DO PEDIDO");
