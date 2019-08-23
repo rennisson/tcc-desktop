@@ -1,9 +1,12 @@
 package gui;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import db.DbException;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Constraints;
 import gui.util.Utils;
@@ -21,6 +24,8 @@ public class PedidoFormController implements Initializable {
 	private Pedido entidade;
 	
 	private PedidoService service;
+	
+	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 	
 	@FXML
 	private TextField txtCodigo;
@@ -57,6 +62,10 @@ public class PedidoFormController implements Initializable {
 		this.service = service;
 	}
 	
+	public void subscribeDataChangeListener(DataChangeListener listener) {
+		dataChangeListeners.add(listener);
+	}
+	
 	@FXML
 	private void onBtnSalvar(ActionEvent event) {
 		if (entidade == null) {
@@ -70,6 +79,7 @@ public class PedidoFormController implements Initializable {
 		try {
 			entidade = getFormData();
 			service.saveOrUpdate(entidade);
+			notifyDataChangeListeners();
 			Utils.currentStage(event).close();
 		}
 		catch (DbException e) {
@@ -77,6 +87,12 @@ public class PedidoFormController implements Initializable {
 		}
 	}
 	
+	private void notifyDataChangeListeners() {
+		for (DataChangeListener listener : dataChangeListeners) {
+			listener.onDataChanged();
+		}
+	}
+
 	private Pedido getFormData() {
 		Pedido obj = new Pedido();
 		

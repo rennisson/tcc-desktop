@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -29,7 +30,7 @@ import javafx.stage.Stage;
 import model.entities.Pedido;
 import model.services.PedidoService;
 
-public class PedidosController implements Initializable {
+public class PedidosController implements Initializable, DataChangeListener {
 	
 	private PedidoService service;
 	
@@ -139,6 +140,7 @@ public class PedidosController implements Initializable {
 			PedidoFormController controller = loader.getController();
 			controller.setPedido(obj);
 			controller.setPedidoService(new PedidoService());
+			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
@@ -152,5 +154,10 @@ public class PedidosController implements Initializable {
 		catch (IOException e) {
 			Alerts.showAlert("IOException", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}
+	}
+
+	@Override
+	public void onDataChanged() {
+		updateTableView();
 	}
 }
