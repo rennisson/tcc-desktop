@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -11,9 +13,18 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="321.0" prefWidth="456.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PedidoFormController">
+<AnchorPane prefHeight="358.0" prefWidth="456.0" style="-fx-background-color: #353535;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PedidoFormController">
    <children>
-      <GridPane prefHeight="301.0" prefWidth="402.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <AnchorPane onMouseDragged="#stay" onMousePressed="#move" prefHeight="37.0" prefWidth="456.0" style="-fx-background-color: #000;">
+         <children>
+            <ImageView fitHeight="34.0" fitWidth="46.0" onMouseClicked="#close" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="5.0">
+               <image>
+                  <Image url="@img/icons8_close_window_48px.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <GridPane layoutX="26.0" layoutY="43.0" prefHeight="301.0" prefWidth="402.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="43.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="97.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="272.0" minWidth="10.0" prefWidth="258.0" />
@@ -31,7 +42,7 @@
             <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Código:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Label text="Código:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <font>
                   <Font size="14.0" />
                </font>
@@ -39,7 +50,7 @@
                   <Insets right="10.0" />
                </padding>
             </Label>
-            <Label text="Descrição:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+            <Label text="Descrição:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                <font>
                   <Font size="14.0" />
                </font>
@@ -47,7 +58,7 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Quantidade:" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+            <Label text="Quantidade:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                <font>
                   <Font size="14.0" />
                </font>
@@ -59,7 +70,7 @@
             <TextField fx:id="txtDesc" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="txtQuantidade" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label fx:id="labelErrorDesc" alignment="CENTER" textAlignment="CENTER" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label text="Preço Total(R$)" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+            <Label text="Preço Total(R$)" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
                <font>
                   <Font size="14.0" />
                </font>

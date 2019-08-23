@@ -27,6 +27,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.entities.Pedido;
 import model.services.PedidoService;
 
@@ -145,6 +146,7 @@ public class PedidosController implements Initializable, DataChangeListener {
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("DETALHES DO PEDIDO");
+			dialogStage.initStyle(StageStyle.UNDECORATED);
 			dialogStage.setScene(new Scene(pane));
 			dialogStage.setResizable(false);
 			dialogStage.initOwner(parentStage);

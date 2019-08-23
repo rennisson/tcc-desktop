@@ -16,6 +16,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -146,5 +149,27 @@ public class PedidoFormController implements Initializable {
 		if (fields.contains("Descrição")) {
 			labelErrorDesc.setText(errors.get("Descrição"));
 		}
+	}
+	
+	private double xOffset = 0;
+	private double yOffset = 0;
+	
+	@FXML
+	public void move(MouseEvent event) {
+		xOffset = event.getSceneX();
+		yOffset = event.getSceneY();
+	}
+
+	@FXML
+	public void stay(MouseEvent event) {
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		stage.setX(event.getScreenX() - xOffset);
+		stage.setY(event.getScreenY() - yOffset);
+	}
+	
+	@FXML
+	public void close(MouseEvent event) {
+		Stage s = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		s.close();
 	}
 }
