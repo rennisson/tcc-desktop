@@ -3,16 +3,24 @@ package gui;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import db.DbException;
+import gui.util.Alerts;
 import gui.util.Constraints;
+import gui.util.Utils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import model.entities.Pedido;
+import model.services.PedidoService;
 
 public class PedidoFormController implements Initializable {
 	
 	private Pedido entidade;
+	
+	private PedidoService service;
 	
 	@FXML
 	private TextField txtCodigo;
@@ -45,14 +53,44 @@ public class PedidoFormController implements Initializable {
 		 this.entidade = entidade;
 	}
 	
-	@FXML
-	private void onBtnSalvar() {
-		System.out.println("Salvar");
+	public void setPedidoService(PedidoService service) {
+		this.service = service;
 	}
 	
 	@FXML
-	private void onBtnCancelar() {
-		System.out.println("Cancelar");
+	private void onBtnSalvar(ActionEvent event) {
+		if (entidade == null) {
+			throw new IllegalStateException("Entidade estava nula!");
+		}
+		
+		if (service == null) {
+			throw new IllegalStateException("Serviço estava nulo!");
+		}
+		
+		try {
+			entidade = getFormData();
+			service.saveOrUpdate(entidade);
+			Utils.currentStage(event).close();
+		}
+		catch (DbException e) {
+			Alerts.showAlert("Erro ao salvar objeto", null, e.getMessage(), AlertType.ERROR);
+		}
+	}
+	
+	private Pedido getFormData() {
+		Pedido obj = new Pedido();
+		
+		obj.setCodigo(Utils.tryParseToInt(txtCodigo.getText()));
+		obj.setNome(txtDesc.getText());
+		obj.setQuantidade(Utils.tryParseToInt(txtQuantidade.getText()));
+		obj.setPrecoTotal(Utils.tryParseToDouble(txtPrecoTotal.getText()));
+		
+		return obj;
+	}
+
+	@FXML
+	private void onBtnCancelar(ActionEvent event) {
+		Utils.currentStage(event).close();
 	}
 
 	@Override

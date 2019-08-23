@@ -138,6 +138,7 @@ public class PedidosController implements Initializable {
 			
 			PedidoFormController controller = loader.getController();
 			controller.setPedido(obj);
+			controller.setPedidoService(new PedidoService());
 			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
