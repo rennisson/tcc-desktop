@@ -47,15 +47,6 @@ public class PedidoFormController implements Initializable {
 	private TextField txtPrecoTotal;
 	
 	@FXML
-	private TextField txtClienteNome;
-	
-	@FXML
-	private TextField txtEmail;
-	
-	@FXML
-	private TextField txtTelefone;
-	
-	@FXML
 	private Button btnSalvar;
 	
 	@FXML
@@ -138,7 +129,6 @@ public class PedidoFormController implements Initializable {
 	private void initializeNodes() {
 		Constraints.setTextFieldInteger(txtQuantidade);
 		Constraints.setTextFieldMaxLength(txtDesc, 150);
-		Constraints.setTextFieldMaxLength(txtEmail, 60);
 	}
 	
 	public void updateFormData() {
@@ -148,9 +138,6 @@ public class PedidoFormController implements Initializable {
 		txtCodigo.setText(String.valueOf(entidade.getCodigo()));
 		txtDesc.setText(entidade.getNome());
 		txtQuantidade.setText(String.valueOf(entidade.getQuantidade()));
-		txtClienteNome.setText(entidade.getCliente().getNome());
-		txtEmail.setText(entidade.getCliente().getEmail());
-		txtTelefone.setText(entidade.getCliente().getTelefone());
 	}
 	
 	private void setErrorMessages(Map<String, String> errors) {

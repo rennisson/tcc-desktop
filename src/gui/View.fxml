@@ -81,17 +81,17 @@
       <Insets bottom="5.0" top="5.0" />
    </opaqueInsets>
    <top>
-      <AnchorPane prefHeight="37.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="37.0" prefWidth="1000.0" style="-fx-background-color: #000;" BorderPane.alignment="CENTER">
          <children>
             <AnchorPane onMouseDragged="#stay" onMousePressed="#move" prefHeight="37.0" prefWidth="916.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="5.0" />
             <ImageView fx:id="imgMin" fitHeight="20.0" fitWidth="30.0" layoutX="926.0" layoutY="10.0" onMouseClicked="#min" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="60.0">
                <image>
-                  <Image url="@img/icons8_minus_24px.png" />
+                  <Image url="@img/minus_white.png" />
                </image>
             </ImageView>
             <ImageView fx:id="imgMax" fitHeight="20.0" fitWidth="30.0" layoutX="946.0" layoutY="9.0" onMouseClicked="#max" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="35.0">
                <image>
-                  <Image url="@img/icons8_maximize_window_26px.png" />
+                  <Image url="@img/maximize_window_white.png" />
                </image>
             </ImageView>
             <ImageView fx:id="imgClose" fitHeight="34.0" fitWidth="46.0" layoutX="966.0" layoutY="3.0" onMouseClicked="#close" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0">
