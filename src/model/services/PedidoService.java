@@ -24,4 +24,8 @@ public class PedidoService {
 			dao.update(obj);
 		}
 	}
+	
+	public void remove(Pedido obj) {
+		dao.deleteById(obj.getCodigo());
+	}
 }
