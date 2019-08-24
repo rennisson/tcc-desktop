@@ -28,7 +28,7 @@
             <Insets />
          </opaqueInsets>
          <padding>
-            <Insets bottom="-2.0" left="-2.0" right="-2.0" top="-2.0" />
+            <Insets left="-1.0" />
          </padding>
       </SplitPane>
       <Rectangle fx:id="arrowEstoque" cache="true" cacheHint="SCALE_AND_ROTATE" fill="WHITE" height="50.0" layoutY="284.0" rotate="45.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="50.0" />

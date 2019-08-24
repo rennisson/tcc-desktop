@@ -16,7 +16,7 @@
          <items>
             <AnchorPane style="-fx-background-color: #353535;">
                <children>
-                  <TableView fx:id="tableViewFinanceiro" editable="true" layoutY="45.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="584.0" prefWidth="755.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.0">
+                  <TableView fx:id="tableViewFinanceiro" editable="true" layoutY="45.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="584.0" prefWidth="755.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                      <columns>
                         <TableColumn fx:id="tableColumnNomePedido" editable="false" prefWidth="171.0" sortable="false" text="Pedido" />
                         <TableColumn fx:id="tableColumnPreco" prefWidth="194.0" text="Preço (R$)" />
@@ -28,6 +28,9 @@
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
+                     <padding>
+                        <Insets left="-2.0" />
+                     </padding>
                   </TableView>
                   <ToolBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="755.0" style="-fx-background-color: #AB2C2C; -fx-border-style: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <items>
@@ -36,15 +39,12 @@
                         <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Pedidos pendentes" />
                         <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Pedidos concluídos" />
                      </items>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" top="10.0" />
-                     </padding>
                   </ToolBar>
                </children>
             </AnchorPane>
          </items>
          <padding>
-            <Insets bottom="-2.0" left="-2.0" right="-2.0" top="-2.0" />
+            <Insets left="-1.0" />
          </padding>
       </SplitPane>
       <Rectangle fx:id="arrowFinanceiro" cache="true" cacheHint="SCALE_AND_ROTATE" fill="WHITE" height="50.0" layoutY="333.0" rotate="45.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="50.0" />
