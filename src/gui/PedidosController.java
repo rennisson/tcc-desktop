@@ -14,6 +14,7 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -147,6 +148,13 @@ public class PedidosController implements Initializable, DataChangeListener {
 				Alerts.showAlert("Erro ao remover objeto", null, e.getMessage(), AlertType.ERROR);
 			}
 		}
+	}
+	
+	@FXML
+	private void onBtnNovoPedidoAction(ActionEvent event) {
+		Stage parentStage = Utils.currentStage(event);
+		Pedido obj = new Pedido();
+		createDialogForm(obj, "/gui/PedidoForm.fxml", parentStage);
 	}
 
 	public void updateTableView() {

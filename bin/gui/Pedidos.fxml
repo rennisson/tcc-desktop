@@ -43,7 +43,7 @@
                         <ComboBox prefHeight="25.0" prefWidth="150.0" promptText="MÊS" />
                         <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Pedidos pendentes" />
                         <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Pedidos concluídos" />
-                        <Button fx:id="btnNovoPedido" mnemonicParsing="false" text="Novo Pedido" />
+                        <Button fx:id="btnNovoPedido" mnemonicParsing="false" onAction="#onBtnNovoPedidoAction" text="Novo Pedido" />
                      </items>
                   </ToolBar>
                </children>
