@@ -32,14 +32,14 @@ public class PedidoDaoJDBC implements PedidoDao {
 		try {
 			st = conn.prepareStatement(
 					"INSERT INTO pedido "
-					+ "(codigo, cliente_codigo, quantidade, nome) "
+					+ "(cli_codigo, quantidade, produto_nome, prod_preco) "
 					+ "VALUES "
 					+ "(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			
-			st.setInt(1, obj.getCodigo());
-			st.setInt(2, obj.getCliente().getCodigo());
-			st.setInt(3, obj.getQuantidade());
-			st.setString(4, obj.getNome());
+			st.setInt(1, obj.getCliente().getCodigo());
+			st.setInt(2, obj.getQuantidade());
+			st.setString(3, obj.getProduto().getNome());
+			st.setDouble(4, obj.getPrecoTotal());
 			
 			int rowsAffected = st.executeUpdate();
 			
@@ -70,12 +70,13 @@ public class PedidoDaoJDBC implements PedidoDao {
 		try {
 			st = conn.prepareStatement(
 					"UPDATE pedido "
-					+ "SET quantidade = ?, nome= ? "
+					+ "SET quantidade = ?, produto_nome = ?, prod_preco = ?"
 					+ "WHERE codigo = ?");
 			
 			st.setInt(1, obj.getQuantidade());
-			st.setString(2, obj.getNome());
-			st.setInt(3, obj.getCodigo());
+			st.setString(2, obj.getProduto().getNome());
+			st.setDouble(3, obj.getPrecoTotal());
+			st.setInt(4, obj.getCodigo());
 			
 			st.executeUpdate();
 		}
@@ -156,9 +157,9 @@ public class PedidoDaoJDBC implements PedidoDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT pedido.*, cliente.nome as CliNome, cliente.email as CliEmail, cliente.telefone as CliTel "
+					"SELECT pedido.* , cliente.nome as CliNome, cliente.email as CliEmail, cliente.telefone as CliTel "
 					+ "FROM pedido INNER JOIN cliente "
-					+ "ON pedido.cliente_codigo = cliente.codigo ");
+					+ "ON pedido.cli_codigo = cliente.codigo");
 
 			rs = st.executeQuery();
 
@@ -167,11 +168,11 @@ public class PedidoDaoJDBC implements PedidoDao {
 
 			while (rs.next()) {
 				
-				Cliente cliente = map.get(rs.getInt("cliente_codigo"));
+				Cliente cliente = map.get(rs.getInt("cli_codigo"));
 				
 				if (cliente == null) {
 					cliente = instantiateCliente(rs);
-					map.put(rs.getInt("cliente_codigo"), cliente);
+					map.put(rs.getInt("cli_codigo"), cliente);
 				}
 				Pedido obj = instantiatePedido(rs, cliente);
 				list.add(obj);
@@ -195,8 +196,8 @@ public class PedidoDaoJDBC implements PedidoDao {
 			st = conn.prepareStatement(
 					"SELECT pedido.*,cliente.nome as CliNome, cliente.email as CliEmail, cliente.telefone as CliTel "
 					+ "FROM pedido INNER JOIN cliente "
-					+ "ON pedido.cliente_codigo = cliente.codigo "
-					+ "WHERE cliente_codigo = ?");
+					+ "ON pedido.cli_codigo = cliente.codigo "
+					+ "WHERE cli_codigo = ?");
 
 			st.setInt(1, cliente.getCodigo());
 			rs = st.executeQuery();
@@ -210,7 +211,7 @@ public class PedidoDaoJDBC implements PedidoDao {
 				
 				if (cliente == null) {
 					cliente = instantiateCliente(rs);
-					map.put(rs.getInt("cliente_codigo"), cliente);
+					map.put(rs.getInt("cli_codigo"), cliente);
 				}			
 				Pedido obj = instantiatePedido(rs, cliente);
 				list.add(obj);
@@ -229,8 +230,10 @@ public class PedidoDaoJDBC implements PedidoDao {
 	private Pedido instantiatePedido(ResultSet rs, Cliente cliente) throws SQLException {
 		Pedido obj = new Pedido();
 		obj.setCodigo(rs.getInt("codigo"));
-		obj.setNome(rs.getString("nome"));
+		obj.setNome(rs.getString("produto_nome"));
 		obj.setQuantidade(rs.getInt("quantidade"));
+		//obj.getProduto().setNome("produto_nome");
+		obj.setPrecoTotal(rs.getDouble("prod_preco"));
 		obj.setCliente(cliente);
 		return obj;
 	}
@@ -244,5 +247,5 @@ public class PedidoDaoJDBC implements PedidoDao {
 		return obj;
 	}
 	
-
+	
 }

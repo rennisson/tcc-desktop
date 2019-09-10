@@ -12,22 +12,19 @@ public class Pedido implements Serializable {
 	private String nome;
 	private Integer quantidade;
 	private Double precoTotal;
-	private Button btnEditar;
-	private Button btnExcluir;
 	
 	private Cliente cliente;
+	private Produto produto;
 	
 	public Pedido() {
 	}
 
-	public Pedido(Integer codigo, String nome, Integer quantidade, Double precoTotal, Cliente cliente) {
+	public Pedido(Integer codigo, Integer quantidade, Double precoTotal, Cliente cliente, Produto produto) {
 		this.codigo = codigo;
-		this.nome = nome;
 		this.quantidade = quantidade;
 		this.precoTotal = precoTotal;
 		this.cliente = cliente;
-		this.btnEditar = new Button("Editar");
-		this.btnExcluir = new Button("Excluir");
+		this.produto = produto;
 	}
 
 	public Integer getCodigo() {
@@ -62,20 +59,20 @@ public class Pedido implements Serializable {
 		this.precoTotal = precoTotal;
 	}
 
-	public Button getBtnEditar() {
-		return btnEditar;
-	}
-
-	public Button getBtnExcluir() {
-		return btnExcluir;
-	}
-
 	public Cliente getCliente() {
 		return cliente;
 	}
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
 	@Override
@@ -106,6 +103,6 @@ public class Pedido implements Serializable {
 	@Override
 	public String toString() {
 		return "Pedido [codigo=" + codigo + ", nome=" + nome + ", quantidade=" + quantidade + ", preço total=" + precoTotal + ", cliente=" + cliente
-				+ "]";
+				+ ", produto=" + produto + "]";
 	}	
 }

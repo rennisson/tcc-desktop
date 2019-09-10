@@ -10,15 +10,17 @@ public class Cliente implements Serializable {
 	private String email;
 	private String nome;
 	private String telefone;
+	private String senha;
 	
 	public Cliente() {
 	}
 	
-	public Cliente(Integer codigo, String email, String nome, String telefone) {
+	public Cliente(Integer codigo, String email, String nome, String telefone, String senha) {
 		this.codigo = codigo;
 		this.email = email;
 		this.nome = nome;
 		this.telefone = telefone;
+		this.senha = senha;
 	}
 
 	public Integer getCodigo() {
@@ -52,6 +54,14 @@ public class Cliente implements Serializable {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
+	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}	
 
 	@Override
 	public int hashCode() {
@@ -81,5 +91,5 @@ public class Cliente implements Serializable {
 	@Override
 	public String toString() {
 		return "Cliente [codigo=" + codigo + ", email=" + email + ", nome=" + nome + ", telefone=" + telefone + "]";
-	}	
+	}
 }

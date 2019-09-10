@@ -29,13 +29,14 @@ public class ClienteDaoJDBC implements ClienteDao {
 		try {
 			st = conn.prepareStatement(
 					"INSERT INTO cliente "
-					+ "(email, nome, telefone) "
+					+ "(email, nome, telefone, senha) "
 					+ "VALUES "
-					+ "(?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+					+ "(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			
 			st.setString(1, obj.getEmail());
 			st.setString(2, obj.getNome());
 			st.setString(3, obj.getTelefone());
+			st.setString(4, obj.getSenha());
 			
 			int rowsAffected = st.executeUpdate();
 			
@@ -66,13 +67,14 @@ public class ClienteDaoJDBC implements ClienteDao {
 		try {
 			st = conn.prepareStatement(
 					"UPDATE cliente "
-					+ "SET email = ?, nome= ?, telefone = ? "
+					+ "SET email = ?, nome= ?, telefone = ?, senha = ? "
 					+ "WHERE codigo = ?");
 			
 			st.setString(1, obj.getEmail());
 			st.setString(2, obj.getNome());
 			st.setString(3, obj.getTelefone());
-			st.setInt(4, obj.getCodigo());
+			st.setString(4, obj.getSenha());
+			st.setInt(5, obj.getCodigo());
 			
 			st.executeUpdate();
 		}
@@ -141,6 +143,7 @@ public class ClienteDaoJDBC implements ClienteDao {
 		obj.setNome(rs.getString("nome"));
 		obj.setEmail(rs.getString("email"));
 		obj.setTelefone(rs.getString("telefone"));
+		obj.setSenha(rs.getString("senha"));
 		return obj;
 	}
 

@@ -38,6 +38,9 @@ public class PedidoFormController implements Initializable {
 	private TextField txtCodigo;
 	
 	@FXML
+	private TextField txtCliente;
+	
+	@FXML
 	private TextField txtDesc;
 	
 	@FXML
