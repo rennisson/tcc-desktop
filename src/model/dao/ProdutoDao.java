@@ -8,7 +8,7 @@ public interface ProdutoDao {
 	
 	void insert(Produto obj);
 	void update(Produto obj);
-	void deleteById(Integer id);
-	Produto findById(Integer id);
+	void deleteByName(String nome);
+	Produto findByName(String nome);
 	List<Produto> findAll();
 }

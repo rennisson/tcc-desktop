@@ -92,7 +92,6 @@ public class PedidoFormController implements Initializable {
 		catch (DbException e) {
 			Alerts.showAlert("Erro ao salvar objeto", null, e.getMessage(), AlertType.ERROR);
 		}
-		
 	}
 	
 	private void notifyDataChangeListeners() {
@@ -111,6 +110,8 @@ public class PedidoFormController implements Initializable {
 		if (txtDesc.getText() == null || txtDesc.getText().trim().equals("")) {
 			exception.addError("Descrição", "O campo não pode ser vazio!");
 		}
+		
+		obj.getCliente().setCodigo(Utils.tryParseToInt(txtCliente.getText()));
 		obj.setNome(txtDesc.getText());
 		obj.setQuantidade(Utils.tryParseToInt(txtQuantidade.getText()));
 		obj.setPrecoTotal(Utils.tryParseToDouble(txtPrecoTotal.getText()));
@@ -141,9 +142,11 @@ public class PedidoFormController implements Initializable {
 		if (entidade == null) {
 			throw new IllegalStateException("Entidade nula");
 		}
+		txtCliente.setText(String.valueOf(entidade.getCliente()));
 		txtCodigo.setText(String.valueOf(entidade.getCodigo()));
 		txtDesc.setText(entidade.getNome());
 		txtQuantidade.setText(String.valueOf(entidade.getQuantidade()));
+		txtPrecoTotal.setText(String.valueOf(entidade.getPrecoTotal()));
 	}
 	
 	private void setErrorMessages(Map<String, String> errors) {
