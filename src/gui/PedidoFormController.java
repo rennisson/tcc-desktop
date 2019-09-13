@@ -12,25 +12,35 @@ import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Constraints;
 import gui.util.Utils;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.util.Callback;
 import model.entities.Pedido;
+import model.entities.Produto;
 import model.exceptions.ValidationException;
 import model.services.PedidoService;
+import model.services.ProdutoService;
 
 public class PedidoFormController implements Initializable {
 	
 	private Pedido entidade;
 	
 	private PedidoService service;
+	
+	private ProdutoService produtoService;
 	
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 	
@@ -39,6 +49,9 @@ public class PedidoFormController implements Initializable {
 	
 	@FXML
 	private TextField txtCliente;
+	
+	@FXML
+	private ComboBox<Produto> comboBoxProduto;
 	
 	@FXML
 	private TextField txtDesc;
@@ -58,12 +71,15 @@ public class PedidoFormController implements Initializable {
 	@FXML
 	private Button btnCancelar;
 	
+	private ObservableList<Produto> obsList;
+	
 	public void setPedido(Pedido entidade) {
 		 this.entidade = entidade;
 	}
 	
-	public void setPedidoService(PedidoService service) {
+	public void setServices(PedidoService service, ProdutoService produtoService) {
 		this.service = service;
+		this.produtoService = produtoService;
 	}
 	
 	public void subscribeDataChangeListener(DataChangeListener listener) {
@@ -135,7 +151,7 @@ public class PedidoFormController implements Initializable {
 	
 	private void initializeNodes() {
 		Constraints.setTextFieldInteger(txtQuantidade);
-		Constraints.setTextFieldMaxLength(txtDesc, 150);
+		initializeComboBoxProduto();
 	}
 	
 	public void updateFormData() {
@@ -144,9 +160,24 @@ public class PedidoFormController implements Initializable {
 		}
 		txtCliente.setText(String.valueOf(entidade.getCliente()));
 		txtCodigo.setText(String.valueOf(entidade.getCodigo()));
-		txtDesc.setText(entidade.getNome());
+		//txtDesc.setText(entidade.getNome());
 		txtQuantidade.setText(String.valueOf(entidade.getQuantidade()));
 		txtPrecoTotal.setText(String.valueOf(entidade.getPrecoTotal()));
+		
+		if (entidade.getProduto() == null) {
+			comboBoxProduto.getSelectionModel().selectFirst();
+		} else {
+			comboBoxProduto.setValue(entidade.getProduto());
+		}
+	}
+	
+	public void loadAssociatedObjects() {
+		if (produtoService == null) {
+			throw new IllegalStateException("ProdutoService estava nulo");
+		}
+		List<Produto> list = produtoService.findAll();
+		obsList = FXCollections.observableArrayList(list);
+		comboBoxProduto.setItems(obsList);
 	}
 	
 	private void setErrorMessages(Map<String, String> errors) {
@@ -155,6 +186,18 @@ public class PedidoFormController implements Initializable {
 		if (fields.contains("Descrição")) {
 			labelErrorDesc.setText(errors.get("Descrição"));
 		}
+	}
+	
+	private void initializeComboBoxProduto() {
+		Callback<ListView<Produto>, ListCell<Produto>> factory = lv -> new ListCell<Produto>() {
+			@Override
+			protected void updateItem(Produto item, boolean empty) {
+				super.updateItem(item, empty);
+				setText(empty ? "" : item.getNome());
+			}
+		};
+		comboBoxProduto.setCellFactory(factory);
+		comboBoxProduto.setButtonCell(factory.call(null));
 	}
 	
 	private double xOffset = 0;

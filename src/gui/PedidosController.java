@@ -34,6 +34,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.entities.Pedido;
 import model.services.PedidoService;
+import model.services.ProdutoService;
 
 public class PedidosController implements Initializable, DataChangeListener {
 
@@ -175,7 +176,8 @@ public class PedidosController implements Initializable, DataChangeListener {
 
 			PedidoFormController controller = loader.getController();
 			controller.setPedido(obj);
-			controller.setPedidoService(new PedidoService());
+			controller.setServices(new PedidoService(), new ProdutoService());
+			controller.loadAssociatedObjects();
 			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 
@@ -188,6 +190,7 @@ public class PedidosController implements Initializable, DataChangeListener {
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.showAndWait();
 		} catch (IOException e) {
+			e.printStackTrace();
 			Alerts.showAlert("IOException", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}
 	}
