@@ -28,9 +28,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import model.entities.Cliente;
 import model.entities.Pedido;
 import model.entities.Produto;
 import model.exceptions.ValidationException;
+import model.services.ClienteService;
 import model.services.PedidoService;
 import model.services.ProdutoService;
 
@@ -38,9 +40,11 @@ public class PedidoFormController implements Initializable {
 	
 	private Pedido entidade;
 	
-	private PedidoService service;
+	private PedidoService pedidoService;
 	
 	private ProdutoService produtoService;
+	
+	private ClienteService clienteService;
 	
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 	
@@ -48,16 +52,10 @@ public class PedidoFormController implements Initializable {
 	private TextField txtCodigo;
 	
 	@FXML
-	private TextField txtCliente;
-	
-	@FXML
 	private ComboBox<Produto> comboBoxProduto;
 	
 	@FXML
-	private TextField txtDesc;
-	
-	@FXML
-	private Label labelErrorDesc;
+	private ComboBox<Cliente> comboBoxCliente;
 	
 	@FXML
 	private TextField txtQuantidade;
@@ -71,15 +69,18 @@ public class PedidoFormController implements Initializable {
 	@FXML
 	private Button btnCancelar;
 	
-	private ObservableList<Produto> obsList;
+	private ObservableList<Produto> obsListProduto;
+	
+	private ObservableList<Cliente> obsListCliente;
 	
 	public void setPedido(Pedido entidade) {
 		 this.entidade = entidade;
 	}
 	
-	public void setServices(PedidoService service, ProdutoService produtoService) {
-		this.service = service;
+	public void setServices(PedidoService pedidoService, ProdutoService produtoService, ClienteService clienteService) {
+		this.pedidoService = pedidoService;
 		this.produtoService = produtoService;
+		this.clienteService = clienteService;
 	}
 	
 	public void subscribeDataChangeListener(DataChangeListener listener) {
@@ -92,13 +93,13 @@ public class PedidoFormController implements Initializable {
 			throw new IllegalStateException("Entidade estava nula!");
 		}
 		
-		if (service == null) {
+		if (pedidoService == null) {
 			throw new IllegalStateException("Serviço estava nulo!");
 		}
 		
 		try {
 			entidade = getFormData();
-			service.saveOrUpdate(entidade);
+			pedidoService.saveOrUpdate(entidade);
 			notifyDataChangeListeners();
 			Utils.currentStage(event).close();
 		}
@@ -123,12 +124,8 @@ public class PedidoFormController implements Initializable {
 		
 		obj.setCodigo(Utils.tryParseToInt(txtCodigo.getText()));
 		
-		if (txtDesc.getText() == null || txtDesc.getText().trim().equals("")) {
-			exception.addError("Descrição", "O campo não pode ser vazio!");
-		}
-		
-		obj.getCliente().setCodigo(Utils.tryParseToInt(txtCliente.getText()));
-		obj.setNome(txtDesc.getText());
+		obj.setCliente(comboBoxCliente.getValue());
+		obj.setProduto(comboBoxProduto.getValue());
 		obj.setQuantidade(Utils.tryParseToInt(txtQuantidade.getText()));
 		obj.setPrecoTotal(Utils.tryParseToDouble(txtPrecoTotal.getText()));
 		
@@ -152,17 +149,22 @@ public class PedidoFormController implements Initializable {
 	private void initializeNodes() {
 		Constraints.setTextFieldInteger(txtQuantidade);
 		initializeComboBoxProduto();
+		initializeComboBoxCliente();
 	}
 	
 	public void updateFormData() {
 		if (entidade == null) {
 			throw new IllegalStateException("Entidade nula");
 		}
-		txtCliente.setText(String.valueOf(entidade.getCliente()));
 		txtCodigo.setText(String.valueOf(entidade.getCodigo()));
-		//txtDesc.setText(entidade.getNome());
 		txtQuantidade.setText(String.valueOf(entidade.getQuantidade()));
 		txtPrecoTotal.setText(String.valueOf(entidade.getPrecoTotal()));
+		
+		if (entidade.getCliente() == null) {
+			comboBoxCliente.getSelectionModel().selectFirst();
+		} else {
+			comboBoxCliente.setValue(entidade.getCliente());
+		}
 		
 		if (entidade.getProduto() == null) {
 			comboBoxProduto.getSelectionModel().selectFirst();
@@ -175,17 +177,33 @@ public class PedidoFormController implements Initializable {
 		if (produtoService == null) {
 			throw new IllegalStateException("ProdutoService estava nulo");
 		}
-		List<Produto> list = produtoService.findAll();
-		obsList = FXCollections.observableArrayList(list);
-		comboBoxProduto.setItems(obsList);
+		
+		if (clienteService == null) {
+			throw new IllegalStateException("PedidoService estava nulo");
+		}
+		List<Produto> listProduto = produtoService.findAll();
+		obsListProduto = FXCollections.observableArrayList(listProduto);
+		comboBoxProduto.setItems(obsListProduto);
+		
+		List<Cliente> listCliente = clienteService.findAll();
+		obsListCliente = FXCollections.observableArrayList(listCliente);
+		comboBoxCliente.setItems(obsListCliente);
 	}
 	
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
-		
-		if (fields.contains("Descrição")) {
-			labelErrorDesc.setText(errors.get("Descrição"));
-		}
+	}
+	
+	private void initializeComboBoxCliente() {
+		Callback<ListView<Cliente>, ListCell<Cliente>> factory = lv -> new ListCell<Cliente>() {
+			@Override
+			protected void updateItem(Cliente item, boolean empty) {
+				super.updateItem(item, empty);
+				setText(empty ? "" : String.valueOf(item.getCodigo()));
+			}
+		};
+		comboBoxCliente.setCellFactory(factory);
+		comboBoxCliente.setButtonCell(factory.call(null));
 	}
 	
 	private void initializeComboBoxProduto() {

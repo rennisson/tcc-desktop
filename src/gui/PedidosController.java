@@ -33,6 +33,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.entities.Pedido;
+import model.services.ClienteService;
 import model.services.PedidoService;
 import model.services.ProdutoService;
 
@@ -176,7 +177,7 @@ public class PedidosController implements Initializable, DataChangeListener {
 
 			PedidoFormController controller = loader.getController();
 			controller.setPedido(obj);
-			controller.setServices(new PedidoService(), new ProdutoService());
+			controller.setServices(new PedidoService(), new ProdutoService(), new ClienteService());
 			controller.loadAssociatedObjects();
 			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
