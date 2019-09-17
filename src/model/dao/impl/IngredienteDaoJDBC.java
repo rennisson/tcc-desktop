@@ -67,13 +67,14 @@ public class IngredienteDaoJDBC implements IngredienteDao {
 		try {
 			st = conn.prepareStatement(
 					"UPDATE ingrediente "
-					+ "SET descricao= ?, preco = ?, quantidade = ?, peso = ?, "
+					+ "SET descricao = ?, preco = ?, quantidade = ?, peso = ? "
 					+ "WHERE id = ?");
 			
 			st.setString(1, obj.getDescricao());
 			st.setDouble(2, obj.getPreco());
 			st.setInt(3, obj.getQuantidade());
 			st.setInt(4, obj.getPeso());
+			st.setInt(5, obj.getId());
 			
 			st.executeUpdate();
 		}

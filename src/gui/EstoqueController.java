@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import db.DbIntegrityException;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -16,12 +17,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -30,13 +31,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.entities.Ingrediente;
-import model.entities.Pedido;
-import model.services.ClienteService;
 import model.services.IngredienteService;
-import model.services.PedidoService;
-import model.services.ProdutoService;
 
-public class EstoqueController implements Initializable {
+public class EstoqueController implements Initializable, DataChangeListener {
 	
 	private IngredienteService service;
 	
@@ -100,7 +97,7 @@ public class EstoqueController implements Initializable {
 					return;
 				}
 				setGraphic(button);
-				//button.setOnAction(event -> createDialogForm(obj, "/gui/PedidoForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(event -> createDialogForm(obj, "/gui/EstoqueForm.fxml", Utils.currentStage(event)));
 			}
 		});
 	}
@@ -151,30 +148,30 @@ public class EstoqueController implements Initializable {
 		initRemoveButtons();
 	}
 	
-//	private void createDialogForm(Ingrediente obj, String absoluteName, Stage parentStage) {
-//		try {
-//			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-//			Pane pane = loader.load();
-//
-//			EstoqueController controller = loader.getController();
-//			controller.setIngrediente(obj);
-//			controller.setIngredienteService(new IngredienteService());
-//			controller.subscribeDataChangeListener(this);
-//			controller.updateFormData();
-//
-//			Stage dialogStage = new Stage();
-//			dialogStage.setTitle("DETALHES DO PEDIDO");
-//			dialogStage.initStyle(StageStyle.UNDECORATED);
-//			dialogStage.setScene(new Scene(pane));
-//			dialogStage.setResizable(false);
-//			dialogStage.initOwner(parentStage);
-//			dialogStage.initModality(Modality.WINDOW_MODAL);
-//			dialogStage.showAndWait();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//			Alerts.showAlert("IOException", "Error loading view", e.getMessage(), AlertType.ERROR);
-//		}
-//	}
+	private void createDialogForm(Ingrediente obj, String absoluteName, Stage parentStage) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+			Pane pane = loader.load();
+
+			EstoqueFormController controller = loader.getController();
+			controller.setIngrediente(obj);
+			controller.setIngredienteService(new IngredienteService());
+			controller.subscribeDataChangeListener(this);
+			controller.updateFormData();
+
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("DETALHES DO PEDIDO");
+			dialogStage.initStyle(StageStyle.UNDECORATED);
+			dialogStage.setScene(new Scene(pane));
+			dialogStage.setResizable(false);
+			dialogStage.initOwner(parentStage);
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.showAndWait();
+		} catch (IOException e) {
+			e.printStackTrace();
+			Alerts.showAlert("IOException", "Error loading view", e.getMessage(), AlertType.ERROR);
+		}
+	}
 	
 	public void onDataChanged() {
 		updateTableView();
