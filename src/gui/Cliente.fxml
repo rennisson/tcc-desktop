@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ClienteController">
+   <children>
+      <SplitPane prefHeight="633.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <items>
+            <TableView fx:id="tableViewCliente" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="584.0" prefWidth="755.0">
+               <columns>
+                  <TableColumn fx:id="tableColumnCodigo" editable="false" prefWidth="171.0" sortable="false" text="Código" />
+                  <TableColumn fx:id="tableColumnNome" prefWidth="194.0" text="Nome" />
+                  <TableColumn fx:id="tableColumnEmail" prefWidth="167.0" text="Email" />
+                  <TableColumn fx:id="tableColumnTelefone" prefWidth="75.0" text="Telefone" />
+                  <TableColumn fx:id="tableColumnEDITAR" prefWidth="75.0" text="Editar" />
+                  <TableColumn fx:id="tableColumnEXCLUIR" prefWidth="75.0" text="Excluir" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="-2.0" />
+               </padding>
+            </TableView>
+         </items>
+         <padding>
+            <Insets left="-1.0" />
+         </padding>
+      </SplitPane>
+      <Rectangle fx:id="arrowCliente" cache="true" cacheHint="SCALE_AND_ROTATE" fill="WHITE" height="50.0" layoutY="333.0" rotate="45.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="50.0" />
+   </children>
+</AnchorPane>

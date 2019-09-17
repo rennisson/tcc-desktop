@@ -17,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.services.ClienteService;
 import model.services.IngredienteService;
 import model.services.PedidoService;
 
@@ -36,6 +37,9 @@ public class ViewController implements Initializable {
 
 	@FXML
 	private Button btnFinanceiro;
+	
+	@FXML
+	private Button btnClientes;
 
 	@FXML
 	private ImageView imgMin;
@@ -70,6 +74,13 @@ public class ViewController implements Initializable {
 
 	public void onBtnFinanceiroAction() throws IOException {
 		loadView("/gui/Financeiro.fxml", x -> {});
+	}
+	
+	public void onBtnClientesAction() throws IOException {
+		loadView("/gui/Cliente.fxml", (ClienteController controller) -> {
+			controller.setClienteService(new ClienteService());
+			controller.updateTableView();
+		});
 	}
 
 	@FXML
