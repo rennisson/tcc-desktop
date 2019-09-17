@@ -82,15 +82,12 @@ public class PedidosController implements Initializable, DataChangeListener {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		initComponents();
 		initializeNodes();
 	}
 
-	private void initComponents() {
-		arrowPedidos.setVisible(true);
-	}
-
 	private void initializeNodes() {
+		arrowPedidos.setVisible(true);
+		
 		tableColumnCodigo.setCellValueFactory(new PropertyValueFactory<>("Codigo"));
 		tableColumnCliente
 				.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getCliente().getNome()));

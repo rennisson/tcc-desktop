@@ -17,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.services.IngredienteService;
 import model.services.PedidoService;
 
 public class ViewController implements Initializable {
@@ -61,7 +62,10 @@ public class ViewController implements Initializable {
 	}
 
 	public void onBtnEstoqueAction() throws IOException {
-		loadView("/gui/Estoque.fxml", x -> {});
+		loadView("/gui/Estoque.fxml", (EstoqueController controller) -> {
+			controller.setIngredienteService(new IngredienteService());
+			controller.updateTableView();
+		});
 	}
 
 	public void onBtnFinanceiroAction() throws IOException {
