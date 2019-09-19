@@ -11,7 +11,6 @@ import java.util.List;
 import db.DB;
 import db.DbException;
 import model.dao.IngredienteDao;
-import model.entities.Cliente;
 import model.entities.Ingrediente;
 
 public class IngredienteDaoJDBC implements IngredienteDao {

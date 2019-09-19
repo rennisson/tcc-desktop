@@ -1,11 +1,9 @@
 package model.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import model.dao.DaoFactory;
 import model.dao.PedidoDao;
-import model.entities.Cliente;
 import model.entities.Pedido;
 
 public class PedidoService {

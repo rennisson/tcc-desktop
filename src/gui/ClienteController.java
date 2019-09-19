@@ -31,7 +31,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.entities.Cliente;
-import model.entities.Pedido;
 import model.services.ClienteService;
 
 public class ClienteController implements Initializable, DataChangeListener {

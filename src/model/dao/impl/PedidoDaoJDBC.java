@@ -14,7 +14,6 @@ import db.DB;
 import db.DbException;
 import model.dao.PedidoDao;
 import model.entities.Cliente;
-import model.entities.Endereco;
 import model.entities.Pedido;
 
 public class PedidoDaoJDBC implements PedidoDao {

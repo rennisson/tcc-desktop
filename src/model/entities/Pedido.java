@@ -2,8 +2,6 @@ package model.entities;
 
 import java.io.Serializable;
 
-import javafx.scene.control.Button;
-
 public class Pedido implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
