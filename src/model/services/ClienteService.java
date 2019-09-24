@@ -14,6 +14,10 @@ public class ClienteService {
 		return dao.findAll();
 	}
 	
+	public Cliente findById(Integer id) {
+		return dao.findById(id);
+	}
+	
 	public void saveOrUpdate(Cliente obj) {
 		if (obj.getCodigo() == null) {
 			dao.insert(obj);

@@ -1,0 +1,27 @@
+
+
+Version:	3.12
+CmdLine:	C:\Temp\ws-eclipse\teste-tcc\Danessa Cakes.exe --l4j-debug
+WOW64:		yes
+Working dir:	C:\Temp\ws-eclipse\teste-tcc\.
+Java min ver:	1.011.000_002
+Java max ver:	
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Ignore:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_211
+Ignore:		1.008.000_211
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Check:		SOFTWARE\JavaSoft\JDK\11.0.2
+Check launcher:	C:\Program Files\Java\jdk-11.0.2\bin\javaw.exe (OK)
+Match:		1.011.000_002
+Runtime used:	1.011.000_002 (64-bit)
+Launcher:	C:\Program Files\Java\jdk-11.0.2\bin\javaw.exe
+Launcher args:	--module-path C:\java-libs\javafx-sdk-11.0.2\lib --add-modules=javafx.fxml,javafx.controls -jar "C:\Temp\ws-eclipse\teste-tcc\Danessa Cakes.exe"
+Args length:	144/32768 chars
+Exit code:	0
