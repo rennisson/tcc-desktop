@@ -21,6 +21,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -58,6 +59,9 @@ public class PedidoFormController implements Initializable {
 	private TextField txtClienteCodigo;
 
 	@FXML
+	private Label labelErrorClienteCodigo;
+
+	@FXML
 	private TextField txtClienteNome;
 
 	@FXML
@@ -67,7 +71,13 @@ public class PedidoFormController implements Initializable {
 	private TextField txtQuantidade;
 
 	@FXML
+	private Label labelErrorQuantidade;
+
+	@FXML
 	private TextField txtPrecoTotal;
+
+	@FXML
+	private Label labelErrorPrecoTotal;
 
 	@FXML
 	private Button btnSalvar;
@@ -80,15 +90,18 @@ public class PedidoFormController implements Initializable {
 	@FXML
 	private void ontTxtClienteKeyPressed(KeyEvent e) {
 		try {
-			Cliente cliente = clienteService.findById(Integer.valueOf(e.getText()));
+			Cliente cliente = clienteService.findById(Integer.valueOf(txtClienteCodigo.getText() + e.getText()));
 			txtClienteEmail.setText(cliente.getEmail());
 			txtClienteNome.setText(cliente.getNome());
-		} 
-		catch (ValidationException ex) {
-			System.out.println(ex.getMessage());
-		}
-		catch (NumberFormatException ex) {
-			System.out.println(ex.getMessage());
+			labelErrorClienteCodigo.setText("");
+		} catch (NullPointerException ex) {
+			labelErrorClienteCodigo.setText("Cliente requisitado não existe");
+			txtClienteEmail.setText("");
+			txtClienteNome.setText("");
+		} catch (NumberFormatException ex) {
+			labelErrorClienteCodigo.setText("Campo não pode ser vazio!");
+			txtClienteEmail.setText("");
+			txtClienteNome.setText("");
 		}
 	}
 
@@ -141,12 +154,28 @@ public class PedidoFormController implements Initializable {
 
 		obj.setCodigo(Utils.tryParseToInt(txtCodigo.getText()));
 
-		Cliente cliente = instantiateCliente(Integer.valueOf(txtClienteCodigo.getText()), txtClienteNome.getText(),
-				txtClienteEmail.getText());
+		if (txtClienteCodigo.getText().isEmpty()) {
+			exception.addError("cliente", "Campo não pode ser vazio!");
+		} else {
+			labelErrorClienteCodigo.setText("");
+			Cliente cliente = instantiateCliente(Integer.valueOf(txtClienteCodigo.getText()), txtClienteNome.getText(),
+					txtClienteEmail.getText());
+			obj.setCliente(cliente);
+			obj.setProduto(comboBoxProduto.getValue());
+		}
 
-		obj.setCliente(cliente);
-		obj.setProduto(comboBoxProduto.getValue());
+		if (txtQuantidade.getText().isEmpty()) {
+			exception.addError("quantidade", "Campo não pode ser vazio!");
+		} else {
+			labelErrorQuantidade.setText("");
+		}
 		obj.setQuantidade(Utils.tryParseToInt(txtQuantidade.getText()));
+
+		if (txtPrecoTotal.getText().isEmpty()) {
+			exception.addError("precoTotal", "Campo não pode ser vazio!");
+		} else {
+			labelErrorPrecoTotal.setText("");
+		}
 		obj.setPrecoTotal(Utils.tryParseToDouble(txtPrecoTotal.getText()));
 
 		if (exception.getErrors().size() > 0) {
@@ -177,6 +206,7 @@ public class PedidoFormController implements Initializable {
 	private void initializeNodes() {
 		Constraints.setTextFieldInteger(txtQuantidade);
 		Constraints.setTextFieldInteger(txtClienteCodigo);
+		Constraints.setTextFieldDouble(txtPrecoTotal);
 		initializeComboBoxProduto();
 	}
 
@@ -190,17 +220,18 @@ public class PedidoFormController implements Initializable {
 			txtClienteNome.setText(String.valueOf(entidade.getCliente().getNome()));
 			txtClienteEmail.setText(String.valueOf(entidade.getCliente().getEmail()));
 		}
-		
+
 		if (entidade.getCodigo() != null) {
 			txtClienteCodigo.setEditable(false);
 			txtClienteNome.setEditable(false);
 			txtClienteEmail.setEditable(false);
+			txtClienteCodigo.setOnKeyPressed(null);
 		}
-		
+
 		txtCodigo.setText(String.valueOf(entidade.getCodigo()));
 		txtQuantidade.setText(String.valueOf(entidade.getQuantidade()));
 		txtPrecoTotal.setText(String.valueOf(entidade.getPrecoTotal()));
-		
+
 		if (entidade.getProduto() == null) {
 			comboBoxProduto.getSelectionModel().selectFirst();
 		} else {
@@ -216,6 +247,7 @@ public class PedidoFormController implements Initializable {
 		if (clienteService == null) {
 			throw new IllegalStateException("PedidoService estava nulo");
 		}
+
 		List<Produto> listProduto = produtoService.findAll();
 		obsListProduto = FXCollections.observableArrayList(listProduto);
 		comboBoxProduto.setItems(obsListProduto);
@@ -223,6 +255,19 @@ public class PedidoFormController implements Initializable {
 
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
+
+		if (fields.contains("cliente")) {
+			labelErrorClienteCodigo.setText(errors.get("cliente"));
+		}
+		
+		if (fields.contains("precoTotal")) {
+			labelErrorPrecoTotal.setText(errors.get("precoTotal"));
+		}
+		
+		if (fields.contains("quantidade")) {
+			labelErrorQuantidade.setText(errors.get("quantidade"));
+		}
+
 	}
 
 	private void initializeComboBoxProduto() {
