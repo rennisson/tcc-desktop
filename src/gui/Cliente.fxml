@@ -9,6 +9,7 @@
 
 <AnchorPane fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ClienteController">
    <children>
+      <Rectangle fx:id="arrowCliente" cache="true" cacheHint="SCALE_AND_ROTATE" fill="WHITE" height="50.0" layoutY="380.0" rotate="45.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="50.0" />
       <SplitPane prefHeight="633.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
             <TableView fx:id="tableViewCliente" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="584.0" prefWidth="755.0">
@@ -35,6 +36,5 @@
             <Insets left="-1.0" />
          </padding>
       </SplitPane>
-      <Rectangle fx:id="arrowCliente" cache="true" cacheHint="SCALE_AND_ROTATE" fill="WHITE" height="50.0" layoutY="333.0" rotate="45.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="50.0" />
    </children>
 </AnchorPane>
