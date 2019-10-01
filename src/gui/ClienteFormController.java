@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -44,6 +45,9 @@ public class ClienteFormController implements Initializable {
 	
 	@FXML
 	private TextField txtTelefone;
+	
+	@FXML
+	private PasswordField pwdSenha;
 	
 	@FXML
 	private Button btnSalvar;
@@ -102,7 +106,7 @@ public class ClienteFormController implements Initializable {
 		obj.setNome(txtNome.getText());
 		obj.setEmail(txtEmail.getText());
 		obj.setTelefone(txtTelefone.getText());
-		obj.setSenha(entidade.getSenha());
+		obj.setSenha(pwdSenha.getText());
 		
 		if (exception.getErrors().size() > 0) {
 			throw exception;
@@ -125,16 +129,23 @@ public class ClienteFormController implements Initializable {
 		Constraints.setTextFieldMaxLength(txtNome, 60);
 		Constraints.setTextFieldMaxLength(txtEmail, 60);
 		Constraints.setTextFieldMaxLength(txtTelefone, 15);
+		Constraints.setTextFieldMaxLength(pwdSenha, 16);
 	}
 	
 	public void updateFormData() {
 		if (entidade == null) {
 			throw new IllegalStateException("Entidade nula");
 		}
+		
+		if (entidade.getCodigo() != null) {
+			pwdSenha.setEditable(false);
+		}
+		
 		txtCodigo.setText(String.valueOf(entidade.getCodigo()));
 		txtNome.setText(entidade.getNome());
 		txtEmail.setText(entidade.getEmail());
 		txtTelefone.setText(entidade.getTelefone());
+		pwdSenha.setText(entidade.getSenha());
 	}
 	
 	private void setErrorMessages(Map<String, String> errors) {
