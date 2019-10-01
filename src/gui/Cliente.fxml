@@ -38,7 +38,8 @@
                   </TableView>
                   <ToolBar layoutX="2.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #AB2C2C; -fx-border-style: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <items>
-                        <TextField fx:id="txtFiltroCliente" prefHeight="25.0" prefWidth="204.0" promptText="Filtrar cliente..." />
+                        <TextField fx:id="txtFiltroCliente" onKeyPressed="#ontTxtFiltroClienteKeyPressed" prefHeight="25.0" prefWidth="204.0" promptText="Filtrar cliente..." />
+                        <Button fx:id="btnLimparPesquisa" mnemonicParsing="false" onAction="#onTxtFiltroClienteAction" text="Limpar pesquisa" />
                         <Button fx:id="btnNovoCliente" mnemonicParsing="false" onAction="#onBtnNovoClienteAction" text="Novo Cliente">
                            <opaqueInsets>
                               <Insets />

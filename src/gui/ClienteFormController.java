@@ -20,6 +20,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.entities.Cliente;
@@ -30,7 +31,7 @@ public class ClienteFormController implements Initializable {
 	
 	private Cliente entidade;
 	
-	private ClienteService ingredienteService;
+	private ClienteService clienteService;
 	
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 	
@@ -59,8 +60,8 @@ public class ClienteFormController implements Initializable {
 		 this.entidade = entidade;
 	}
 	
-	public void setClienteService(ClienteService ingredienteService) {
-		this.ingredienteService = ingredienteService;
+	public void setClienteService(ClienteService clienteService) {
+		this.clienteService = clienteService;
 	}
 	
 	public void subscribeDataChangeListener(DataChangeListener listener) {
@@ -73,13 +74,13 @@ public class ClienteFormController implements Initializable {
 			throw new IllegalStateException("Entidade estava nula!");
 		}
 		
-		if (ingredienteService == null) {
+		if (clienteService == null) {
 			throw new IllegalStateException("Serviço estava nulo!");
 		}
 		
 		try {
 			entidade = getFormData();
-			ingredienteService.saveOrUpdate(entidade);
+			clienteService.saveOrUpdate(entidade);
 			notifyDataChangeListeners();
 			Utils.currentStage(event).close();
 		}
