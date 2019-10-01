@@ -13,6 +13,7 @@ import gui.util.Utils;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,6 +24,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -30,6 +32,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.entities.Cliente;
 import model.entities.Ingrediente;
 import model.services.IngredienteService;
 
@@ -63,6 +66,15 @@ public class EstoqueController implements Initializable, DataChangeListener {
 	
 	@FXML
 	private TableColumn<Ingrediente, Ingrediente> tableColumnEXCLUIR;
+	
+	@FXML
+	private Button btnNovoItem;
+	
+	@FXML
+	private Button btnLimparPesquisa;
+
+	@FXML
+	private TextField txtFiltroEstoque;
 	
 	private ObservableList<Ingrediente> obsList;
 	
@@ -137,6 +149,13 @@ public class EstoqueController implements Initializable, DataChangeListener {
 		}
 	}
 	
+	@FXML
+	private void onBtnNovoItemAction(ActionEvent event) {
+		Stage parentStage = Utils.currentStage(event);
+		Ingrediente obj = new Ingrediente();
+		createDialogForm(obj, "/gui/EstoqueForm.fxml", parentStage);
+	}
+	
 	public void updateTableView() {
 		if (service == null) {
 			throw new IllegalStateException("Service estava nulo");
@@ -160,7 +179,7 @@ public class EstoqueController implements Initializable, DataChangeListener {
 			controller.updateFormData();
 
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("DETALHES DO PEDIDO");
+			dialogStage.setTitle("NOVO ITEM");
 			dialogStage.initStyle(StageStyle.UNDECORATED);
 			dialogStage.setScene(new Scene(pane));
 			dialogStage.setResizable(false);
