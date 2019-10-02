@@ -67,6 +67,9 @@ public class PedidosController implements Initializable, DataChangeListener {
 
 	@FXML
 	private TableColumn<Pedido, Double> tableColumnPreco;
+	
+	@FXML
+	private TableColumn<Pedido, String> tableColumnStatus;
 
 	@FXML
 	private TableColumn<Pedido, Pedido> tableColumnEDITAR;
@@ -94,6 +97,7 @@ public class PedidosController implements Initializable, DataChangeListener {
 		tableColumnPedido.setCellValueFactory(new PropertyValueFactory<>("Nome"));
 		tableColumnQuantidade.setCellValueFactory(new PropertyValueFactory<>("Quantidade"));
 		tableColumnPreco.setCellValueFactory(new PropertyValueFactory<>("precoTotal"));
+		tableColumnStatus.setCellValueFactory(new PropertyValueFactory<>("Status"));
 	}
 
 	private void initEditButtons() {
@@ -160,6 +164,7 @@ public class PedidosController implements Initializable, DataChangeListener {
 		if (service == null) {
 			throw new IllegalStateException("Service estava nulo");
 		}
+		
 		List<Pedido> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
 		tableViewPedidos.setItems(obsList);

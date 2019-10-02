@@ -233,6 +233,7 @@ public class PedidoDaoJDBC implements PedidoDao {
 		obj.setQuantidade(rs.getInt("quantidade"));
 		//obj.getProduto().setNome("produto_nome");
 		obj.setPrecoTotal(rs.getDouble("prod_preco"));
+		obj.setStatus(rs.getString("status"));
 		obj.setCliente(cliente);
 		return obj;
 	}
