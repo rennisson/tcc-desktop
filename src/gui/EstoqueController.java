@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import db.DbIntegrityException;
 import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
+import gui.util.Constraints;
 import gui.util.Utils;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -26,6 +27,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
@@ -87,7 +89,7 @@ public class EstoqueController implements Initializable, DataChangeListener {
 		initializeNodes();
 	}
 
-	private void initializeNodes() {
+	private void initializeNodes() {		
 		arrowEstoque.setVisible(true);
 		
 		tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("descricao"));
@@ -194,6 +196,31 @@ public class EstoqueController implements Initializable, DataChangeListener {
 	
 	public void onDataChanged() {
 		updateTableView();
+	}
+	
+	@FXML
+	private void onBtnLimparPesquisaAction() {
+		txtFiltroEstoque.clear();
+		updateTableView();
+	}
+
+	@FXML
+	private void ontTxtFiltroEstoqueKeyPressed(KeyEvent e) {
+		if (txtFiltroEstoque.getText().isBlank()) {
+			updateTableView();
+		}
+		
+		try {
+			List<Ingrediente> ingrediente = service.findByNome(txtFiltroEstoque.getText() + e.getText());
+			obsList = FXCollections.observableArrayList(ingrediente);
+			tableViewEstoque.setItems(obsList);
+			initEditButtons();
+			initRemoveButtons();
+		} catch (NullPointerException ex) {
+			ex.getMessage();
+		} catch (NumberFormatException ex) {
+			ex.getMessage();
+		}
 	}
 	
 }

@@ -198,7 +198,7 @@ public class ClienteController implements Initializable, DataChangeListener {
 	}
 	
 	@FXML
-	private void onTxtFiltroClienteAction() {
+	private void onBtnLimparPesquisaAction() {
 		txtFiltroCliente.clear();
 		updateTableView();
 	}

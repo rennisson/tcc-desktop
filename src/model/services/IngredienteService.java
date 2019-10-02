@@ -4,6 +4,7 @@ import java.util.List;
 
 import model.dao.DaoFactory;
 import model.dao.IngredienteDao;
+import model.entities.Cliente;
 import model.entities.Ingrediente;
 
 public class IngredienteService {
@@ -25,5 +26,9 @@ public class IngredienteService {
 	
 	public void remove(Ingrediente obj) {
 		dao.deleteById(obj.getId());
+	}
+	
+	public List<Ingrediente> findByNome(String nome) {
+		return dao.findByNome(nome);
 	}
 }
