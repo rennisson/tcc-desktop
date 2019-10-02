@@ -12,6 +12,7 @@ import db.DB;
 import db.DbException;
 import model.dao.ClienteDao;
 import model.entities.Cliente;
+import model.entities.Ingrediente;
 
 public class ClienteDaoJDBC implements ClienteDao {
 	
@@ -156,6 +157,38 @@ public class ClienteDaoJDBC implements ClienteDao {
 					+ "FROM cliente "
 					+ "ORDER BY codigo ASC");
 
+			rs = st.executeQuery();
+
+			List<Cliente> list = new ArrayList<>();
+
+			while (rs.next()) {
+				Cliente obj = instantiateCliente(rs);
+				list.add(obj);
+			}
+			return list;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
+
+	@Override
+	public List<Cliente> findByCodigo(Integer id) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement(
+					"SELECT cliente.* "
+					+ "FROM cliente "
+					+ "WHERE cliente.codigo "
+					+ "LIKE ? "
+					+ "ORDER BY codigo ASC");
+			
+			st.setString(1, "%" + id + "%");
 			rs = st.executeQuery();
 
 			List<Cliente> list = new ArrayList<>();

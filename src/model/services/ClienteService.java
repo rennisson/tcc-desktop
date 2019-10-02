@@ -30,4 +30,9 @@ public class ClienteService {
 	public void remove(Cliente obj) {
 		dao.deleteById(obj.getCodigo());
 	}
+
+	public List<Cliente> findByCodigo(Integer id) {
+		return dao.findByCodigo(id);
+	}
+	
 }

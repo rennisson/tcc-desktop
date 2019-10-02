@@ -210,8 +210,8 @@ public class ClienteController implements Initializable, DataChangeListener {
 		}
 		
 		try {
-			Cliente cliente = service.findById(Integer.valueOf(txtFiltroCliente.getText() + e.getText()));
-			obsList = FXCollections.observableArrayList(cliente);
+			List<Cliente> clientes = service.findByCodigo(Integer.valueOf(txtFiltroCliente.getText() + e.getText()));
+			obsList = FXCollections.observableArrayList(clientes);
 			tableViewCliente.setItems(obsList);
 			initEditButtons();
 			initRemoveButtons();

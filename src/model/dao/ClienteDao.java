@@ -10,5 +10,6 @@ public interface ClienteDao {
 	void update(Cliente obj);
 	void deleteById(Integer id);
 	Cliente findById(Integer id);
+	List<Cliente> findByCodigo(Integer id);
 	List<Cliente> findAll();
 }
