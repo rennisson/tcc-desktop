@@ -31,14 +31,15 @@ public class PedidoDaoJDBC implements PedidoDao {
 		try {
 			st = conn.prepareStatement(
 					"INSERT INTO pedido "
-					+ "(cli_codigo, quantidade, produto_nome, prod_preco) "
+					+ "(cli_codigo, quantidade, produto_nome, prod_preco, status) "
 					+ "VALUES "
-					+ "(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+					+ "(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			
 			st.setInt(1, obj.getCliente().getCodigo());
 			st.setInt(2, obj.getQuantidade());
 			st.setString(3, obj.getProduto().getNome());
 			st.setDouble(4, obj.getPrecoTotal());
+			st.setString(5, obj.getStatus());
 			
 			int rowsAffected = st.executeUpdate();
 			
@@ -69,13 +70,14 @@ public class PedidoDaoJDBC implements PedidoDao {
 		try {
 			st = conn.prepareStatement(
 					"UPDATE pedido "
-					+ "SET quantidade = ?, produto_nome = ?, prod_preco = ?"
+					+ "SET quantidade = ?, produto_nome = ?, prod_preco = ?, status = ? "
 					+ "WHERE codigo = ?");
 			
 			st.setInt(1, obj.getQuantidade());
 			st.setString(2, obj.getProduto().getNome());
 			st.setDouble(3, obj.getPrecoTotal());
-			st.setInt(4, obj.getCodigo());
+			st.setString(4, obj.getStatus());
+			st.setInt(5, obj.getCodigo());
 			
 			st.executeUpdate();
 		}

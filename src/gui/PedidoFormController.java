@@ -72,6 +72,9 @@ public class PedidoFormController implements Initializable {
 
 	@FXML
 	private Label labelErrorQuantidade;
+	
+	@FXML
+	private ComboBox<String> comboBoxStatus;
 
 	@FXML
 	private TextField txtPrecoTotal;
@@ -170,6 +173,8 @@ public class PedidoFormController implements Initializable {
 			labelErrorQuantidade.setText("");
 		}
 		obj.setQuantidade(Utils.tryParseToInt(txtQuantidade.getText()));
+		
+		obj.setStatus(comboBoxStatus.getSelectionModel().getSelectedItem().toString());
 
 		if (txtPrecoTotal.getText().isEmpty()) {
 			exception.addError("precoTotal", "Campo não pode ser vazio!");
@@ -208,6 +213,7 @@ public class PedidoFormController implements Initializable {
 		Constraints.setTextFieldInteger(txtClienteCodigo);
 		Constraints.setTextFieldDouble(txtPrecoTotal);
 		initializeComboBoxProduto();
+		initializeComboBoxStatus();
 	}
 
 	public void updateFormData() {
@@ -236,6 +242,12 @@ public class PedidoFormController implements Initializable {
 			comboBoxProduto.getSelectionModel().selectFirst();
 		} else {
 			comboBoxProduto.setValue(entidade.getProduto());
+		}
+		
+		if (entidade.getStatus() == null) {
+			comboBoxStatus.getSelectionModel().selectFirst();
+		} else {
+			comboBoxStatus.setValue(entidade.getStatus());
 		}
 	}
 
@@ -280,6 +292,11 @@ public class PedidoFormController implements Initializable {
 		};
 		comboBoxProduto.setCellFactory(factory);
 		comboBoxProduto.setButtonCell(factory.call(null));
+	}
+	
+	private void initializeComboBoxStatus() {
+		ObservableList<String> status = FXCollections.observableArrayList("PENDENTE", "CONCLUIDO");
+		comboBoxStatus.setItems(status);
 	}
 
 	private double xOffset = 0;
