@@ -26,4 +26,8 @@ public class PedidoService {
 	public void remove(Pedido obj) {
 		dao.deleteById(obj.getCodigo());
 	}
+	
+	public List<Pedido> findByStatus(String status) {
+		return dao.findByStatus(status);
+	}
 }

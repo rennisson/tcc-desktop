@@ -228,6 +228,45 @@ public class PedidoDaoJDBC implements PedidoDao {
 		}
 	}
 	
+	@Override
+	public List<Pedido> findByStatus(String status) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement(
+					"SELECT pedido.* , cliente.nome as CliNome, cliente.email as CliEmail, cliente.telefone as CliTel "
+					+ "FROM pedido INNER JOIN cliente "
+					+ "ON pedido.cli_codigo = cliente.codigo "
+					+ "WHERE pedido.status = ?");
+
+			st.setString(1, status);
+			rs = st.executeQuery();
+
+			List<Pedido> list = new ArrayList<>();
+			Map<Integer, Cliente> map = new HashMap<>();
+
+			while (rs.next()) {
+				
+				Cliente cliente = map.get(rs.getInt("cli_codigo"));
+				
+				if (cliente == null) {
+					cliente = instantiateCliente(rs);
+					map.put(rs.getInt("cli_codigo"), cliente);
+				}
+				Pedido obj = instantiatePedido(rs, cliente);
+				list.add(obj);
+			}
+			return list;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+			DB.closeResultSet(rs);
+		}
+	}
+	
 	private Pedido instantiatePedido(ResultSet rs, Cliente cliente) throws SQLException {
 		Pedido obj = new Pedido();
 		obj.setCodigo(rs.getInt("codigo"));
@@ -247,7 +286,5 @@ public class PedidoDaoJDBC implements PedidoDao {
 		obj.setEmail(rs.getString("CliEmail"));
 		obj.setTelefone(rs.getString("CliTel"));
 		return obj;
-	}
-	
-	
+	}	
 }

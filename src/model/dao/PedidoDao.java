@@ -13,4 +13,5 @@ public interface PedidoDao {
 	Pedido findById(Integer id);
 	List<Pedido> findAll();
 	List<Pedido> findByCliente(Cliente cliente);
+	List<Pedido> findByStatus(String status);
 }

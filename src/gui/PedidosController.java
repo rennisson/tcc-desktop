@@ -46,6 +46,12 @@ public class PedidosController implements Initializable, DataChangeListener {
 
 	@FXML
 	private Rectangle arrowPedidos;
+	
+	@FXML
+	private Button btnTodosPedidos;
+	
+	@FXML
+	private Button btnFiltroPedidos;
 
 	@FXML
 	private Button btnNovoPedido;
@@ -158,6 +164,24 @@ public class PedidosController implements Initializable, DataChangeListener {
 		Stage parentStage = Utils.currentStage(event);
 		Pedido obj = new Pedido();
 		createDialogForm(obj, "/gui/PedidoForm.fxml", parentStage);
+	}
+	
+	@FXML
+	private void onBtnFiltroPedidosAction(ActionEvent event) {
+		if (btnFiltroPedidos.getText().contentEquals("Pedidos concluídos")) {
+			List<Pedido> list = service.findByStatus("CONCLUIDO");
+			obsList = FXCollections.observableArrayList(list);
+			tableViewPedidos.setItems(obsList);
+			
+			btnFiltroPedidos.setText("Pedidos pendentes");
+		}
+		else if (btnFiltroPedidos.getText().contentEquals("Pedidos pendentes")) {
+			List<Pedido> list = service.findByStatus("PENDENTE");
+			obsList = FXCollections.observableArrayList(list);
+			tableViewPedidos.setItems(obsList);
+			
+			btnFiltroPedidos.setText("Pedidos concluídos");
+		}
 	}
 
 	public void updateTableView() {
