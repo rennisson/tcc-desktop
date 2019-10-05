@@ -167,11 +167,18 @@ public class PedidosController implements Initializable, DataChangeListener {
 	}
 	
 	@FXML
+	private void onBtnTodosPedidosAction(ActionEvent event) {
+		updateTableView();
+	}
+	
+	@FXML
 	private void onBtnFiltroPedidosAction(ActionEvent event) {
 		if (btnFiltroPedidos.getText().contentEquals("Pedidos concluídos")) {
 			List<Pedido> list = service.findByStatus("CONCLUIDO");
 			obsList = FXCollections.observableArrayList(list);
 			tableViewPedidos.setItems(obsList);
+			initEditButtons();
+			initRemoveButtons();
 			
 			btnFiltroPedidos.setText("Pedidos pendentes");
 		}
@@ -179,6 +186,8 @@ public class PedidosController implements Initializable, DataChangeListener {
 			List<Pedido> list = service.findByStatus("PENDENTE");
 			obsList = FXCollections.observableArrayList(list);
 			tableViewPedidos.setItems(obsList);
+			initEditButtons();
+			initRemoveButtons();
 			
 			btnFiltroPedidos.setText("Pedidos concluídos");
 		}

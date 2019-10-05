@@ -42,7 +42,7 @@
                      <items>
                         <ComboBox prefHeight="25.0" prefWidth="150.0" promptText="ANO" />
                         <ComboBox prefHeight="25.0" prefWidth="150.0" promptText="MÊS" />
-                        <Button fx:id="btnTodosPedidos" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Todos os pedidos" />
+                        <Button fx:id="btnTodosPedidos" mnemonicParsing="false" onAction="#onBtnTodosPedidosAction" prefHeight="25.0" prefWidth="150.0" text="Todos os pedidos" />
                         <Button fx:id="btnFiltroPedidos" mnemonicParsing="false" onAction="#onBtnFiltroPedidosAction" prefHeight="25.0" prefWidth="150.0" text="Pedidos concluídos" />
                         <Button fx:id="btnNovoPedido" mnemonicParsing="false" onAction="#onBtnNovoPedidoAction" text="Novo Pedido" />
                      </items>
