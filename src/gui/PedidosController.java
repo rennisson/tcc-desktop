@@ -25,13 +25,16 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.entities.Cliente;
 import model.entities.Pedido;
 import model.services.ClienteService;
 import model.services.PedidoService;
@@ -46,6 +49,12 @@ public class PedidosController implements Initializable, DataChangeListener {
 
 	@FXML
 	private Rectangle arrowPedidos;
+	
+	@FXML
+	private TextField txtFiltroPedidos;
+	
+	@FXML
+	private Button btnLimparPesquisa;
 	
 	@FXML
 	private Button btnTodosPedidos;
@@ -191,6 +200,31 @@ public class PedidosController implements Initializable, DataChangeListener {
 			
 			btnFiltroPedidos.setText("Pedidos concluídos");
 		}
+	}
+	
+	@FXML
+	private void ontTxtFiltroPedidosKeyPressed(KeyEvent e) {
+		if (txtFiltroPedidos.getText().isBlank()) {
+			updateTableView();
+		}
+		
+		try {
+			List<Pedido> pedidos = service.findByCliente(txtFiltroPedidos.getText() + e.getText());
+			obsList = FXCollections.observableArrayList(pedidos);
+			tableViewPedidos.setItems(obsList);
+			initEditButtons();
+			initRemoveButtons();
+		} catch (NullPointerException ex) {
+			ex.getMessage();
+		} catch (NumberFormatException ex) {
+			ex.getMessage();
+		}
+	}
+	
+	@FXML
+	private void onBtnLimparPesquisaAction() {
+		txtFiltroPedidos.clear();
+		updateTableView();
 	}
 
 	public void updateTableView() {

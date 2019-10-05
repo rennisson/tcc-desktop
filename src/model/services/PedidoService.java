@@ -30,4 +30,8 @@ public class PedidoService {
 	public List<Pedido> findByStatus(String status) {
 		return dao.findByStatus(status);
 	}
+	
+	public List<Pedido> findByCliente(String nome) {
+		return dao.findByCliente(nome);
+	}
 }
