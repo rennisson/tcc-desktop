@@ -66,14 +66,14 @@ public class ViewController implements Initializable {
 	}
 
 	public void onBtnEstoqueAction() throws IOException {
-		loadView("/gui/Estoque.fxml", (EstoqueController controller) -> {
+		loadView("/gui/Itens.fxml", (ItensController controller) -> {
 			controller.setIngredienteService(new IngredienteService());
 			controller.updateTableView();
 		});
 	}
 
 	public void onBtnFinanceiroAction() throws IOException {
-		loadView("/gui/Financeiro.fxml", x -> {});
+		loadView("/gui/Produtos.fxml", x -> {});
 	}
 	
 	public void onBtnClientesAction() throws IOException {
