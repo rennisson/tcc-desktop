@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import model.services.ClienteService;
 import model.services.IngredienteService;
 import model.services.PedidoService;
+import model.services.ProdutoService;
 
 public class ViewController implements Initializable {
 
@@ -33,10 +34,10 @@ public class ViewController implements Initializable {
 	private Button btnPedidos;
 
 	@FXML
-	private Button btnEstoque;
+	private Button btnItens;
 
 	@FXML
-	private Button btnFinanceiro;
+	private Button btnProdutos;
 	
 	@FXML
 	private Button btnClientes;
@@ -65,15 +66,18 @@ public class ViewController implements Initializable {
 		});
 	}
 
-	public void onBtnEstoqueAction() throws IOException {
+	public void onBtnItensAction() throws IOException {
 		loadView("/gui/Itens.fxml", (ItensController controller) -> {
 			controller.setIngredienteService(new IngredienteService());
 			controller.updateTableView();
 		});
 	}
 
-	public void onBtnFinanceiroAction() throws IOException {
-		loadView("/gui/Produtos.fxml", x -> {});
+	public void onBtnProdutosAction() throws IOException {
+		loadView("/gui/Produtos.fxml", (ProdutosController controller) -> {
+			controller.setProdutoService(new ProdutoService());
+			controller.updateTableView();
+		});
 	}
 	
 	public void onBtnClientesAction() throws IOException {

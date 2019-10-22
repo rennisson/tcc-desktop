@@ -34,7 +34,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.entities.Cliente;
 import model.entities.Pedido;
 import model.services.ClienteService;
 import model.services.PedidoService;

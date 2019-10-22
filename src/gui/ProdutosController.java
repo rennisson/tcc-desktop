@@ -1,22 +1,42 @@
 package gui;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import db.DbIntegrityException;
+import gui.listeners.DataChangeListener;
+import gui.util.Alerts;
+import gui.util.Utils;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
-import model.entities.Pedido;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.entities.Produto;
+import model.services.IngredienteService;
+import model.services.ProdutoService;
 
-public class ProdutosController implements Initializable {
+public class ProdutosController implements Initializable, DataChangeListener {
+	
+	private ProdutoService service;
 
 	@FXML
 	private AnchorPane parent;
@@ -25,70 +45,128 @@ public class ProdutosController implements Initializable {
 	private Rectangle arrowFinanceiro;
 	
 	@FXML
-	private ComboBox<String> cbAno;
-	
-	private ObservableList<String> anos = 
-		    FXCollections.observableArrayList(
-		        "2019",
-		        "2020",
-		        "2021",
-		        "2022",
-		        "2023",
-		        "2024",
-		        "2025",
-		        "2026",
-		        "2027",
-		        "2028",
-		        "2029",
-		        "2030",
-		        "2031");
+	private TableView<Produto> tableViewProdutos;
 	
 	@FXML
-	private ComboBox<String> cbMes;
-	
-	private ObservableList<String> meses = 
-		    FXCollections.observableArrayList(
-		        "Janeiro",
-		        "Fevereiro",
-		        "Março",
-		        "Abril",
-		        "Maio",
-		        "Junho",
-		        "Julho",
-		        "Agosto",
-		        "Setembro",
-		        "Outubro",
-		        "Novembro",
-		        "Dezembro");
+	private TableColumn<Produto, String> tableColumnProduto;
 	
 	@FXML
-	private TableView<Pedido> tableViewFinanceiro;
+	private TableColumn<Produto, Produto> tableColumnEDITAR;
 	
 	@FXML
-	private TableColumn<Produto, String> tableColumnNomePedido;
+	private TableColumn<Produto, Produto> tableColumnEXCLUIR;
 	
-	@FXML
-	private TableColumn<Produto, Double> tableColumnPreco;
+	private ObservableList<Produto> obsList;
+	
+	public void setProdutoService(ProdutoService service) {
+		this.service = service;
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		initComponents();
 		initializeNodes();
-	}
-	
-	private void initComponents() {
-		arrowFinanceiro.setVisible(true);
-		
-		cbAno.setValue("Ano");
-		cbAno.setItems(anos);
-		
-		cbMes.setValue("Mês");
-		cbMes.setItems(meses);
 	}
 
 	private void initializeNodes() {
-		tableColumnNomePedido.setCellValueFactory(new PropertyValueFactory<>("Pedido"));
-		tableColumnPreco.setCellValueFactory(new PropertyValueFactory<>("Preco"));
+		arrowFinanceiro.setVisible(true);
+		tableColumnProduto.setCellValueFactory(new PropertyValueFactory<>("nome"));
+	}
+	
+	private void initEditButtons() {
+		tableColumnEDITAR.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnEDITAR.setCellFactory(param -> new TableCell<Produto, Produto>() {
+			private final Button button = new Button("Editar");
+
+			@Override
+			protected void updateItem(Produto obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				button.setOnAction(event -> createDialogForm(obj, "/gui/ProdutoForm.fxml", Utils.currentStage(event)));
+			}
+		});
+	}
+
+	public void initRemoveButtons() {
+		tableColumnEXCLUIR.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnEXCLUIR.setCellFactory(param -> new TableCell<Produto, Produto>() {
+			private final Button button = new Button("Excluir");
+
+			@Override
+			protected void updateItem(Produto obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				button.setOnAction(event -> removeEntity(obj));
+			}
+		});
+	}
+	
+	private void removeEntity(Produto obj) {
+		Optional<ButtonType> result = Alerts.showConfirmation("Confirmação", "Tem certeza que quer deletar?");
+		
+		if (result.get() == ButtonType.OK) {
+			if (service == null) {
+				throw new IllegalStateException("Serviço estava nulo!");
+			}
+			try {
+				service.remove(obj);
+				updateTableView();
+			}
+			catch (DbIntegrityException e) {
+				Alerts.showAlert("Erro ao remover objeto", null, e.getMessage(), AlertType.ERROR);
+			}
+		}
+	}
+	
+	public void updateTableView() {
+		if (service == null) {
+			throw new IllegalStateException("Service estava nulo");
+		}
+		
+		List<Produto> list = service.findAll();
+		obsList = FXCollections.observableArrayList(list);
+		tableViewProdutos.setItems(obsList);
+		initEditButtons();
+		initRemoveButtons();
+	}
+	
+	
+	private void createDialogForm(Produto obj, String absoluteName, Stage parentStage) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+			Pane pane = loader.load();
+
+			ProdutoFormController controller = loader.getController();
+			controller.setProduto(obj);
+			controller.setServices(new ProdutoService(), new IngredienteService());
+			controller.loadAssociatedObjects();
+			controller.subscribeDataChangeListener(this);
+			controller.updateFormData();
+
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("DETALHES DO PEDIDO");
+			dialogStage.initStyle(StageStyle.UNDECORATED);
+			dialogStage.setScene(new Scene(pane));
+			dialogStage.setResizable(false);
+			dialogStage.initOwner(parentStage);
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.showAndWait();
+		} catch (IOException e) {
+			e.printStackTrace();
+			Alerts.showAlert("IOException", "Error loading view", e.getMessage(), AlertType.ERROR);
+		}
+	}
+
+	@Override
+	public void onDataChanged() {
+		updateTableView();
 	}
 
 }

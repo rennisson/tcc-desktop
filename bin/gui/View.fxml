@@ -35,7 +35,7 @@
                   <Insets left="60.0" />
                </padding>
             </Button>
-            <Button fx:id="btnEstoque" alignment="BASELINE_LEFT" graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBtnEstoqueAction" prefHeight="48.0" prefWidth="209.0" text="Itens">
+            <Button fx:id="btnItens" alignment="BASELINE_LEFT" graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBtnItensAction" prefHeight="48.0" prefWidth="209.0" text="Itens">
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -50,7 +50,7 @@
                   <Insets left="60.0" />
                </padding>
             </Button>
-            <Button fx:id="btnFinanceiro" alignment="BASELINE_LEFT" graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBtnFinanceiroAction" prefHeight="48.0" prefWidth="209.0" text="Produtos">
+            <Button fx:id="btnProdutos" alignment="BASELINE_LEFT" graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBtnProdutosAction" prefHeight="48.0" prefWidth="209.0" text="Produtos">
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
