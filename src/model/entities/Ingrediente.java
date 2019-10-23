@@ -91,7 +91,6 @@ public class Ingrediente implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Ingrediente [id=" + id + ", descricao=" + descricao + ", preco=" + preco + ", quantidade=" + quantidade
-				+ ", peso=" + peso + "]";
+		return descricao;
 	}
 }

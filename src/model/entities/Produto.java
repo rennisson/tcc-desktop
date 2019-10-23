@@ -1,23 +1,22 @@
 package model.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Produto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private String nome;
-	private Integer peso;
-	private Double preco;
+	private String itens; 
 	
 	public Produto() {
 	}
 
-	public Produto(String nome, Integer peso, Double preco) {
+	public Produto(String nome, String itens) {
 		super();
 		this.nome = nome;
-		this.peso = peso;
-		this.preco = preco;
+		this.itens = itens;
 	}
 
 	public String getNome() {
@@ -28,20 +27,12 @@ public class Produto implements Serializable {
 		this.nome = nome;
 	}
 
-	public Integer getPeso() {
-		return peso;
+	public String getItens() {
+		return itens;
 	}
 
-	public void setPeso(Integer peso) {
-		this.peso = peso;
-	}
-
-	public Double getPreco() {
-		return preco;
-	}
-
-	public void setPreco(Double preco) {
-		this.preco = preco;
+	public void setItens(String lista) {
+		this.itens = lista;
 	}
 
 	@Override
@@ -71,7 +62,7 @@ public class Produto implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Produto [nome=" + nome + ", peso=" + peso + ", preco=" + preco + "]";
+		return "Produto [nome=" + nome + "]";
 	}
 	
 }

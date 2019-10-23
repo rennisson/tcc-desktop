@@ -37,7 +37,7 @@
                      <items>
                         <TextField prefWidth="180.0" promptText="Filtrar produto..." />
                         <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0" text="Limpar pesquisa" />
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="103.0" text="Novo Produto" />
+                        <Button fx:id="btnNovoProduto" mnemonicParsing="false" onAction="#onBtnNovoProdutoAction" prefHeight="25.0" prefWidth="103.0" text="Novo Produto" />
                      </items>
                   </ToolBar>
                </children>

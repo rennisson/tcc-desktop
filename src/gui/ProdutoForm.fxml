@@ -77,14 +77,14 @@
                   </Button>
                </children>
             </HBox>
-            <TextField fx:id="txtProduto" onKeyPressed="#ontTxtClienteKeyPressed" GridPane.columnIndex="1" />
+            <TextField fx:id="txtProduto" GridPane.columnIndex="1" />
             <Label fx:id="labelErrorQuantidade" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label fx:id="labelErrorClienteCodigo" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <ListView fx:id="listItens" prefHeight="40.0" prefWidth="272.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <HBox alignment="CENTER_RIGHT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <Button fx:id="btnAddItem1" mnemonicParsing="false" prefHeight="25.0" prefWidth="116.0" text="Adicionar item" />
-                  <Button fx:id="btnAddItem" mnemonicParsing="false" prefHeight="25.0" prefWidth="116.0" text="Excluir item" />
+                  <Button fx:id="btnAddItem1" mnemonicParsing="false" onAction="#onBtnAddItemAction" prefHeight="25.0" prefWidth="116.0" text="Adicionar item" />
+                  <Button fx:id="btnAddItem" mnemonicParsing="false" onAction="#onBtnExcluirItemAction" prefHeight="25.0" prefWidth="116.0" text="Excluir item" />
                </children>
                <GridPane.margin>
                   <Insets />

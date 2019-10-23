@@ -37,7 +37,7 @@ public class ProdutoFormController implements Initializable {
 	private Produto entidade;
 
 	private ProdutoService produtoService;
-	
+
 	private IngredienteService ingredienteService;
 
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
@@ -47,13 +47,13 @@ public class ProdutoFormController implements Initializable {
 
 	@FXML
 	private ComboBox<Ingrediente> comboBoxItens;
-	
+
 	@FXML
 	private Button btnAddItem;
-	
+
 	@FXML
 	private Button btnExcluirItem;
-	
+
 	@FXML
 	private ListView<String> listItens;
 
@@ -62,8 +62,10 @@ public class ProdutoFormController implements Initializable {
 
 	@FXML
 	private Button btnCancelar;
-	
+
 	private ObservableList<Ingrediente> obsListItens;
+
+	private ObservableList<String> itens = FXCollections.observableArrayList();
 
 	public void setProduto(Produto entidade) {
 		this.entidade = entidade;
@@ -92,6 +94,7 @@ public class ProdutoFormController implements Initializable {
 		} catch (ValidationException e) {
 			setErrorMessages(e.getErrors());
 		} catch (DbException e) {
+			e.printStackTrace();
 			Alerts.showAlert("Erro ao salvar objeto", null, e.getMessage(), AlertType.ERROR);
 		}
 	}
@@ -106,19 +109,36 @@ public class ProdutoFormController implements Initializable {
 		Produto obj = new Produto();
 
 		ValidationException exception = new ValidationException("Erro de validação");
-		
+
 		obj.setNome(txtProduto.getText());
+
+		String lista = listItens.getItems().toString();
+		obj.setItens(lista);
 
 		if (exception.getErrors().size() > 0) {
 			throw exception;
 		}
-
 		return obj;
 	}
 
 	@FXML
 	private void onBtnCancelar(ActionEvent event) {
 		Utils.currentStage(event).close();
+	}
+
+	@FXML
+	private void onBtnAddItemAction(ActionEvent event) {
+		if (listItens.getItems().contains(comboBoxItens.getSelectionModel().getSelectedItem().getDescricao())) {
+			listItens.setItems(itens);
+		} else {
+			itens.add(comboBoxItens.getSelectionModel().getSelectedItem().getDescricao());
+			listItens.setItems(itens);
+		}
+	}
+
+	@FXML
+	private void onBtnExcluirItemAction(ActionEvent event) {
+		listItens.getItems().remove(listItens.getSelectionModel().getSelectedIndex());
 	}
 
 	@Override
@@ -133,6 +153,18 @@ public class ProdutoFormController implements Initializable {
 	public void updateFormData() {
 		if (entidade == null) {
 			throw new IllegalStateException("Entidade nula");
+		}
+
+		txtProduto.setText(entidade.getNome());
+
+		if (listItens.getItems().size() > 0) {
+			String item = entidade.getItens();
+			item = item.substring(1, item.length() - 1);
+
+			String[] lista = item.split(", ");
+
+			itens.addAll(lista);
+			listItens.setItems(itens);
 		}
 	}
 

@@ -28,13 +28,12 @@ public class ProdutoDaoJDBC implements ProdutoDao {
 		try {
 			st = conn.prepareStatement(
 					"INSERT INTO produto "
-					+ "(nome, peso, preco) "
+					+ "(nome, itens) "
 					+ "VALUES "
-					+ "(?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+					+ "(?, ?)", Statement.RETURN_GENERATED_KEYS);
 			
 			st.setString(1, obj.getNome());
-			st.setInt(2, obj.getPeso());
-			st.setDouble(3, obj.getPreco());
+			st.setString(2, obj.getItens().toString());
 			
 			st.executeUpdate();
 		}
@@ -53,13 +52,12 @@ public class ProdutoDaoJDBC implements ProdutoDao {
 		try {
 			st = conn.prepareStatement(
 					"UPDATE produto "
-					+ "SET nome= ?, peso = ?, preco = ? "
+					+ "SET nome= ?, itens = ? "
 					+ "WHERE nome = ?");
 			
 			st.setString(1, obj.getNome());
-			st.setInt(2, obj.getPeso());
-			st.setDouble(3, obj.getPreco());
-			st.setString(4, obj.getNome());
+			st.setString(2, obj.getItens());
+			st.setString(3, obj.getNome());
 			
 			st.executeUpdate();
 		}
@@ -101,9 +99,9 @@ public class ProdutoDaoJDBC implements ProdutoDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT cliente.* "
-					+ "FROM cliente "
-					+ "WHERE cliente.codigo = ?");
+					"SELECT produto.* "
+					+ "FROM produto "
+					+ "WHERE produto.nome = ?");
 
 			st.setString(1, nome);
 			rs = st.executeQuery();
@@ -154,8 +152,7 @@ public class ProdutoDaoJDBC implements ProdutoDao {
 	private Produto instantiateProduto(ResultSet rs) throws SQLException {
 		Produto obj = new Produto();
 		obj.setNome(rs.getString("nome"));
-		obj.setPeso(rs.getInt("peso"));
-		obj.setPreco(rs.getDouble("preco"));
+		obj.setItens(rs.getString("itens"));
 		return obj;
 	}
 }

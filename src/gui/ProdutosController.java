@@ -13,6 +13,7 @@ import gui.util.Utils;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,6 +31,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.entities.Pedido;
 import model.entities.Produto;
 import model.services.IngredienteService;
 import model.services.ProdutoService;
@@ -55,6 +57,9 @@ public class ProdutosController implements Initializable, DataChangeListener {
 	
 	@FXML
 	private TableColumn<Produto, Produto> tableColumnEXCLUIR;
+	
+	@FXML
+	private Button btnNovoProduto;
 	
 	private ObservableList<Produto> obsList;
 	
@@ -123,6 +128,13 @@ public class ProdutosController implements Initializable, DataChangeListener {
 				Alerts.showAlert("Erro ao remover objeto", null, e.getMessage(), AlertType.ERROR);
 			}
 		}
+	}
+	
+	@FXML
+	private void onBtnNovoProdutoAction(ActionEvent event) {
+		Stage parentStage = Utils.currentStage(event);
+		Produto obj = new Produto();
+		createDialogForm(obj, "/gui/ProdutoForm.fxml", parentStage);
 	}
 	
 	public void updateTableView() {
