@@ -47,9 +47,6 @@ public class ClienteFormController implements Initializable {
 	private TextField txtTelefone;
 	
 	@FXML
-	private PasswordField pwdSenha;
-	
-	@FXML
 	private Button btnSalvar;
 	
 	@FXML
@@ -106,7 +103,6 @@ public class ClienteFormController implements Initializable {
 		obj.setNome(txtNome.getText());
 		obj.setEmail(txtEmail.getText());
 		obj.setTelefone(txtTelefone.getText());
-		obj.setSenha(pwdSenha.getText());
 		
 		if (exception.getErrors().size() > 0) {
 			throw exception;
@@ -129,7 +125,6 @@ public class ClienteFormController implements Initializable {
 		Constraints.setTextFieldMaxLength(txtNome, 60);
 		Constraints.setTextFieldMaxLength(txtEmail, 60);
 		Constraints.setTextFieldMaxLength(txtTelefone, 15);
-		Constraints.setTextFieldMaxLength(pwdSenha, 16);
 	}
 	
 	public void updateFormData() {
@@ -137,15 +132,10 @@ public class ClienteFormController implements Initializable {
 			throw new IllegalStateException("Entidade nula");
 		}
 		
-		if (entidade.getCodigo() != null) {
-			pwdSenha.setEditable(false);
-		}
-		
 		txtCodigo.setText(String.valueOf(entidade.getCodigo()));
 		txtNome.setText(entidade.getNome());
 		txtEmail.setText(entidade.getEmail());
 		txtTelefone.setText(entidade.getTelefone());
-		pwdSenha.setText(entidade.getSenha());
 	}
 	
 	private void setErrorMessages(Map<String, String> errors) {

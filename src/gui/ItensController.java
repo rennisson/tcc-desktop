@@ -111,7 +111,7 @@ public class ItensController implements Initializable, DataChangeListener {
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(event -> createDialogForm(obj, "/gui/EstoqueForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(event -> createDialogForm(obj, "/gui/ItensForm.fxml", Utils.currentStage(event)));
 			}
 		});
 	}
@@ -155,7 +155,7 @@ public class ItensController implements Initializable, DataChangeListener {
 	private void onBtnNovoItemAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
 		Ingrediente obj = new Ingrediente();
-		createDialogForm(obj, "/gui/EstoqueForm.fxml", parentStage);
+		createDialogForm(obj, "/gui/ItensForm.fxml", parentStage);
 	}
 	
 	public void updateTableView() {
