@@ -144,7 +144,7 @@ public class IngredienteDaoJDBC implements IngredienteDao {
 			st = conn.prepareStatement(
 					"SELECT ingrediente.* "
 					+ "FROM ingrediente "
-					+ "ORDER BY id ASC");
+					+ "ORDER BY descricao ASC");
 
 			rs = st.executeQuery();
 

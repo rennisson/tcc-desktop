@@ -12,7 +12,6 @@ import db.DB;
 import db.DbException;
 import model.dao.ClienteDao;
 import model.entities.Cliente;
-import model.entities.Ingrediente;
 
 public class ClienteDaoJDBC implements ClienteDao {
 	

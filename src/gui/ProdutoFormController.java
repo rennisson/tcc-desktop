@@ -157,7 +157,8 @@ public class ProdutoFormController implements Initializable {
 
 		txtProduto.setText(entidade.getNome());
 
-		if (listItens.getItems().size() > 0) {
+		if (entidade.getNome() != null) {
+			
 			String item = entidade.getItens();
 			item = item.substring(1, item.length() - 1);
 
@@ -176,6 +177,7 @@ public class ProdutoFormController implements Initializable {
 		List<Ingrediente> listItens = ingredienteService.findAll();
 		obsListItens = FXCollections.observableArrayList(listItens);
 		comboBoxItens.setItems(obsListItens);
+		comboBoxItens.getSelectionModel().selectFirst();
 	}
 
 	private void setErrorMessages(Map<String, String> errors) {

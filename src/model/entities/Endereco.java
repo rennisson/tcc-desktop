@@ -6,6 +6,7 @@ public class Endereco implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
+	private Integer codigo;
 	private String cep;
 	private String rua;
 	private String estado;
@@ -13,14 +14,12 @@ public class Endereco implements Serializable {
 	private String bairro;
 	private String complemento;
 	private String numero;
-	
-	private Cliente cliente;
-	
+
 	public Endereco() {
 	}
 
-	public Endereco(String cep, String rua, String estado, String cidade, String bairro, String complemento, String numero,
-			Cliente cliente) {
+	public Endereco(Integer codigo, String cep, String rua, String estado, String cidade, String bairro, String complemento, String numero) {
+		this.codigo = codigo;
 		this.cep = cep;
 		this.rua = rua;
 		this.estado = estado;
@@ -28,7 +27,14 @@ public class Endereco implements Serializable {
 		this.bairro = bairro;
 		this.complemento = complemento;
 		this.numero = numero;
-		this.cliente = cliente;
+	}
+
+	public Integer getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getCep() {
@@ -86,15 +92,7 @@ public class Endereco implements Serializable {
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -123,6 +121,6 @@ public class Endereco implements Serializable {
 	@Override
 	public String toString() {
 		return "Endereco [cep=" + cep + ", rua=" + rua + ", estado=" + estado + ", cidade=" + cidade + ", bairro="
-				+ bairro + ", complemento=" + complemento + ", cliente=" + cliente + "]";
+				+ bairro + ", complemento=" + complemento + "]";
 	}
 }

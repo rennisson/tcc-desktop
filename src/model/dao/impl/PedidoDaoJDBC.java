@@ -13,7 +13,7 @@ import java.util.Map;
 import db.DB;
 import db.DbException;
 import model.dao.PedidoDao;
-import model.entities.Cliente;
+import model.entities.Endereco;
 import model.entities.Pedido;
 
 public class PedidoDaoJDBC implements PedidoDao {
@@ -31,15 +31,15 @@ public class PedidoDaoJDBC implements PedidoDao {
 		try {
 			st = conn.prepareStatement(
 					"INSERT INTO pedido "
-					+ "(cli_codigo, quantidade, produto_nome, prod_preco, status) "
+					+ "(quantidade, produto_nome, prod_preco, status, end_codigo) "
 					+ "VALUES "
 					+ "(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-			
-			st.setInt(1, obj.getCliente().getCodigo());
-			st.setInt(2, obj.getQuantidade());
-			st.setString(3, obj.getProduto().getNome());
-			st.setDouble(4, obj.getPrecoTotal());
-			st.setString(5, obj.getStatus());
+
+			st.setInt(1, obj.getQuantidade());
+			st.setString(2, obj.getProduto().getNome());
+			st.setDouble(3, obj.getPrecoTotal());
+			st.setString(4, obj.getStatus());
+			st.setInt(5, obj.getEndereco().getCodigo());
 			
 			int rowsAffected = st.executeUpdate();
 			
@@ -120,25 +120,25 @@ public class PedidoDaoJDBC implements PedidoDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT pedido.*,cliente.nome as CliNome, cliente.email as CliEmail, cliente.telefone as CliTel "
-					+ "FROM pedido INNER JOIN cliente "
-					+ "ON pedido.cliente_codigo = cliente.codigo "
+					"SELECT pedido.*, endereco.nome as EndNome, endereco.numero as EndNumero, endereco.bairro as EndBairro "
+					+ "FROM pedido INNER JOIN endereco "
+					+ "ON pedido.end_codigo = endereco.codigo "
 					+ "WHERE pedido.codigo = ?");
 
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			
-			Map<Integer, Cliente> map = new HashMap<>();
+			Map<Integer, Endereco> map = new HashMap<>();
 			
 			while (rs.next()) {
 				
-				Cliente cliente = map.get(rs.getInt("cliente_codigo"));
+				Endereco endereco = map.get(rs.getInt("ped_codigo"));
 				
-				if(cliente == null) {
-					cliente = instantiateCliente(rs);
-					map.put(rs.getInt("cliente_codigo"), cliente);
+				if(endereco == null) {
+					endereco = instantiateEndereco(rs);
+					map.put(rs.getInt("ped_codigo"), endereco);
 				}
-				Pedido obj = instantiatePedido(rs, cliente);
+				Pedido obj = instantiatePedido(rs, endereco);
 				return obj;
 			}
 			return null;
@@ -158,24 +158,25 @@ public class PedidoDaoJDBC implements PedidoDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT pedido.* , cliente.nome as CliNome, cliente.email as CliEmail, cliente.telefone as CliTel "
-					+ "FROM pedido INNER JOIN cliente "
-					+ "ON pedido.cli_codigo = cliente.codigo");
+					"SELECT pedido.*, endereco.cep as EndCep, endereco.nome as EndNome, endereco.numero as EndNumero, endereco.complemento as EndComplemento, "
+					+ "endereco.bairro as EndBairro, endereco.cidade as EndCidade, endereco.estado as EndEstado "
+					+ "FROM pedido INNER JOIN endereco "
+					+ "ON pedido.end_codigo = endereco.codigo");
 
 			rs = st.executeQuery();
 
 			List<Pedido> list = new ArrayList<>();
-			Map<Integer, Cliente> map = new HashMap<>();
+			Map<Integer, Endereco> map = new HashMap<>();
 
 			while (rs.next()) {
 				
-				Cliente cliente = map.get(rs.getInt("cli_codigo"));
+				Endereco endereco = map.get(rs.getInt("codigo"));
 				
-				if (cliente == null) {
-					cliente = instantiateCliente(rs);
-					map.put(rs.getInt("cli_codigo"), cliente);
+				if (endereco == null) {
+					endereco = instantiateEndereco(rs);
+					map.put(rs.getInt("codigo"), endereco);
 				}
-				Pedido obj = instantiatePedido(rs, cliente);
+				Pedido obj = instantiatePedido(rs, endereco);
 				list.add(obj);
 			}
 			return list;
@@ -195,26 +196,26 @@ public class PedidoDaoJDBC implements PedidoDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT pedido.* , cliente.nome as CliNome, cliente.email as CliEmail, cliente.telefone as CliTel "
-					+ "FROM pedido INNER JOIN cliente "
-					+ "ON pedido.cli_codigo = cliente.codigo "
+					"SELECT pedido.* , endereco.nome as EndNome, endereco.numero as EndNumero, endereco.bairro as EndBairro "
+					+ "FROM pedido INNER JOIN endereco "
+					+ "ON pedido.end_codigo = endereco.codigo "
 					+ "WHERE pedido.status = ?");
 
 			st.setString(1, status);
 			rs = st.executeQuery();
 
 			List<Pedido> list = new ArrayList<>();
-			Map<Integer, Cliente> map = new HashMap<>();
+			Map<Integer, Endereco> map = new HashMap<>();
 
 			while (rs.next()) {
 				
-				Cliente cliente = map.get(rs.getInt("cli_codigo"));
+				Endereco endereco = map.get(rs.getInt("end_codigo"));
 				
-				if (cliente == null) {
-					cliente = instantiateCliente(rs);
-					map.put(rs.getInt("cli_codigo"), cliente);
+				if (endereco == null) {
+					endereco = instantiateEndereco(rs);
+					map.put(rs.getInt("end_codigo"), endereco);
 				}
-				Pedido obj = instantiatePedido(rs, cliente);
+				Pedido obj = instantiatePedido(rs, endereco);
 				list.add(obj);
 			}
 			return list;
@@ -234,26 +235,26 @@ public class PedidoDaoJDBC implements PedidoDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT pedido.* , cliente.nome as CliNome, cliente.email as CliEmail, cliente.telefone as CliTel "
-					+ "FROM pedido INNER JOIN cliente "
-					+ "ON pedido.cli_codigo = cliente.codigo "
-					+ "WHERE cliente.nome LIKE ?");
+					"SELECT pedido.* , endereco.nome as EndNome, endereco.numero as EndNumero, endereco.bairro as EndBairro "
+					+ "FROM pedido INNER JOIN endereco "
+					+ "ON pedido.end_codigo = endereco.codigo "
+					+ "WHERE endereco.nome LIKE ?");
 
 			st.setString(1, "%" + nome + "%");
 			rs = st.executeQuery();
 
 			List<Pedido> list = new ArrayList<>();
-			Map<Integer, Cliente> map = new HashMap<>();
+			Map<Integer, Endereco> map = new HashMap<>();
 
 			while (rs.next()) {
 				
-				Cliente cliente = map.get(rs.getInt("cli_codigo"));
+				Endereco endereco = map.get(rs.getInt("end_codigo"));
 				
-				if (cliente == null) {
-					cliente = instantiateCliente(rs);
-					map.put(rs.getInt("cli_codigo"), cliente);
+				if (endereco == null) {
+					endereco = instantiateEndereco(rs);
+					map.put(rs.getInt("end_codigo"), endereco);
 				}
-				Pedido obj = instantiatePedido(rs, cliente);
+				Pedido obj = instantiatePedido(rs, endereco);
 				list.add(obj);
 			}
 			return list;
@@ -267,24 +268,27 @@ public class PedidoDaoJDBC implements PedidoDao {
 		}
 	}	
 	
-	private Pedido instantiatePedido(ResultSet rs, Cliente cliente) throws SQLException {
+	private Pedido instantiatePedido(ResultSet rs, Endereco endereco) throws SQLException {
 		Pedido obj = new Pedido();
 		obj.setCodigo(rs.getInt("codigo"));
 		obj.setNome(rs.getString("produto_nome"));
 		obj.setQuantidade(rs.getInt("quantidade"));
-		//obj.getProduto().setNome("produto_nome");
 		obj.setPrecoTotal(rs.getDouble("prod_preco"));
 		obj.setStatus(rs.getString("status"));
-		obj.setCliente(cliente);
+		obj.setEndereco(endereco);
 		return obj;
 	}
 
-	private Cliente instantiateCliente(ResultSet rs) throws SQLException {
-		Cliente obj = new Cliente();
-		obj.setCodigo(rs.getInt("codigo"));
-		obj.setNome(rs.getString("CliNome"));
-		obj.setEmail(rs.getString("CliEmail"));
-		obj.setTelefone(rs.getString("CliTel"));
+	private Endereco instantiateEndereco(ResultSet rs) throws SQLException {
+		Endereco obj = new Endereco();
+		obj.setCodigo(rs.getInt("end_codigo"));
+		obj.setCep(rs.getString("EndCep"));
+		obj.setRua(rs.getString("EndNome"));
+		obj.setComplemento(rs.getString("EndComplemento"));
+		obj.setBairro(rs.getString("EndBairro"));
+		obj.setCidade(rs.getString("EndCidade"));
+		obj.setEstado(rs.getString("EndEstado"));
+		obj.setNumero(rs.getString("EndNumero"));
 		return obj;
 	}
 }

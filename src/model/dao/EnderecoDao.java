@@ -6,7 +6,7 @@ import model.entities.Endereco;
 
 public interface EnderecoDao {
 	
-	void insert(Endereco obj);
+	Endereco insert(Endereco obj);
 	void update(Endereco obj);
 	void deleteById(Integer id);
 	Endereco findById(Integer id);

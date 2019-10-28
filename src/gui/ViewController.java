@@ -81,10 +81,7 @@ public class ViewController implements Initializable {
 	}
 	
 	public void onBtnClientesAction() throws IOException {
-		loadView("/gui/Cliente.fxml", (ClienteController controller) -> {
-			controller.setClienteService(new ClienteService());
-			controller.updateTableView();
-		});
+		
 	}
 
 	@FXML

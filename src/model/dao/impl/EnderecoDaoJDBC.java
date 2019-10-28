@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,8 +13,8 @@ import java.util.Map;
 import db.DB;
 import db.DbException;
 import model.dao.EnderecoDao;
-import model.entities.Cliente;
 import model.entities.Endereco;
+import model.entities.Pedido;
 
 public class EnderecoDaoJDBC implements EnderecoDao {
 	
@@ -24,29 +25,34 @@ public class EnderecoDaoJDBC implements EnderecoDao {
 	}
 	
 	@Override
-	public void insert(Endereco obj) {
+	public Endereco insert(Endereco obj) {
 		PreparedStatement st = null;
 		
 		try {
 			st = conn.prepareStatement(
 					"INSERT INTO endereco "
-					+ "(cep, cli_codigo, nome, complemento, bairro, cidade, estado, numero) "
+					+ "(cep, nome, complemento, bairro, cidade, estado, numero) "
 					+ "VALUES "
-					+ "(?, ?, ?, ?, ?, ?, ?, ?)");
+					+ "(?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			
 			st.setString(1, obj.getCep());
-			st.setInt(2, obj.getCliente().getCodigo());
-			st.setString(3, obj.getRua());
-			st.setString(4, obj.getComplemento());
-			st.setString(5, obj.getBairro());
-			st.setString(6, obj.getCidade());
-			st.setString(7, obj.getEstado());
-			st.setString(8, obj.getNumero());
+			st.setString(2, obj.getRua());
+			st.setString(3, obj.getComplemento());
+			st.setString(4, obj.getBairro());
+			st.setString(5, obj.getCidade());
+			st.setString(6, obj.getEstado());
+			st.setString(7, obj.getNumero());
 			
 			int rowsAffected = st.executeUpdate();
 			
 			if (rowsAffected > 0) {
-				System.out.println("Dados inseridos com sucesso!");
+				ResultSet rs = st.getGeneratedKeys();
+				if (rs.next()) {
+					int id = rs.getInt(1);
+					obj.setCodigo(id);
+				}
+				DB.closeResultSet(rs);
+				return obj;
 			}
 			else {
 				throw new DbException("Erro inesperado! Nenhuma linha afetada!");
@@ -68,7 +74,7 @@ public class EnderecoDaoJDBC implements EnderecoDao {
 			st = conn.prepareStatement(
 					"UPDATE endereco "
 					+ "SET cep = ?, nome = ?, complemento = ?, bairro = ?, cidade = ?, estado = ?, numero = ? "
-					+ "WHERE codigo_cliente = ?");
+					+ "WHERE codigo = ?");
 			
 			st.setString(1, obj.getCep());
 			st.setString(2, obj.getRua());
@@ -77,7 +83,7 @@ public class EnderecoDaoJDBC implements EnderecoDao {
 			st.setString(5, obj.getCidade());
 			st.setString(6, obj.getEstado());
 			st.setString(7, obj.getNumero());
-			st.setInt(8, obj.getCliente().getCodigo());
+			st.setInt(8, obj.getCodigo());
 			
 			st.executeUpdate();
 		}
@@ -95,7 +101,7 @@ public class EnderecoDaoJDBC implements EnderecoDao {
 		try {
 			st = conn.prepareStatement(
 					"DELETE FROM endereco "
-					+ "WHERE cli_codigo = ?");
+					+ "WHERE codigo = ?");
 			
 			st.setInt(1, id);
 			
@@ -119,25 +125,26 @@ public class EnderecoDaoJDBC implements EnderecoDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT endereco.*,cliente.nome as CliNome, cliente.email as CliEmail, cliente.telefone as CliTel "
-					+ "FROM endereco INNER JOIN cliente "
-					+ "ON endereco.cli_codigo = cliente.codigo "
-					+ "WHERE endereco.cli_codigo = ?");
+					"SELECT endereco.*, pedido.codigo as PedCodigo, pedido.produto_nome as PedNome, pedido.quantidade as PedQuantidade, "
+							+ "pedido.prod_preco as PedPreco, pedido.status as PedStatus "
+							+ "FROM endereco INNER JOIN pedido "
+							+ "ON endereco.codigo = pedido.end_codigo "
+							+ "WHERE endereco.codigo = ?");
 
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			
-			Map<Integer, Cliente> map = new HashMap<>();
+			Map<Integer, Pedido> map = new HashMap<>();
 			
 			while (rs.next()) {
 				
-				Cliente cliente = map.get(rs.getInt("cli_codigo"));
+				Pedido pedido = map.get(rs.getInt("codigo"));
 				
-				if(cliente == null) {
-					cliente = instantiateCliente(rs);
-					map.put(rs.getInt("cli_codigo"), cliente);
+				if(pedido == null) {
+					pedido = instantiatePedido(rs);
+					map.put(rs.getInt("codigo"), pedido);
 				}
-				Endereco obj = instantiateEndereco(rs, cliente);
+				Endereco obj = instantiateEndereco(rs, pedido);
 				return obj;
 			}
 			return null;
@@ -157,24 +164,25 @@ public class EnderecoDaoJDBC implements EnderecoDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT endereco.*, cliente.nome as CliNome, cliente.email as CliEmail, cliente.telefone as CliTel "
-					+ "FROM endereco INNER JOIN cliente "
-					+ "ON endereco.cli_codigo = cliente.codigo ");
+					"SELECT endereco.*, pedido.codigo as PedCodigo, pedido.produto_nome as ProdNome, pedido.quantidade as ProdQuantidade, "
+					+ "pedido.prod_preco as ProdPreco, pedido.status as ProdStatus "
+					+ "FROM endereco INNER JOIN pedido "
+					+ "ON endereco.codigo = pedido.end_codigo");
 
 			rs = st.executeQuery();
 
 			List<Endereco> list = new ArrayList<>();
-			Map<Integer, Cliente> map = new HashMap<>();
+			Map<Integer, Pedido> map = new HashMap<>();
 
 			while (rs.next()) {
 				
-				Cliente cliente = map.get(rs.getInt("cli_codigo"));
+				Pedido pedido = map.get(rs.getInt("codigo"));
 				
-				if (cliente == null) {
-					cliente = instantiateCliente(rs);
-					map.put(rs.getInt("cli_codigo"), cliente);
+				if (pedido == null) {
+					pedido = instantiatePedido(rs);
+					map.put(rs.getInt("codigo"), pedido);
 				}
-				Endereco obj = instantiateEndereco(rs, cliente);
+				Endereco obj = instantiateEndereco(rs, pedido);
 				list.add(obj);
 			}
 			return list;
@@ -188,7 +196,7 @@ public class EnderecoDaoJDBC implements EnderecoDao {
 		}
 	}
 	
-	private Endereco instantiateEndereco(ResultSet rs, Cliente cliente) throws SQLException {
+	private Endereco instantiateEndereco(ResultSet rs, Pedido pedido) throws SQLException {
 		Endereco obj = new Endereco();
 		obj.setCep(rs.getString("cep"));
 		obj.setRua(rs.getString("nome"));
@@ -197,16 +205,17 @@ public class EnderecoDaoJDBC implements EnderecoDao {
 		obj.setCidade(rs.getString("cidade"));
 		obj.setEstado(rs.getString("estado"));
 		obj.setNumero(rs.getString("numero"));
-		obj.setCliente(cliente);
+		//obj.setPedido(pedido);
 		return obj;
 	}
 	
-	private Cliente instantiateCliente(ResultSet rs) throws SQLException {
-		Cliente obj = new Cliente();
-		obj.setCodigo(rs.getInt("cli_codigo"));
-		obj.setNome(rs.getString("CliNome"));
-		obj.setEmail(rs.getString("CliEmail"));
-		obj.setTelefone(rs.getString("CliTel"));
+	private Pedido instantiatePedido(ResultSet rs) throws SQLException {
+		Pedido obj = new Pedido();
+		obj.setCodigo(rs.getInt("PedCodigo"));
+		obj.setNome(rs.getString("PedNome"));
+		obj.setQuantidade(rs.getInt("PedQuantidade"));
+		obj.setPrecoTotal(rs.getDouble("PedPreco"));
+		obj.setStatus(rs.getString("PedStatus"));
 		return obj;
 	}
 }

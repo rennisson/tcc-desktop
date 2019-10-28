@@ -20,7 +20,6 @@
                   <TableView fx:id="tableViewPedidos" editable="true" layoutX="2.0" layoutY="40.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="460.0" prefWidth="943.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                      <columns>
                         <TableColumn fx:id="tableColumnCodigo" editable="false" maxWidth="3000.0" prefWidth="171.0" sortable="false" text="Codigo" />
-                        <TableColumn fx:id="tableColumnCliente" prefWidth="194.0" text="Cliente" />
                         <TableColumn fx:id="tableColumnPedido" prefWidth="151.0" text="Pedidos" />
                         <TableColumn fx:id="tableColumnQuantidade" prefWidth="110.0" text="Quantidade" />
                         <TableColumn fx:id="tableColumnPreco" prefWidth="167.0" text="Preço Total (R$)" />

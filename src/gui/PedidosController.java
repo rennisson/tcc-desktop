@@ -11,7 +11,6 @@ import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,7 +34,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.entities.Pedido;
-import model.services.ClienteService;
+import model.services.EnderecoService;
 import model.services.PedidoService;
 import model.services.ProdutoService;
 
@@ -71,9 +70,6 @@ public class PedidosController implements Initializable, DataChangeListener {
 	private TableColumn<Pedido, Integer> tableColumnCodigo;
 
 	@FXML
-	private TableColumn<Pedido, String> tableColumnCliente;
-
-	@FXML
 	private TableColumn<Pedido, String> tableColumnPedido;
 
 	@FXML
@@ -106,8 +102,6 @@ public class PedidosController implements Initializable, DataChangeListener {
 		arrowPedidos.setVisible(true);
 		
 		tableColumnCodigo.setCellValueFactory(new PropertyValueFactory<>("Codigo"));
-		tableColumnCliente
-				.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getCliente().getNome()));
 		tableColumnPedido.setCellValueFactory(new PropertyValueFactory<>("Nome"));
 		tableColumnQuantidade.setCellValueFactory(new PropertyValueFactory<>("Quantidade"));
 		tableColumnPreco.setCellValueFactory(new PropertyValueFactory<>("precoTotal"));
@@ -245,7 +239,7 @@ public class PedidosController implements Initializable, DataChangeListener {
 
 			PedidoFormController controller = loader.getController();
 			controller.setPedido(obj);
-			controller.setServices(new PedidoService(), new ProdutoService(), new ClienteService());
+			controller.setServices(new PedidoService(), new EnderecoService(), new ProdutoService());
 			controller.loadAssociatedObjects();
 			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
