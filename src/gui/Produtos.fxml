@@ -12,7 +12,7 @@
 
 <AnchorPane fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProdutosController">
    <children>
-      <Rectangle fx:id="arrowFinanceiro" cache="true" cacheHint="SCALE_AND_ROTATE" fill="WHITE" height="50.0" layoutY="333.0" rotate="45.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="50.0" />
+      <Rectangle fx:id="arrowFinanceiro" cache="true" cacheHint="SCALE_AND_ROTATE" fill="#e4b6b2" height="50.0" layoutY="333.0" rotate="45.0" stroke="#e4b6b2" strokeType="INSIDE" visible="false" width="50.0" />
       <SplitPane prefHeight="633.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
             <AnchorPane style="-fx-background-color: #353535;">
@@ -33,7 +33,7 @@
                         <Insets left="-2.0" />
                      </padding>
                   </TableView>
-                  <ToolBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #AB2C2C; -fx-border-style: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <ToolBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #35583a; -fx-border-style: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <items>
                         <TextField prefWidth="180.0" promptText="Filtrar produto..." />
                         <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0" text="Limpar pesquisa" />

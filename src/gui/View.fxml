@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" style="-fx-background-color: #353535;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ViewController">
+<BorderPane fx:id="borderPane" style="-fx-background-color: #FFF; -fx-border-color: #000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ViewController">
    <left>
-      <VBox prefHeight="548.0" prefWidth="207.0" style="-fx-background-color: #353535;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="548.0" prefWidth="207.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="223.0" fitWidth="216.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -20,7 +20,7 @@
                   <Insets left="5.0" right="5.0" />
                </VBox.margin>
             </ImageView>
-            <Button fx:id="btnPedidos" alignment="BASELINE_LEFT" graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBtnPedidosAction" prefHeight="48.0" prefWidth="209.0" text="Pedidos">
+            <Button fx:id="btnPedidos" alignment="BASELINE_LEFT" graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBtnPedidosAction" prefHeight="48.0" prefWidth="209.0" styleClass="botao" text="Pedidos">
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -35,7 +35,7 @@
                   <Insets left="60.0" />
                </padding>
             </Button>
-            <Button fx:id="btnItens" alignment="BASELINE_LEFT" graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBtnItensAction" prefHeight="48.0" prefWidth="209.0" text="Itens">
+            <Button fx:id="btnItens" alignment="BASELINE_LEFT" graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBtnItensAction" prefHeight="48.0" prefWidth="209.0" styleClass="botao" text="Itens">
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -50,7 +50,7 @@
                   <Insets left="60.0" />
                </padding>
             </Button>
-            <Button fx:id="btnProdutos" alignment="BASELINE_LEFT" graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBtnProdutosAction" prefHeight="48.0" prefWidth="209.0" text="Produtos">
+            <Button fx:id="btnProdutos" alignment="BASELINE_LEFT" graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBtnProdutosAction" prefHeight="48.0" prefWidth="209.0" styleClass="botao" text="Produtos">
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -65,7 +65,7 @@
                   <Insets left="60.0" />
                </padding>
             </Button>
-            <Button fx:id="btnClientes" alignment="BASELINE_LEFT" graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBtnClientesAction" prefHeight="48.0" prefWidth="209.0" text="Clientes">
+            <Button fx:id="btnClientes" alignment="BASELINE_LEFT" graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBtnClientesAction" prefHeight="48.0" prefWidth="209.0" styleClass="botao" text="Clientes">
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -79,14 +79,14 @@
             </Button>
          </children>
          <BorderPane.margin>
-            <Insets bottom="5.0" top="5.0" />
+            <Insets bottom="10.0" left="10.0" top="5.0" />
          </BorderPane.margin>
       </VBox>
    </left>
    <center>
-      <AnchorPane fx:id="root" minHeight="-Infinity" prefHeight="200.0" style="-fx-background-color: #353535; -fx-cursor: default;" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="root" minHeight="-Infinity" prefHeight="548.0" prefWidth="721.0" style="-fx-background-color: #353535; -fx-cursor: default;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets bottom="5.0" right="5.0" top="5.0" />
+            <Insets bottom="10.0" right="10.0" top="5.0" />
          </BorderPane.margin></AnchorPane>
    </center>
    <opaqueInsets>

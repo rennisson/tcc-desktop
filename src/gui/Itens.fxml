@@ -12,7 +12,7 @@
 
 <AnchorPane fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ItensController">
    <children>
-      <Rectangle fx:id="arrowEstoque" cache="true" cacheHint="SCALE_AND_ROTATE" fill="WHITE" height="50.0" layoutY="284.0" rotate="45.0" stroke="WHITE" strokeType="INSIDE" visible="false" width="50.0" />
+      <Rectangle fx:id="arrowEstoque" cache="true" cacheHint="SCALE_AND_ROTATE" fill="#e4b6b2" height="50.0" layoutY="284.0" rotate="45.0" stroke="#e4b6b2" strokeType="INSIDE" visible="false" width="50.0" />
       <SplitPane prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
             <AnchorPane>
@@ -33,7 +33,7 @@
                         <Insets />
                      </opaqueInsets>
                   </TableView>
-                  <ToolBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #AB2C2C; -fx-border-style: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <ToolBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #35583a; -fx-border-style: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <items>
                         <TextField fx:id="txtFiltroEstoque" onKeyPressed="#ontTxtFiltroEstoqueKeyPressed" prefHeight="25.0" prefWidth="204.0" promptText="Filtrar item..." />
                         <Button fx:id="btnLimparPesquisa" mnemonicParsing="false" onAction="#onBtnLimparPesquisaAction" text="Limpar pesquisa" />
