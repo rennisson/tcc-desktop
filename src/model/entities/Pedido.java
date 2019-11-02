@@ -8,6 +8,7 @@ public class Pedido implements Serializable {
 	
 	private Integer codigo;
 	private String nome;
+	private String cliente;
 	private Integer quantidade;
 	private Double precoTotal;
 	private String status;
@@ -18,8 +19,9 @@ public class Pedido implements Serializable {
 	public Pedido() {
 	}
 
-	public Pedido(Integer codigo, Integer quantidade, Double precoTotal, String status, Endereco endereco, Produto produto) {
+	public Pedido(Integer codigo, String cliente, Integer quantidade, Double precoTotal, String status, Endereco endereco, Produto produto) {
 		this.codigo = codigo;
+		this.cliente = cliente;
 		this.quantidade = quantidade;
 		this.precoTotal = precoTotal;
 		this.status = status;
@@ -41,6 +43,14 @@ public class Pedido implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(String cliente) {
+		this.cliente = cliente;
 	}
 
 	public Integer getQuantidade() {
@@ -110,7 +120,7 @@ public class Pedido implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Pedido [codigo=" + codigo + ", nome=" + nome + ", quantidade=" + quantidade + ", preço total=" + precoTotal + ", endereco=" + endereco
+		return "Pedido [codigo=" + codigo + ", quantidade=" + quantidade + ", preço total=" + precoTotal + ", endereco=" + endereco
 				+ ", produto=" + produto + "]";
 	}	
 }

@@ -71,6 +71,9 @@ public class PedidosController implements Initializable, DataChangeListener {
 
 	@FXML
 	private TableColumn<Pedido, String> tableColumnPedido;
+	
+	@FXML
+	private TableColumn<Pedido, String> tableColumnCliente;
 
 	@FXML
 	private TableColumn<Pedido, Integer> tableColumnQuantidade;
@@ -103,6 +106,7 @@ public class PedidosController implements Initializable, DataChangeListener {
 		
 		tableColumnCodigo.setCellValueFactory(new PropertyValueFactory<>("Codigo"));
 		tableColumnPedido.setCellValueFactory(new PropertyValueFactory<>("Nome"));
+		tableColumnCliente.setCellValueFactory(new PropertyValueFactory<>("Cliente"));
 		tableColumnQuantidade.setCellValueFactory(new PropertyValueFactory<>("Quantidade"));
 		tableColumnPreco.setCellValueFactory(new PropertyValueFactory<>("precoTotal"));
 		tableColumnStatus.setCellValueFactory(new PropertyValueFactory<>("Status"));

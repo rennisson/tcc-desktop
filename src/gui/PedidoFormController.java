@@ -55,6 +55,9 @@ public class PedidoFormController implements Initializable {
 
 	@FXML
 	private ComboBox<Produto> comboBoxProduto;
+	
+	@FXML
+	private TextField txtCliente;
 
 	@FXML
 	private TextField txtQuantidade;
@@ -162,6 +165,8 @@ public class PedidoFormController implements Initializable {
 		} else {
 			obj.setProduto(comboBoxProduto.getValue());
 		}
+		
+		obj.setCliente(txtCliente.getText());
 
 		if (txtQuantidade.getText().isEmpty()) {
 			exception.addError("quantidade", "Campo não pode ser vazio!");
@@ -258,6 +263,7 @@ public class PedidoFormController implements Initializable {
 		}
 
 		txtCodigo.setText(String.valueOf(entidade.getCodigo()));
+		txtCliente.setText(entidade.getCliente());
 		txtQuantidade.setText(String.valueOf(entidade.getQuantidade()));
 		txtPrecoTotal.setText(String.valueOf(entidade.getPrecoTotal()));
 
