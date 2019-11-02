@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #e4b6b2;;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PedidosController">
+<AnchorPane fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #e4b6b2; -fx-border-color: #000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PedidosController">
    <children>
-      <Rectangle fx:id="arrowPedidos" fill="#e4b6b2" height="50.0" layoutY="235.0" rotate="45.0" stroke="#e4b6b2" strokeType="INSIDE" width="50.0" />
+      <Rectangle fx:id="arrowPedidos" height="50.0" layoutY="235.0" rotate="45.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
       <SplitPane layoutX="32.0" layoutY="50.0" prefHeight="500.0" prefWidth="941.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
             <AnchorPane>
@@ -54,4 +54,7 @@
          </padding>
       </SplitPane>
    </children>
+   <padding>
+      <Insets left="1.0" />
+   </padding>
 </AnchorPane>

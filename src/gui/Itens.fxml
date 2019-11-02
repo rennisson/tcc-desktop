@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ItensController">
+<AnchorPane fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="900.0" style="-fx-border-color: #000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ItensController">
    <children>
-      <Rectangle fx:id="arrowEstoque" cache="true" cacheHint="SCALE_AND_ROTATE" fill="#e4b6b2" height="50.0" layoutY="284.0" rotate="45.0" stroke="#e4b6b2" strokeType="INSIDE" visible="false" width="50.0" />
+      <Rectangle fx:id="arrowEstoque" cache="true" cacheHint="SCALE_AND_ROTATE" height="50.0" layoutY="284.0" rotate="45.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="50.0" />
       <SplitPane prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
             <AnchorPane>
@@ -55,4 +55,10 @@
          </padding>
       </SplitPane>
    </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <padding>
+      <Insets left="1.0" />
+   </padding>
 </AnchorPane>

@@ -24,7 +24,7 @@
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/pedidos.png" />
+                        <Image url="@img/icons8_about_50px.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -39,7 +39,7 @@
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/estoque.png" />
+                        <Image url="@img/icons8_folder_invoices_50px.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -54,7 +54,7 @@
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/financeiro.png" />
+                        <Image url="@img/icons8_coins_80px_1.png" />
                      </image>
                   </ImageView>
                </graphic>
