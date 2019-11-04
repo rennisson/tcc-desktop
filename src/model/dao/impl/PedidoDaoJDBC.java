@@ -196,7 +196,8 @@ public class PedidoDaoJDBC implements PedidoDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT pedido.* , endereco.nome as EndNome, endereco.numero as EndNumero, endereco.bairro as EndBairro "
+					"SELECT pedido.* , endereco.cep as EndCep, endereco.nome as EndNome, endereco.numero as EndNumero, endereco.complemento as EndComplemento, "
+					+ "endereco.bairro as EndBairro, endereco.cidade as EndCidade, endereco.estado as EndEstado "
 					+ "FROM pedido INNER JOIN endereco "
 					+ "ON pedido.end_codigo = endereco.codigo "
 					+ "WHERE pedido.status = ?");
