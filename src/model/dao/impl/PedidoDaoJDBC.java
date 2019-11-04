@@ -15,6 +15,7 @@ import db.DbException;
 import model.dao.PedidoDao;
 import model.entities.Endereco;
 import model.entities.Pedido;
+import model.entities.Produto;
 
 public class PedidoDaoJDBC implements PedidoDao {
 	
@@ -31,15 +32,16 @@ public class PedidoDaoJDBC implements PedidoDao {
 		try {
 			st = conn.prepareStatement(
 					"INSERT INTO pedido "
-					+ "(quantidade, produto_nome, prod_preco, status, end_codigo) "
+					+ "(quantidade, produto_nome, prod_preco, status, end_codigo, cliente) "
 					+ "VALUES "
-					+ "(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+					+ "(?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
 			st.setInt(1, obj.getQuantidade());
 			st.setString(2, obj.getProduto().getNome());
 			st.setDouble(3, obj.getPrecoTotal());
 			st.setString(4, obj.getStatus());
 			st.setInt(5, obj.getEndereco().getCodigo());
+			st.setString(6, obj.getCliente());
 			
 			int rowsAffected = st.executeUpdate();
 			
@@ -70,14 +72,15 @@ public class PedidoDaoJDBC implements PedidoDao {
 		try {
 			st = conn.prepareStatement(
 					"UPDATE pedido "
-					+ "SET quantidade = ?, produto_nome = ?, prod_preco = ?, status = ? "
+					+ "SET quantidade = ?, produto_nome = ?, prod_preco = ?, status = ?, cliente = ? "
 					+ "WHERE codigo = ?");
 			
 			st.setInt(1, obj.getQuantidade());
 			st.setString(2, obj.getProduto().getNome());
 			st.setDouble(3, obj.getPrecoTotal());
 			st.setString(4, obj.getStatus());
-			st.setInt(5, obj.getCodigo());
+			st.setString(5, obj.getCliente());
+			st.setInt(6, obj.getCodigo());
 			
 			st.executeUpdate();
 		}
@@ -129,16 +132,22 @@ public class PedidoDaoJDBC implements PedidoDao {
 			rs = st.executeQuery();
 			
 			Map<Integer, Endereco> map = new HashMap<>();
+			Map<Integer, Produto> map2 = new HashMap<>();
 			
 			while (rs.next()) {
 				
 				Endereco endereco = map.get(rs.getInt("ped_codigo"));
+				Produto produto = map2.get(rs.getInt("produto_nome"));
 				
 				if(endereco == null) {
 					endereco = instantiateEndereco(rs);
 					map.put(rs.getInt("ped_codigo"), endereco);
 				}
-				Pedido obj = instantiatePedido(rs, endereco);
+				if (produto == null) {
+					produto = instantiateProduto(rs);
+					map2.put(rs.getInt("produto_nome"), produto);
+				}
+				Pedido obj = instantiatePedido(rs, endereco, produto);
 				return obj;
 			}
 			return null;
@@ -159,24 +168,33 @@ public class PedidoDaoJDBC implements PedidoDao {
 		try {
 			st = conn.prepareStatement(
 					"SELECT pedido.*, endereco.cep as EndCep, endereco.nome as EndNome, endereco.numero as EndNumero, endereco.complemento as EndComplemento, "
-					+ "endereco.bairro as EndBairro, endereco.cidade as EndCidade, endereco.estado as EndEstado "
+					+ "endereco.bairro as EndBairro, endereco.cidade as EndCidade, endereco.estado as EndEstado, produto.nome as ProdNome, produto.itens as ProdItens "
 					+ "FROM pedido INNER JOIN endereco "
-					+ "ON pedido.end_codigo = endereco.codigo");
+					+ "ON pedido.end_codigo = endereco.codigo "
+					+ "INNER JOIN produto "
+					+ "ON pedido.produto_nome = produto.nome");
 
 			rs = st.executeQuery();
 
 			List<Pedido> list = new ArrayList<>();
 			Map<Integer, Endereco> map = new HashMap<>();
+			Map<String, Produto> map2 = new HashMap<>();
 
 			while (rs.next()) {
 				
 				Endereco endereco = map.get(rs.getInt("codigo"));
+				Produto produto = map2.get(rs.getString("produto_nome"));
 				
 				if (endereco == null) {
 					endereco = instantiateEndereco(rs);
 					map.put(rs.getInt("codigo"), endereco);
 				}
-				Pedido obj = instantiatePedido(rs, endereco);
+				
+				if (produto == null) {
+					produto = instantiateProduto(rs);
+					map2.put(rs.getString("produto_nome"), produto);
+				}
+				Pedido obj = instantiatePedido(rs, endereco, produto);
 				list.add(obj);
 			}
 			return list;
@@ -207,16 +225,21 @@ public class PedidoDaoJDBC implements PedidoDao {
 
 			List<Pedido> list = new ArrayList<>();
 			Map<Integer, Endereco> map = new HashMap<>();
-
+			Map<Integer, Produto> map2 = new HashMap<>();
 			while (rs.next()) {
 				
 				Endereco endereco = map.get(rs.getInt("end_codigo"));
+				Produto produto = map2.get(rs.getString("produto_nome"));
 				
 				if (endereco == null) {
 					endereco = instantiateEndereco(rs);
 					map.put(rs.getInt("end_codigo"), endereco);
 				}
-				Pedido obj = instantiatePedido(rs, endereco);
+				if (produto == null) {
+					produto = instantiateProduto(rs);
+					map2.put(rs.getInt("produto_nome"), produto);
+				}
+				Pedido obj = instantiatePedido(rs, endereco, produto);
 				list.add(obj);
 			}
 			return list;
@@ -247,16 +270,22 @@ public class PedidoDaoJDBC implements PedidoDao {
 
 			List<Pedido> list = new ArrayList<>();
 			Map<Integer, Endereco> map = new HashMap<>();
+			Map<Integer, Produto> map2 = new HashMap<>();
 
 			while (rs.next()) {
 				
 				Endereco endereco = map.get(rs.getInt("end_codigo"));
+				Produto produto = map2.get(rs.getString("produto_nome"));
 				
 				if (endereco == null) {
 					endereco = instantiateEndereco(rs);
 					map.put(rs.getInt("end_codigo"), endereco);
 				}
-				Pedido obj = instantiatePedido(rs, endereco);
+				if (produto == null) {
+					produto = instantiateProduto(rs);
+					map2.put(rs.getInt("produto_nome"), produto);
+				}
+				Pedido obj = instantiatePedido(rs, endereco, produto);
 				list.add(obj);
 			}
 			return list;
@@ -270,7 +299,7 @@ public class PedidoDaoJDBC implements PedidoDao {
 		}
 	}	
 	
-	private Pedido instantiatePedido(ResultSet rs, Endereco endereco) throws SQLException {
+	private Pedido instantiatePedido(ResultSet rs, Endereco endereco, Produto produto) throws SQLException {
 		Pedido obj = new Pedido();
 		obj.setCodigo(rs.getInt("codigo"));
 		obj.setNome(rs.getString("produto_nome"));
@@ -279,6 +308,7 @@ public class PedidoDaoJDBC implements PedidoDao {
 		obj.setPrecoTotal(rs.getDouble("prod_preco"));
 		obj.setStatus(rs.getString("status"));
 		obj.setEndereco(endereco);
+		obj.setProduto(produto);
 		return obj;
 	}
 
@@ -292,6 +322,12 @@ public class PedidoDaoJDBC implements PedidoDao {
 		obj.setCidade(rs.getString("EndCidade"));
 		obj.setEstado(rs.getString("EndEstado"));
 		obj.setNumero(rs.getString("EndNumero"));
+		return obj;
+	}
+	
+	private Produto instantiateProduto(ResultSet rs) throws SQLException {
+		Produto obj = new Produto();
+		obj.setNome(rs.getString("ProdNome"));
 		return obj;
 	}
 }

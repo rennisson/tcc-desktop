@@ -267,7 +267,7 @@ public class PedidoFormController implements Initializable {
 		txtQuantidade.setText(String.valueOf(entidade.getQuantidade()));
 		txtPrecoTotal.setText(String.valueOf(entidade.getPrecoTotal()));
 
-		if (entidade.getProduto() == null) {
+		if (entidade.getNome() == null) {
 			comboBoxProduto.getSelectionModel().selectFirst();
 		} else {
 			comboBoxProduto.setValue(entidade.getProduto());
