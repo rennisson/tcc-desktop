@@ -26,4 +26,8 @@ public class ProdutoService {
 	public void remove(Produto obj) {
 		dao.deleteByName(obj.getNome());
 	}
+	
+	public List<Produto> findByName(String nome) {
+		return dao.findByName(nome);
+	}
 }

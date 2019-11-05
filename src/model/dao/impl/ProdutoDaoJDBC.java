@@ -94,22 +94,25 @@ public class ProdutoDaoJDBC implements ProdutoDao {
 	}
 
 	@Override
-	public Produto findByName(String nome) {
+	public List<Produto> findByName(String nome) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
 					"SELECT produto.* "
 					+ "FROM produto "
-					+ "WHERE produto.nome = ?");
+					+ "WHERE produto.nome LIKE ?");
 
-			st.setString(1, nome);
+			st.setString(1, "%" + nome + "%");
 			rs = st.executeQuery();
-			if (rs.next()) {
+			
+			List<Produto> list = new ArrayList<>();
+			
+			while (rs.next()) {
 				Produto obj = instantiateProduto(rs);
-				return obj;
+				list.add(obj);
 			}
-			return null;
+			return list;
 		}
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());

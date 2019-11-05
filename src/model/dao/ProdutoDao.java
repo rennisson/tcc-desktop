@@ -9,6 +9,6 @@ public interface ProdutoDao {
 	void insert(Produto obj);
 	void update(Produto obj);
 	void deleteByName(String nome);
-	Produto findByName(String nome);
+	List<Produto> findByName(String nome);
 	List<Produto> findAll();
 }

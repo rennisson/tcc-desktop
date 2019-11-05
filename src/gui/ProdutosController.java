@@ -24,7 +24,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
@@ -60,6 +62,12 @@ public class ProdutosController implements Initializable, DataChangeListener {
 	
 	@FXML
 	private Button btnNovoProduto;
+	
+	@FXML
+	private Button btnLimpar;
+	
+	@FXML
+	private TextField txtFiltroProdutos;
 	
 	private ObservableList<Produto> obsList;
 	
@@ -135,6 +143,31 @@ public class ProdutosController implements Initializable, DataChangeListener {
 		Stage parentStage = Utils.currentStage(event);
 		Produto obj = new Produto();
 		createDialogForm(obj, "/gui/ProdutoForm.fxml", parentStage);
+	}
+	
+	@FXML
+	private void ontTxtFiltroProdutosKeyPressed(KeyEvent e) {
+		if (txtFiltroProdutos.getText().isBlank()) {
+			updateTableView();
+		}
+		
+		try {
+			List<Produto> pedidos = service.findByName(txtFiltroProdutos.getText() + e.getText());
+			obsList = FXCollections.observableArrayList(pedidos);
+			tableViewProdutos.setItems(obsList);
+			initEditButtons();
+			initRemoveButtons();
+		} catch (NullPointerException ex) {
+			ex.getMessage();
+		} catch (NumberFormatException ex) {
+			ex.getMessage();
+		}
+	}
+	
+	@FXML
+	private void onBtnLimparPesquisaAction() {
+		txtFiltroProdutos.clear();
+		updateTableView();
 	}
 	
 	public void updateTableView() {
