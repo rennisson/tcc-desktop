@@ -76,6 +76,7 @@
                   <Insets right="10.0" />
                </padding>
             </Label>
+            <TextField fx:id="txtCodigo" editable="false" GridPane.columnIndex="1" />
             <Label text="Descrição:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                <font>
                   <Font size="14.0" />
@@ -84,6 +85,16 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </Label>
+            <ComboBox fx:id="comboBoxProduto" prefHeight="25.0" prefWidth="311.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Cliente:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="txtCliente" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="Quantidade:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                <font>
                   <Font size="14.0" />
@@ -92,34 +103,8 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Preço Total(R$):" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </Label>
-            <TextField fx:id="txtCodigo" editable="false" GridPane.columnIndex="1" />
-            <ComboBox fx:id="comboBoxProduto" prefHeight="25.0" prefWidth="311.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="txtQuantidade" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="txtPrecoTotal" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-            <HBox alignment="CENTER" prefHeight="72.0" prefWidth="272.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="29">
-               <children>
-                  <Button fx:id="btnSalvar" mnemonicParsing="false" onAction="#onBtnSalvar" text="Salvar">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#onBtnCancelar" text="Cancelar">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
             <Label fx:id="labelErrorQuantidade" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Label fx:id="labelErrorPrecoTotal" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="11" />
             <Label text="Status:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
                <font>
                   <Font size="14.0" />
@@ -129,11 +114,22 @@
                </GridPane.margin>
             </Label>
             <ComboBox fx:id="comboBoxStatus" prefHeight="25.0" prefWidth="284.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label text="Preço Total(R$):" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="txtPrecoTotal" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <Label fx:id="labelErrorPrecoTotal" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="11" />
             <Label text="ENDEREÇO" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="12">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
+            <TextField fx:id="txtCodigoEndereco" GridPane.columnIndex="1" GridPane.rowIndex="13" />
             <Label text="CEP:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="15">
                <font>
                   <Font size="14.0" />
@@ -143,7 +139,6 @@
                </GridPane.margin>
             </Label>
             <TextField fx:id="txtCEP" GridPane.columnIndex="1" GridPane.rowIndex="15" />
-            <Label text="Label" GridPane.rowIndex="17" />
             <Label text="Rua:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="17">
                <font>
                   <Font size="14.0" />
@@ -198,16 +193,20 @@
                </GridPane.margin>
             </Label>
             <TextField fx:id="txtEstado" GridPane.columnIndex="1" GridPane.rowIndex="27" />
-            <TextField fx:id="txtCodigoEndereco" GridPane.columnIndex="1" GridPane.rowIndex="13" />
-            <Label text="Cliente:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </Label>
-            <TextField fx:id="txtCliente" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <HBox alignment="CENTER" prefHeight="72.0" prefWidth="272.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="29">
+               <children>
+                  <Button fx:id="btnSalvar" defaultButton="true" mnemonicParsing="false" onAction="#onBtnSalvar" text="Salvar">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnCancelar" cancelButton="true" mnemonicParsing="false" onAction="#onBtnCancelar" text="Cancelar">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </GridPane>
    </children>

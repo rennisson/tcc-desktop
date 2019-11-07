@@ -56,6 +56,7 @@
                   <Insets right="10.0" />
                </padding>
             </Label>
+            <TextField fx:id="txtCodigo" editable="false" GridPane.columnIndex="1" />
             <Label text="Nome:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                <font>
                   <Font size="14.0" />
@@ -64,6 +65,7 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </Label>
+            <TextField fx:id="txtNome" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Peso:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                <font>
                   <Font size="14.0" />
@@ -72,6 +74,7 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </Label>
+            <TextField fx:id="txtPeso" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="Quantidade:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                <font>
                   <Font size="14.0" />
@@ -80,6 +83,7 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </Label>
+            <TextField fx:id="txtQuantidade" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Label text="Preço (R$)" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
                <font>
                   <Font size="14.0" />
@@ -88,25 +92,21 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="txtCodigo" editable="false" GridPane.columnIndex="1" />
-            <TextField fx:id="txtQuantidade" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="txtPreco" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
                <children>
-                  <Button fx:id="btnSalvar" mnemonicParsing="false" onAction="#onBtnSalvar" text="Salvar">
+                  <Button fx:id="btnSalvar" defaultButton="true" mnemonicParsing="false" onAction="#onBtnSalvar" text="Salvar">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#onBtnCancelar" text="Cancelar">
+                  <Button fx:id="btnCancelar" cancelButton="true" mnemonicParsing="false" onAction="#onBtnCancelar" text="Cancelar">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
                </children>
             </HBox>
-            <TextField fx:id="txtNome" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="txtPeso" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </children>
