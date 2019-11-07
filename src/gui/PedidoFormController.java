@@ -58,6 +58,9 @@ public class PedidoFormController implements Initializable {
 	
 	@FXML
 	private TextField txtCliente;
+	
+	@FXML
+	private TextField txtTelefone;
 
 	@FXML
 	private TextField txtQuantidade;
@@ -173,6 +176,8 @@ public class PedidoFormController implements Initializable {
 		} else {
 			labelErrorQuantidade.setText("");
 		}
+		
+		obj.setTelefone(txtTelefone.getText());
 		obj.setQuantidade(Utils.tryParseToInt(txtQuantidade.getText()));
 		
 		obj.setStatus(comboBoxStatus.getSelectionModel().getSelectedItem().toString());
@@ -264,6 +269,7 @@ public class PedidoFormController implements Initializable {
 
 		txtCodigo.setText(String.valueOf(entidade.getCodigo()));
 		txtCliente.setText(entidade.getCliente());
+		txtTelefone.setText(entidade.getTelefone());
 		txtQuantidade.setText(String.valueOf(entidade.getQuantidade()));
 		txtPrecoTotal.setText(String.valueOf(entidade.getPrecoTotal()));
 

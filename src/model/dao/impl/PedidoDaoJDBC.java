@@ -32,7 +32,7 @@ public class PedidoDaoJDBC implements PedidoDao {
 		try {
 			st = conn.prepareStatement(
 					"INSERT INTO pedido "
-					+ "(quantidade, produto_nome, prod_preco, status, end_codigo, cliente) "
+					+ "(quantidade, produto_nome, prod_preco, status, end_codigo, cliente, telefone) "
 					+ "VALUES "
 					+ "(?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
@@ -42,6 +42,7 @@ public class PedidoDaoJDBC implements PedidoDao {
 			st.setString(4, obj.getStatus());
 			st.setInt(5, obj.getEndereco().getCodigo());
 			st.setString(6, obj.getCliente());
+			st.setString(7, obj.getTelefone());
 			
 			int rowsAffected = st.executeUpdate();
 			
@@ -72,7 +73,7 @@ public class PedidoDaoJDBC implements PedidoDao {
 		try {
 			st = conn.prepareStatement(
 					"UPDATE pedido "
-					+ "SET quantidade = ?, produto_nome = ?, prod_preco = ?, status = ?, cliente = ? "
+					+ "SET quantidade = ?, produto_nome = ?, prod_preco = ?, status = ?, cliente = ?, telefone = ? "
 					+ "WHERE codigo = ?");
 			
 			st.setInt(1, obj.getQuantidade());
@@ -80,7 +81,8 @@ public class PedidoDaoJDBC implements PedidoDao {
 			st.setDouble(3, obj.getPrecoTotal());
 			st.setString(4, obj.getStatus());
 			st.setString(5, obj.getCliente());
-			st.setInt(6, obj.getCodigo());
+			st.setString(6, obj.getTelefone());
+			st.setInt(7, obj.getCodigo());
 			
 			st.executeUpdate();
 		}
@@ -304,6 +306,7 @@ public class PedidoDaoJDBC implements PedidoDao {
 		obj.setCodigo(rs.getInt("codigo"));
 		obj.setNome(rs.getString("produto_nome"));
 		obj.setCliente(rs.getString("cliente"));
+		obj.setTelefone(rs.getString("telefone"));
 		obj.setQuantidade(rs.getInt("quantidade"));
 		obj.setPrecoTotal(rs.getDouble("prod_preco"));
 		obj.setStatus(rs.getString("status"));
