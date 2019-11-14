@@ -54,7 +54,7 @@
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/icons8_coins_80px_1.png" />
+                        <Image url="@img/produtos.png" />
                      </image>
                   </ImageView>
                </graphic>

@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="767.0" prefWidth="456.0" style="-fx-background-color: #353535;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PedidoFormController">
+<AnchorPane prefHeight="778.0" prefWidth="456.0" style="-fx-background-color: #353535;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PedidoFormController">
    <children>
       <AnchorPane onMouseDragged="#stay" onMousePressed="#move" prefHeight="37.0" prefWidth="456.0" style="-fx-background-color: #000;">
          <children>
