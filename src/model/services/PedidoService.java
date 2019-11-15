@@ -34,4 +34,8 @@ public class PedidoService {
 	public List<Pedido> findByCliente(String nome) {
 		return dao.findByCliente(nome);
 	}
+	
+	public List<Pedido> findById(Integer id) {
+		return dao.findById(id);
+	}
 }

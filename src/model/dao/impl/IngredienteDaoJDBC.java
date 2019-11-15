@@ -110,22 +110,25 @@ public class IngredienteDaoJDBC implements IngredienteDao {
 	}
 
 	@Override
-	public Ingrediente findById(Integer id) {
+	public List<Ingrediente> findById(Integer id) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
 					"SELECT ingrediente.* "
 					+ "FROM ingrediente "
-					+ "WHERE ingrediente.id = ?");
+					+ "WHERE ingrediente.id LIKE ?");
 
-			st.setInt(1, id);
+			st.setString(1, "%" + id + "%");
 			rs = st.executeQuery();
-			if (rs.next()) {
+			
+			List<Ingrediente> list = new ArrayList<Ingrediente>();
+			
+			while (rs.next()) {
 				Ingrediente obj = instantiateIngrediente(rs);
-				return obj;
+				list.add(obj);
 			}
-			return null;
+			return list;
 		}
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());

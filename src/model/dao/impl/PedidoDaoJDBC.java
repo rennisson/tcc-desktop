@@ -120,39 +120,35 @@ public class PedidoDaoJDBC implements PedidoDao {
 	}
 
 	@Override
-	public Pedido findById(Integer id) {
+	public List<Pedido> findById(Integer id) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-					"SELECT pedido.*, endereco.nome as EndNome, endereco.numero as EndNumero, endereco.bairro as EndBairro "
+					"SELECT pedido.* ,endereco.cep as EndCep, endereco.nome as EndNome, endereco.numero as EndNumero, endereco.complemento as EndComplemento, "
+					+ "endereco.bairro as EndBairro, endereco.cidade as EndCidade, endereco.estado as EndEstado "
 					+ "FROM pedido INNER JOIN endereco "
 					+ "ON pedido.end_codigo = endereco.codigo "
-					+ "WHERE pedido.codigo = ?");
+					+ "WHERE pedido.codigo LIKE ?");
 
-			st.setInt(1, id);
+			st.setString(1, "%" + id + "%");
 			rs = st.executeQuery();
 			
+			List<Pedido> list = new ArrayList<Pedido>();
 			Map<Integer, Endereco> map = new HashMap<>();
-			Map<Integer, Produto> map2 = new HashMap<>();
-			
+
 			while (rs.next()) {
 				
-				Endereco endereco = map.get(rs.getInt("ped_codigo"));
-				Produto produto = map2.get(rs.getInt("produto_nome"));
+				Endereco endereco = map.get(rs.getInt("end_codigo"));
 				
-				if(endereco == null) {
+				if (endereco == null) {
 					endereco = instantiateEndereco(rs);
-					map.put(rs.getInt("ped_codigo"), endereco);
+					map.put(rs.getInt("end_codigo"), endereco);
 				}
-				if (produto == null) {
-					produto = instantiateProduto(rs);
-					map2.put(rs.getInt("produto_nome"), produto);
-				}
-				Pedido obj = instantiatePedido(rs, endereco, produto);
-				return obj;
+				Pedido obj = instantiatePedido(rs, endereco);
+				list.add(obj);
 			}
-			return null;
+			return list;
 		}
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());
@@ -227,21 +223,16 @@ public class PedidoDaoJDBC implements PedidoDao {
 
 			List<Pedido> list = new ArrayList<>();
 			Map<Integer, Endereco> map = new HashMap<>();
-			Map<Integer, Produto> map2 = new HashMap<>();
+			
 			while (rs.next()) {
 				
 				Endereco endereco = map.get(rs.getInt("end_codigo"));
-				Produto produto = map2.get(rs.getString("produto_nome"));
 				
 				if (endereco == null) {
 					endereco = instantiateEndereco(rs);
 					map.put(rs.getInt("end_codigo"), endereco);
 				}
-				if (produto == null) {
-					produto = instantiateProduto(rs);
-					map2.put(rs.getInt("produto_nome"), produto);
-				}
-				Pedido obj = instantiatePedido(rs, endereco, produto);
+				Pedido obj = instantiatePedido(rs, endereco);
 				list.add(obj);
 			}
 			return list;
@@ -272,22 +263,16 @@ public class PedidoDaoJDBC implements PedidoDao {
 
 			List<Pedido> list = new ArrayList<>();
 			Map<Integer, Endereco> map = new HashMap<>();
-			Map<Integer, Produto> map2 = new HashMap<>();
 
 			while (rs.next()) {
 				
 				Endereco endereco = map.get(rs.getInt("end_codigo"));
-				Produto produto = map2.get(rs.getString("produto_nome"));
 				
 				if (endereco == null) {
 					endereco = instantiateEndereco(rs);
 					map.put(rs.getInt("end_codigo"), endereco);
 				}
-				if (produto == null) {
-					produto = instantiateProduto(rs);
-					map2.put(rs.getInt("produto_nome"), produto);
-				}
-				Pedido obj = instantiatePedido(rs, endereco, produto);
+				Pedido obj = instantiatePedido(rs, endereco);
 				list.add(obj);
 			}
 			return list;
@@ -299,7 +284,20 @@ public class PedidoDaoJDBC implements PedidoDao {
 			DB.closeStatement(st);
 			DB.closeResultSet(rs);
 		}
-	}	
+	}
+	
+	private Pedido instantiatePedido(ResultSet rs, Endereco endereco) throws SQLException {
+		Pedido obj = new Pedido();
+		obj.setCodigo(rs.getInt("codigo"));
+		obj.setNome(rs.getString("produto_nome"));
+		obj.setCliente(rs.getString("cliente"));
+		obj.setTelefone(rs.getString("telefone"));
+		obj.setQuantidade(rs.getInt("quantidade"));
+		obj.setPrecoTotal(rs.getDouble("prod_preco"));
+		obj.setStatus(rs.getString("status"));
+		obj.setEndereco(endereco);
+		return obj;
+	}
 	
 	private Pedido instantiatePedido(ResultSet rs, Endereco endereco, Produto produto) throws SQLException {
 		Pedido obj = new Pedido();
@@ -330,7 +328,7 @@ public class PedidoDaoJDBC implements PedidoDao {
 	
 	private Produto instantiateProduto(ResultSet rs) throws SQLException {
 		Produto obj = new Produto();
-		obj.setNome(rs.getString("ProdNome"));
+		obj.setNome(rs.getString("produto_nome"));
 		return obj;
 	}
 }

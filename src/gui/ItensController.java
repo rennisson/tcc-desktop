@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 import db.DbIntegrityException;
 import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
-import gui.util.Constraints;
 import gui.util.Utils;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -34,7 +33,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.entities.Cliente;
 import model.entities.Ingrediente;
 import model.services.IngredienteService;
 
@@ -210,16 +208,41 @@ public class ItensController implements Initializable, DataChangeListener {
 			updateTableView();
 		}
 		
+		int id = 0;
+		boolean x = false;
+		
 		try {
-			List<Ingrediente> ingrediente = service.findByNome(txtFiltroEstoque.getText() + e.getText());
-			obsList = FXCollections.observableArrayList(ingrediente);
-			tableViewEstoque.setItems(obsList);
-			initEditButtons();
-			initRemoveButtons();
-		} catch (NullPointerException ex) {
-			ex.getMessage();
-		} catch (NumberFormatException ex) {
-			ex.getMessage();
+			id = Integer.parseInt(txtFiltroEstoque.getText() + e.getText());
+			x = true;
+		}
+		catch (NumberFormatException ex) {
+		}
+		
+		if (x == false) {
+			try {
+				List<Ingrediente> ingrediente = service.findByNome(txtFiltroEstoque.getText() + e.getText());
+				obsList = FXCollections.observableArrayList(ingrediente);
+				tableViewEstoque.setItems(obsList);
+				initEditButtons();
+				initRemoveButtons();
+			} catch (NullPointerException ex) {
+				ex.getMessage();
+			} catch (NumberFormatException ex) {
+				ex.getMessage();
+			}
+		}
+		else if (x == true) {
+			try {
+				List<Ingrediente> ingrediente = service.findById(id);
+				obsList = FXCollections.observableArrayList(ingrediente);
+				tableViewEstoque.setItems(obsList);
+				initEditButtons();
+				initRemoveButtons();
+			} catch (NullPointerException ex) {
+				ex.getMessage();
+			} catch (NumberFormatException ex) {
+				ex.getMessage();
+			}
 		}
 	}
 	

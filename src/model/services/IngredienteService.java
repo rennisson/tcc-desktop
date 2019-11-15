@@ -30,4 +30,8 @@ public class IngredienteService {
 	public List<Ingrediente> findByNome(String nome) {
 		return dao.findByNome(nome);
 	}
+	
+	public List<Ingrediente> findById(Integer id) {
+		return dao.findById(id);
+	}
 }

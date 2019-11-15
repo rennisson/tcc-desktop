@@ -47,16 +47,16 @@ public class PedidosController implements Initializable, DataChangeListener {
 
 	@FXML
 	private Rectangle arrowPedidos;
-	
+
 	@FXML
 	private TextField txtFiltroPedidos;
-	
+
 	@FXML
 	private Button btnLimparPesquisa;
-	
+
 	@FXML
 	private Button btnTodosPedidos;
-	
+
 	@FXML
 	private Button btnFiltroPedidos;
 
@@ -71,7 +71,7 @@ public class PedidosController implements Initializable, DataChangeListener {
 
 	@FXML
 	private TableColumn<Pedido, String> tableColumnPedido;
-	
+
 	@FXML
 	private TableColumn<Pedido, String> tableColumnCliente;
 
@@ -80,7 +80,7 @@ public class PedidosController implements Initializable, DataChangeListener {
 
 	@FXML
 	private TableColumn<Pedido, Double> tableColumnPreco;
-	
+
 	@FXML
 	private TableColumn<Pedido, String> tableColumnStatus;
 
@@ -103,7 +103,7 @@ public class PedidosController implements Initializable, DataChangeListener {
 
 	private void initializeNodes() {
 		arrowPedidos.setVisible(true);
-		
+
 		tableColumnCodigo.setCellValueFactory(new PropertyValueFactory<>("Codigo"));
 		tableColumnPedido.setCellValueFactory(new PropertyValueFactory<>("Nome"));
 		tableColumnCliente.setCellValueFactory(new PropertyValueFactory<>("Cliente"));
@@ -150,7 +150,7 @@ public class PedidosController implements Initializable, DataChangeListener {
 
 	private void removeEntity(Pedido obj) {
 		Optional<ButtonType> result = Alerts.showConfirmation("Confirmação", "Tem certeza que quer deletar?");
-		
+
 		if (result.get() == ButtonType.OK) {
 			if (service == null) {
 				throw new IllegalStateException("Serviço estava nulo!");
@@ -158,25 +158,24 @@ public class PedidosController implements Initializable, DataChangeListener {
 			try {
 				service.remove(obj);
 				updateTableView();
-			}
-			catch (DbIntegrityException e) {
+			} catch (DbIntegrityException e) {
 				Alerts.showAlert("Erro ao remover objeto", null, e.getMessage(), AlertType.ERROR);
 			}
 		}
 	}
-	
+
 	@FXML
 	private void onBtnNovoPedidoAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
 		Pedido obj = new Pedido();
 		createDialogForm(obj, "/gui/PedidoForm.fxml", parentStage);
 	}
-	
+
 	@FXML
 	private void onBtnTodosPedidosAction(ActionEvent event) {
 		updateTableView();
 	}
-	
+
 	@FXML
 	private void onBtnFiltroPedidosAction(ActionEvent event) {
 		if (btnFiltroPedidos.getText().contentEquals("Pedidos concluídos")) {
@@ -185,39 +184,64 @@ public class PedidosController implements Initializable, DataChangeListener {
 			tableViewPedidos.setItems(obsList);
 			initEditButtons();
 			initRemoveButtons();
-			
+
 			btnFiltroPedidos.setText("Pedidos pendentes");
-		}
-		else if (btnFiltroPedidos.getText().contentEquals("Pedidos pendentes")) {
+		} else if (btnFiltroPedidos.getText().contentEquals("Pedidos pendentes")) {
 			List<Pedido> list = service.findByStatus("PENDENTE");
 			obsList = FXCollections.observableArrayList(list);
 			tableViewPedidos.setItems(obsList);
 			initEditButtons();
 			initRemoveButtons();
-			
+
 			btnFiltroPedidos.setText("Pedidos concluídos");
 		}
 	}
-	
+
 	@FXML
 	private void ontTxtFiltroPedidosKeyPressed(KeyEvent e) {
 		if (txtFiltroPedidos.getText().isBlank()) {
 			updateTableView();
 		}
 		
+		int i = 0;
+		boolean x = false;
+		
 		try {
-			List<Pedido> pedidos = service.findByCliente(txtFiltroPedidos.getText() + e.getText());
-			obsList = FXCollections.observableArrayList(pedidos);
-			tableViewPedidos.setItems(obsList);
-			initEditButtons();
-			initRemoveButtons();
-		} catch (NullPointerException ex) {
-			ex.getMessage();
-		} catch (NumberFormatException ex) {
-			ex.getMessage();
+			i = Integer.parseInt(txtFiltroPedidos.getText() + e.getText());
+			x = true;
 		}
+		catch (NumberFormatException ex) {
+		}
+		
+		if (x == false) {
+			try {
+				List<Pedido> pedidos = service.findByCliente(txtFiltroPedidos.getText() + e.getText());
+				obsList = FXCollections.observableArrayList(pedidos);
+				tableViewPedidos.setItems(obsList);
+				initEditButtons();
+				initRemoveButtons();
+			} catch (NullPointerException ex) {
+				ex.getMessage();
+			} catch (NumberFormatException ex) {
+				ex.getMessage();
+			}
+		}
+		else if (x == true) {
+			try {
+				List<Pedido> pedidos = service.findById(i);
+				obsList = FXCollections.observableArrayList(pedidos);
+				tableViewPedidos.setItems(obsList);
+				initEditButtons();
+				initRemoveButtons();
+			} catch (NullPointerException ex) {
+				ex.getMessage();
+			} catch (NumberFormatException ex) {
+				ex.getMessage();
+			}
+		}
+		
 	}
-	
+
 	@FXML
 	private void onBtnLimparPesquisaAction() {
 		txtFiltroPedidos.clear();
@@ -228,7 +252,7 @@ public class PedidosController implements Initializable, DataChangeListener {
 		if (service == null) {
 			throw new IllegalStateException("Service estava nulo");
 		}
-		
+
 		List<Pedido> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
 		tableViewPedidos.setItems(obsList);
