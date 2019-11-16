@@ -32,9 +32,9 @@ public class PedidoDaoJDBC implements PedidoDao {
 		try {
 			st = conn.prepareStatement(
 					"INSERT INTO pedido "
-					+ "(quantidade, produto_nome, prod_preco, status, end_codigo, cliente, telefone) "
+					+ "(quantidade, produto_nome, preco, status, end_codigo, cliente, telefone) "
 					+ "VALUES "
-					+ "(?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+					+ "(?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
 			st.setInt(1, obj.getQuantidade());
 			st.setString(2, obj.getProduto().getNome());
@@ -73,7 +73,7 @@ public class PedidoDaoJDBC implements PedidoDao {
 		try {
 			st = conn.prepareStatement(
 					"UPDATE pedido "
-					+ "SET quantidade = ?, produto_nome = ?, prod_preco = ?, status = ?, cliente = ?, telefone = ? "
+					+ "SET quantidade = ?, produto_nome = ?, preco = ?, status = ?, cliente = ?, telefone = ? "
 					+ "WHERE codigo = ?");
 			
 			st.setInt(1, obj.getQuantidade());
@@ -293,7 +293,7 @@ public class PedidoDaoJDBC implements PedidoDao {
 		obj.setCliente(rs.getString("cliente"));
 		obj.setTelefone(rs.getString("telefone"));
 		obj.setQuantidade(rs.getInt("quantidade"));
-		obj.setPrecoTotal(rs.getDouble("prod_preco"));
+		obj.setPrecoTotal(rs.getDouble("preco"));
 		obj.setStatus(rs.getString("status"));
 		obj.setEndereco(endereco);
 		return obj;
@@ -306,7 +306,7 @@ public class PedidoDaoJDBC implements PedidoDao {
 		obj.setCliente(rs.getString("cliente"));
 		obj.setTelefone(rs.getString("telefone"));
 		obj.setQuantidade(rs.getInt("quantidade"));
-		obj.setPrecoTotal(rs.getDouble("prod_preco"));
+		obj.setPrecoTotal(rs.getDouble("preco"));
 		obj.setStatus(rs.getString("status"));
 		obj.setEndereco(endereco);
 		obj.setProduto(produto);

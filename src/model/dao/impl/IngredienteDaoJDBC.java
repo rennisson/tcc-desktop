@@ -91,7 +91,7 @@ public class IngredienteDaoJDBC implements IngredienteDao {
 		try {
 			st = conn.prepareStatement(
 					"DELETE FROM ingrediente "
-					+ "WHERE id = ?");
+					+ "WHERE codigo = ?");
 			
 			st.setInt(1, id);
 			
@@ -117,7 +117,7 @@ public class IngredienteDaoJDBC implements IngredienteDao {
 			st = conn.prepareStatement(
 					"SELECT ingrediente.* "
 					+ "FROM ingrediente "
-					+ "WHERE ingrediente.id LIKE ?");
+					+ "WHERE ingrediente.codigo LIKE ?");
 
 			st.setString(1, "%" + id + "%");
 			rs = st.executeQuery();
@@ -178,7 +178,7 @@ public class IngredienteDaoJDBC implements IngredienteDao {
 					+ "FROM ingrediente "
 					+ "WHERE ingrediente.descricao "
 					+ "LIKE ? "
-					+ "ORDER BY id ASC");
+					+ "ORDER BY codigo ASC");
 			
 			st.setString(1, "%" + nome + "%");
 			rs = st.executeQuery();
@@ -202,7 +202,7 @@ public class IngredienteDaoJDBC implements IngredienteDao {
 	
 	private Ingrediente instantiateIngrediente(ResultSet rs) throws SQLException {
 		Ingrediente obj = new Ingrediente();
-		obj.setId(rs.getInt("id"));
+		obj.setId(rs.getInt("codigo"));
 		obj.setDescricao(rs.getString("descricao"));
 		obj.setPreco(rs.getDouble("preco"));
 		obj.setQuantidade(rs.getInt("quantidade"));
