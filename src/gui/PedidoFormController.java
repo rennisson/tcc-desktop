@@ -60,7 +60,13 @@ public class PedidoFormController implements Initializable {
 	private TextField txtCliente;
 	
 	@FXML
+	private Label labelErrorCliente;
+	
+	@FXML
 	private TextField txtTelefone;
+	
+	@FXML
+	private Label labelErrorTelefone;
 
 	@FXML
 	private TextField txtQuantidade;
@@ -73,6 +79,9 @@ public class PedidoFormController implements Initializable {
 
 	@FXML
 	private TextField txtPrecoTotal;
+
+	@FXML
+	private Label labelErrorPrecoTotal;
 	
 	@FXML
 	private TextField txtCodigoEndereco;
@@ -81,25 +90,43 @@ public class PedidoFormController implements Initializable {
 	private TextField txtCEP;
 	
 	@FXML
+	private Label labelErrorCEP;
+	
+	@FXML
 	private TextField txtRua;
+	
+	@FXML
+	private Label labelErrorRua;
 	
 	@FXML
 	private TextField txtNumero;
 	
 	@FXML
+	private Label labelErrorNumero;
+	
+	@FXML
 	private TextField txtComplemento;
+	
+	@FXML
+	private Label labelErrorComplemento;
 	
 	@FXML
 	private TextField txtBairro;
 	
 	@FXML
+	private Label labelErrorBairro;
+	
+	@FXML
 	private TextField txtCidade;
 	
 	@FXML
-	private TextField txtEstado;
-
+	private Label labelErrorCidade;
+	
 	@FXML
-	private Label labelErrorPrecoTotal;
+	private TextField txtEstado;
+	
+	@FXML
+	private Label labelErrorEstado;
 
 	@FXML
 	private Button btnSalvar;
@@ -158,54 +185,79 @@ public class PedidoFormController implements Initializable {
 
 	private Pedido getFormData() {
 		Pedido obj = new Pedido();
+		
+		boolean x = false;
 
 		ValidationException exception = new ValidationException("Erro de validação");
 
 		obj.setCodigo(Utils.tryParseToInt(txtCodigo.getText()));
 		
-		if (txtCodigo.getText().isEmpty()) {
+		obj.setProduto(comboBoxProduto.getValue());
+		
+		if (txtCliente.getText() == null || txtCliente.getText().trim().equals("")) {
 			exception.addError("cliente", "Campo não pode ser vazio!");
-		} else {
-			obj.setProduto(comboBoxProduto.getValue());
 		}
-		
 		obj.setCliente(txtCliente.getText());
-
-		if (txtQuantidade.getText().isEmpty()) {
-			exception.addError("quantidade", "Campo não pode ser vazio!");
-		} else {
-			labelErrorQuantidade.setText("");
-		}
 		
-		obj.setTelefone(txtTelefone.getText());
+		if (txtQuantidade.getText() == null || txtQuantidade.getText().trim().equals("")) {
+			exception.addError("quantidade", "Campo não pode ser vazio!");
+		}
 		obj.setQuantidade(Utils.tryParseToInt(txtQuantidade.getText()));
+		
+		if (txtTelefone.getText() == null || txtTelefone.getText().trim().equals("")) {
+			exception.addError("telefone", "Campo não pode ser vazio!");
+		}
+		obj.setTelefone(txtTelefone.getText());
 		
 		obj.setStatus(comboBoxStatus.getSelectionModel().getSelectedItem().toString());
 
-		if (txtPrecoTotal.getText().isEmpty()) {
+		if (txtPrecoTotal.getText() == null || txtPrecoTotal.getText().trim().equals("")) {
 			exception.addError("precoTotal", "Campo não pode ser vazio!");
-		} else {
-			labelErrorPrecoTotal.setText("");
 		}
 		obj.setPrecoTotal(Utils.tryParseToDouble(txtPrecoTotal.getText()));
 		
-		if (txtCodigoEndereco.getText().isBlank()) {
-			entidadeEndereco = enderecoService.saveOrUpdate(getFormEnderecoData());
-		}
-		else if (Integer.parseInt(txtCodigoEndereco.getText()) > 1) {
-			entidadeEndereco = enderecoService.findById(Integer.parseInt(txtCodigoEndereco.getText()));
-			Endereco endereco = new Endereco();
-			endereco.setCodigo(Integer.parseInt(txtCodigoEndereco.getText()));
-			endereco.setCep(txtCEP.getText());
-			endereco.setRua(txtRua.getText());
-			endereco.setNumero(txtNumero.getText());
-			endereco.setBairro(txtBairro.getText());
-			endereco.setCidade(txtCidade.getText());
-			endereco.setEstado(txtEstado.getText());
-			enderecoService.update(endereco);
+		if (txtCEP.getText() == null || txtCEP.getText().trim().equals("")) {
+			exception.addError("cep", "Campo não pode ser vazio!");
+			x = true;
+		} if (txtRua.getText() == null || txtRua.getText().trim().equals("")) {
+			exception.addError("rua", "Campo não pode ser vazio!");
+			x = true;
+		} if (txtNumero.getText() == null || txtNumero.getText().trim().equals("")) {
+			exception.addError("numero", "Campo não pode ser vazio!");
+			x = true;
+		} if (txtBairro.getText() == null || txtBairro.getText().trim().equals("")) {
+			exception.addError("bairro", "Campo não pode ser vazio!");
+			x = true;
+		} if (txtCidade.getText() == null || txtCidade.getText().trim().equals("")) {
+			exception.addError("cidade", "Campo não pode ser vazio!");
+			x = true;
+		} if (txtEstado.getText() == null || txtEstado.getText().trim().equals("")) {
+			exception.addError("estado", "Campo não pode ser vazio!");
+			x = true;
 		}
 		
-		obj.setEndereco(entidadeEndereco);
+		if (x == false) {
+			if (txtCodigoEndereco.getText().isBlank()) {
+				entidadeEndereco = enderecoService.saveOrUpdate(getFormEnderecoData());
+				obj.setEndereco(entidadeEndereco);
+			}	
+			else if (Integer.parseInt(txtCodigoEndereco.getText()) > 1) {
+				entidadeEndereco = enderecoService.findById(Integer.parseInt(txtCodigoEndereco.getText()));
+				Endereco endereco = new Endereco();
+				
+				endereco.setCodigo(Integer.parseInt(txtCodigoEndereco.getText()));
+				endereco.setCep(txtCEP.getText());
+				endereco.setRua(txtRua.getText());
+				endereco.setNumero(txtNumero.getText());
+				endereco.setBairro(txtBairro.getText());
+				endereco.setCidade(txtCidade.getText());
+				endereco.setEstado(txtEstado.getText());
+				endereco.setComplemento(txtComplemento.getText());
+				
+				enderecoService.update(endereco);
+			}
+		}
+		
 
 		if (exception.getErrors().size() > 0) {
 			throw exception;
@@ -299,12 +351,70 @@ public class PedidoFormController implements Initializable {
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
 		
-		if (fields.contains("precoTotal")) {
-			labelErrorPrecoTotal.setText(errors.get("precoTotal"));
+		if (fields.contains("cliente")) {
+			labelErrorCliente.setText(errors.get("cliente"));
+		} else {
+			labelErrorCliente.setText("");
+		}
+		
+		if (fields.contains("telefone")) {
+			labelErrorTelefone.setText(errors.get("telefone"));
+		} else {
+			labelErrorTelefone.setText("");
 		}
 		
 		if (fields.contains("quantidade")) {
 			labelErrorQuantidade.setText(errors.get("quantidade"));
+		} else {
+			labelErrorQuantidade.setText("");
+		}
+		
+		if (fields.contains("precoTotal")) {
+			labelErrorPrecoTotal.setText(errors.get("precoTotal"));
+		} else {
+			labelErrorPrecoTotal.setText("");
+		}
+		
+		if (fields.contains("cep")) {
+			labelErrorCEP.setText(errors.get("cep"));
+		} else {
+			labelErrorCEP.setText("");
+		}
+		
+		if (fields.contains("rua")) {
+			labelErrorRua.setText(errors.get("rua"));
+		} else {
+			labelErrorRua.setText("");
+		}
+		
+		if (fields.contains("numero")) {
+			labelErrorNumero.setText(errors.get("numero"));
+		} else {
+			labelErrorNumero.setText("");
+		}
+		
+		if (fields.contains("complemento")) {
+			labelErrorComplemento.setText(errors.get("complemento"));
+		} else {
+			labelErrorComplemento.setText("");
+		}
+		
+		if (fields.contains("bairro")) {
+			labelErrorBairro.setText(errors.get("bairro"));
+		} else {
+			labelErrorBairro.setText("");
+		}
+		
+		if (fields.contains("cidade")) {
+			labelErrorCidade.setText(errors.get("cidade"));
+		} else {
+			labelErrorCidade.setText("");
+		}
+		
+		if (fields.contains("estado")) {
+			labelErrorEstado.setText(errors.get("estado"));
+		} else {
+			labelErrorEstado.setText("");
 		}
 
 	}

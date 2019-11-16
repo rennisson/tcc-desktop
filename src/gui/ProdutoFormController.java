@@ -20,6 +20,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -44,6 +45,9 @@ public class ProdutoFormController implements Initializable {
 
 	@FXML
 	private TextField txtProduto;
+	
+	@FXML
+	private Label labelErrorProduto;
 
 	@FXML
 	private ComboBox<Ingrediente> comboBoxItens;
@@ -109,7 +113,10 @@ public class ProdutoFormController implements Initializable {
 		Produto obj = new Produto();
 
 		ValidationException exception = new ValidationException("Erro de validação");
-
+		
+		if (txtProduto.getText() == null || txtProduto.getText().trim().equals("")) {
+			exception.addError("produto", "Campo não pode ser vazio!");
+		}
 		obj.setNome(txtProduto.getText());
 
 		String lista = listItens.getItems().toString();
@@ -182,6 +189,12 @@ public class ProdutoFormController implements Initializable {
 
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
+		
+		if (fields.contains("produto")) {
+			labelErrorProduto.setText(errors.get("produto"));
+		} else {
+			labelErrorProduto.setText("");
+		}
 
 	}
 

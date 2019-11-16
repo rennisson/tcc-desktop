@@ -66,6 +66,10 @@
                </GridPane.margin>
             </Label>
             <TextField fx:id="txtNome" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="labelErrorNome" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font size="11.0" />
+               </font></Label>
             <Label text="Peso:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                <font>
                   <Font size="14.0" />
@@ -75,6 +79,11 @@
                </GridPane.margin>
             </Label>
             <TextField fx:id="txtPeso" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="labelErrorPeso" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
             <Label text="Quantidade:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                <font>
                   <Font size="14.0" />
@@ -84,6 +93,11 @@
                </GridPane.margin>
             </Label>
             <TextField fx:id="txtQuantidade" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label fx:id="labelErrorQuantidade" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
             <Label text="Preço (R$)" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
                <font>
                   <Font size="14.0" />
@@ -93,6 +107,10 @@
                </GridPane.margin>
             </Label>
             <TextField fx:id="txtPreco" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label fx:id="labelErrorPreco" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="9">
+               <font>
+                  <Font size="11.0" />
+               </font></Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
                <children>
                   <Button fx:id="btnSalvar" defaultButton="true" mnemonicParsing="false" onAction="#onBtnSalvar" text="Salvar">

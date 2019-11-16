@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -40,13 +41,25 @@ public class ItensFormController implements Initializable {
 	private TextField txtNome;
 	
 	@FXML
+	private Label labelErrorNome;
+	
+	@FXML
 	private TextField txtPeso;
+	
+	@FXML
+	private Label labelErrorPeso;
 	
 	@FXML
 	private TextField txtQuantidade;
 	
 	@FXML
+	private Label labelErrorQuantidade;
+	
+	@FXML
 	private TextField txtPreco;
+	
+	@FXML
+	private Label labelErrorPreco;
 	
 	@FXML
 	private Button btnSalvar;
@@ -102,9 +115,25 @@ public class ItensFormController implements Initializable {
 		ValidationException exception = new ValidationException("Erro de validação");
 		
 		obj.setId(Utils.tryParseToInt(txtCodigo.getText()));
+		
+		if (txtNome.getText() == null || txtNome.getText().trim().equals("")) {
+			exception.addError("nome", "Campo não pode ser vazio!");
+		}
 		obj.setDescricao(txtNome.getText());
+		
+		if (txtPeso.getText() == null || txtPeso.getText().trim().equals("")) {
+			exception.addError("peso", "Campo não pode ser vazio!");
+		}
 		obj.setPeso(Utils.tryParseToInt(txtPeso.getText()));
+		
+		if (txtQuantidade.getText() == null || txtQuantidade.getText().trim().equals("")) {
+			exception.addError("quantidade", "Campo não pode ser vazio!");
+		}
 		obj.setQuantidade(Utils.tryParseToInt(txtQuantidade.getText()));
+		
+		if (txtPreco.getText() == null || txtPreco.getText().trim().equals("")) {
+			exception.addError("preco", "Campo não pode ser vazio!");
+		}
 		obj.setPreco(Utils.tryParseToDouble(txtPreco.getText()));
 		
 		if (exception.getErrors().size() > 0) {
@@ -143,6 +172,30 @@ public class ItensFormController implements Initializable {
 	
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
+		
+		if (fields.contains("nome")) {
+			labelErrorNome.setText(errors.get("nome"));
+		} else {
+			labelErrorNome.setText("");
+		}
+		
+		if (fields.contains("preco")) {
+			labelErrorPreco.setText(errors.get("preco"));
+		} else {
+			labelErrorPreco.setText("");
+		}
+		
+		if (fields.contains("peso")) {
+			labelErrorPeso.setText(errors.get("peso"));
+		} else {
+			labelErrorPeso.setText("");
+		}
+		
+		if (fields.contains("quantidade")) {
+			labelErrorQuantidade.setText(errors.get("quantidade"));
+		} else {
+			labelErrorQuantidade.setText("");
+		}
 	}
 	
 	private double xOffset = 0;

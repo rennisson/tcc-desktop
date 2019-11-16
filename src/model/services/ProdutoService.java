@@ -15,7 +15,9 @@ public class ProdutoService {
 	}
 	
 	public void saveOrUpdate(Produto obj) {
-		if (dao.findByName(obj.getNome()) == null) {
+		List<Produto> list = dao.findByName(obj.getNome());
+		
+		if (list.size() <= 0) {
 			dao.insert(obj);
 		}
 		else {

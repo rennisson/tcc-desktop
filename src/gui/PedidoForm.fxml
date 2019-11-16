@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="778.0" prefWidth="162.0" style="-fx-background-color: #353535;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PedidoFormController">
+<AnchorPane prefHeight="877.0" prefWidth="420.0" style="-fx-background-color: #353535;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PedidoFormController">
    <children>
       <AnchorPane onMouseDragged="#stay" onMousePressed="#move" prefHeight="37.0" prefWidth="420.0" style="-fx-background-color: #000;">
          <children>
@@ -30,7 +30,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <GridPane layoutX="22.0" layoutY="53.0" prefHeight="711.0" prefWidth="377.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="53.0">
+      <GridPane layoutX="22.0" layoutY="53.0" prefHeight="810.0" prefWidth="377.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="53.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="97.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="272.0" minWidth="10.0" prefWidth="258.0" />
@@ -97,6 +97,25 @@
                </GridPane.margin>
             </Label>
             <TextField fx:id="txtCliente" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="labelErrorCliente" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+            <Label text="Telefone:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="txtTelefone" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label fx:id="labelErrorTelefone" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
             <Label text="Quantidade:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
                <font>
                   <Font size="14.0" />
@@ -106,7 +125,10 @@
                </GridPane.margin>
             </Label>
             <TextField fx:id="txtQuantidade" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <Label fx:id="labelErrorQuantidade" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <Label fx:id="labelErrorQuantidade" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="9">
+               <font>
+                  <Font size="11.0" />
+               </font></Label>
             <Label text="Status:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="10">
                <font>
                   <Font size="14.0" />
@@ -125,13 +147,16 @@
                </GridPane.margin>
             </Label>
             <TextField fx:id="txtPrecoTotal" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-            <Label fx:id="labelErrorPrecoTotal" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+            <Label fx:id="labelErrorPrecoTotal" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="13">
+               <font>
+                  <Font size="11.0" />
+               </font></Label>
             <Label text="ENDEREÇO" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="14">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="txtCodigoEndereco" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+            <TextField fx:id="txtCodigoEndereco" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="15" />
             <Label text="CEP:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="17">
                <font>
                   <Font size="14.0" />
@@ -141,6 +166,11 @@
                </GridPane.margin>
             </Label>
             <TextField fx:id="txtCEP" GridPane.columnIndex="1" GridPane.rowIndex="17" />
+            <Label fx:id="labelErrorCEP" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="18">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
             <Label text="Rua:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="19">
                <font>
                   <Font size="14.0" />
@@ -150,6 +180,11 @@
                </GridPane.margin>
             </Label>
             <TextField fx:id="txtRua" GridPane.columnIndex="1" GridPane.rowIndex="19" />
+            <Label fx:id="labelErrorRua" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="20">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
             <Label text="Número:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="21">
                <font>
                   <Font size="14.0" />
@@ -159,6 +194,11 @@
                </GridPane.margin>
             </Label>
             <TextField fx:id="txtNumero" GridPane.columnIndex="1" GridPane.rowIndex="21" />
+            <Label fx:id="labelErrorNumero" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="22">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
             <Label text="Complemento:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="23">
                <font>
                   <Font size="14.0" />
@@ -168,6 +208,11 @@
                </GridPane.margin>
             </Label>
             <TextField fx:id="txtComplemento" GridPane.columnIndex="1" GridPane.rowIndex="23" />
+            <Label fx:id="labelErrorComplemento" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="24">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
             <Label text="Bairro:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="25">
                <font>
                   <Font size="14.0" />
@@ -177,6 +222,11 @@
                </GridPane.margin>
             </Label>
             <TextField fx:id="txtBairro" GridPane.columnIndex="1" GridPane.rowIndex="25" />
+            <Label fx:id="labelErrorBairro" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="26">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
             <Label text="Cidade:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="27">
                <font>
                   <Font size="14.0" />
@@ -186,6 +236,11 @@
                </GridPane.margin>
             </Label>
             <TextField fx:id="txtCidade" GridPane.columnIndex="1" GridPane.rowIndex="27" />
+            <Label fx:id="labelErrorCidade" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="28">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
             <Label text="Estado:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="29">
                <font>
                   <Font size="14.0" />
@@ -195,6 +250,11 @@
                </GridPane.margin>
             </Label>
             <TextField fx:id="txtEstado" GridPane.columnIndex="1" GridPane.rowIndex="29" />
+            <Label fx:id="labelErrorEstado" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="30">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
             <HBox alignment="CENTER" prefHeight="72.0" prefWidth="272.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="31">
                <children>
                   <Button fx:id="btnSalvar" defaultButton="true" mnemonicParsing="false" onAction="#onBtnSalvar" text="Salvar">
@@ -209,15 +269,6 @@
                   </Button>
                </children>
             </HBox>
-            <Label text="Telefone:" textFill="WHITE" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </Label>
-            <TextField fx:id="txtTelefone" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
       </GridPane>
    </children>
