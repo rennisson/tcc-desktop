@@ -126,7 +126,7 @@ public class EnderecoDaoJDBC implements EnderecoDao {
 		try {
 			st = conn.prepareStatement(
 					"SELECT endereco.*, pedido.codigo as PedCodigo, pedido.produto_nome as PedNome, pedido.quantidade as PedQuantidade, "
-							+ "pedido.prod_preco as PedPreco, pedido.status as PedStatus "
+							+ "pedido.preco as PedPreco, pedido.status as PedStatus "
 							+ "FROM endereco INNER JOIN pedido "
 							+ "ON endereco.codigo = pedido.end_codigo "
 							+ "WHERE endereco.codigo = ?");
@@ -165,7 +165,7 @@ public class EnderecoDaoJDBC implements EnderecoDao {
 		try {
 			st = conn.prepareStatement(
 					"SELECT endereco.*, pedido.codigo as PedCodigo, pedido.produto_nome as ProdNome, pedido.quantidade as ProdQuantidade, "
-					+ "pedido.prod_preco as ProdPreco, pedido.status as ProdStatus "
+					+ "pedido.preco as ProdPreco, pedido.status as ProdStatus "
 					+ "FROM endereco INNER JOIN pedido "
 					+ "ON endereco.codigo = pedido.end_codigo");
 
@@ -205,7 +205,6 @@ public class EnderecoDaoJDBC implements EnderecoDao {
 		obj.setCidade(rs.getString("cidade"));
 		obj.setEstado(rs.getString("estado"));
 		obj.setNumero(rs.getString("numero"));
-		//obj.setPedido(pedido);
 		return obj;
 	}
 	
