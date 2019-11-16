@@ -17,7 +17,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import model.services.ClienteService;
 import model.services.IngredienteService;
 import model.services.PedidoService;
 import model.services.ProdutoService;

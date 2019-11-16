@@ -1,23 +1,13 @@
 package application;
 	
 import java.io.IOException;
-import java.util.List;
-import java.util.Scanner;
 
-import gui.FXResizeHelper;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.dao.ClienteDao;
-import model.dao.DaoFactory;
-import model.dao.EnderecoDao;
-import model.dao.PedidoDao;
-import model.entities.Cliente;
-import model.entities.Endereco;
-import model.entities.Pedido;
 
 
 public class Main extends Application {
@@ -36,8 +26,6 @@ public class Main extends Application {
 			stage.setMinHeight(500);
 			stage.setMinWidth(1200);
 			stage.centerOnScreen();
-			
-			FXResizeHelper listener = new FXResizeHelper(stage, 0, 10);
 			
 			stage.show();
 		} catch (IOException e) {
