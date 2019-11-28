@@ -2,6 +2,7 @@ package application;
 	
 import java.io.IOException;
 
+import gui.FXResizeHelper;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,9 +24,11 @@ public class Main extends Application {
 			stage.setScene(mainScene);
 			stage.setTitle("Danessa Cakes");
 			stage.initStyle(StageStyle.UNDECORATED);
-			stage.setMinHeight(500);
+			stage.setMinHeight(700);
 			stage.setMinWidth(1200);
 			stage.centerOnScreen();
+			
+			FXResizeHelper listener = new FXResizeHelper(stage, 0, 10);
 			
 			stage.show();
 		} catch (IOException e) {
