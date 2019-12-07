@@ -61,10 +61,7 @@
   -fx-cell-size : 20;
   -fx-background-color: #35583a;
   -fx-border-color: rgba(0,0,0,0.2);
-}
-
-.table-view:selected {
-	-fx-border-color: transparent;
+  -fx-font-size: 14px;
 }
 
 .table-view .column-header .label{
@@ -80,6 +77,7 @@
 
 .table-row-cell {
 	-fx-background-insets: 0, 0 0 0 0;
+	-fx-font-size: 16px;
 }
 
 /*

@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="borderPane" style="-fx-background-color: #FFF; -fx-border-color: #000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ViewController">
    <left>
@@ -34,8 +35,11 @@
                <padding>
                   <Insets left="60.0" />
                </padding>
+               <font>
+                  <Font size="18.0" />
+               </font>
             </Button>
-            <Button fx:id="btnItens" alignment="BASELINE_LEFT" graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBtnItensAction" prefHeight="48.0" prefWidth="209.0" styleClass="botao" text="Itens">
+            <Button fx:id="btnItens" alignment="BASELINE_LEFT" graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBtnItensAction" prefHeight="48.0" prefWidth="209.0" styleClass="botao" text="Ingredientes">
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -49,6 +53,9 @@
                <padding>
                   <Insets left="60.0" />
                </padding>
+               <font>
+                  <Font size="18.0" />
+               </font>
             </Button>
             <Button fx:id="btnProdutos" alignment="BASELINE_LEFT" graphicTextGap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBtnProdutosAction" prefHeight="48.0" prefWidth="209.0" styleClass="botao" text="Produtos">
                <graphic>
@@ -64,6 +71,9 @@
                <padding>
                   <Insets left="60.0" />
                </padding>
+               <font>
+                  <Font size="18.0" />
+               </font>
             </Button>
          </children>
          <BorderPane.margin>

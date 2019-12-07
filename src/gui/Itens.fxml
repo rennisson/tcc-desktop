@@ -9,6 +9,7 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="900.0" style="-fx-border-color: #000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ItensController">
    <children>
@@ -35,12 +36,21 @@
                   </TableView>
                   <ToolBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #35583a; -fx-border-style: none;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <items>
-                        <TextField fx:id="txtFiltroEstoque" onKeyPressed="#ontTxtFiltroEstoqueKeyPressed" prefHeight="25.0" prefWidth="204.0" promptText="Filtrar item..." />
-                        <Button fx:id="btnLimparPesquisa" mnemonicParsing="false" onAction="#onBtnLimparPesquisaAction" text="Limpar pesquisa" />
+                        <TextField fx:id="txtFiltroEstoque" onKeyPressed="#ontTxtFiltroEstoqueKeyPressed" prefHeight="25.0" prefWidth="204.0" promptText="Filtrar item...">
+                           <font>
+                              <Font size="14.0" />
+                           </font></TextField>
+                        <Button fx:id="btnLimparPesquisa" mnemonicParsing="false" onAction="#onBtnLimparPesquisaAction" prefHeight="30.0" prefWidth="132.0" text="Limpar pesquisa">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
                         <Button fx:id="btnNovoItem" mnemonicParsing="false" onAction="#onBtnNovoItemAction" text="Novo Item">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
                         </Button>
                      </items>
                   </ToolBar>
