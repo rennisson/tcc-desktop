@@ -49,6 +49,9 @@ public class PedidoFormController implements Initializable {
 	private EnderecoService enderecoService;
 
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
+	
+	@FXML
+	private Label labelTitulo;
 
 	@FXML
 	private TextField txtCodigo;
@@ -257,7 +260,6 @@ public class PedidoFormController implements Initializable {
 				enderecoService.update(endereco);
 			}
 		}
-		
 
 		if (exception.getErrors().size() > 0) {
 			throw exception;
@@ -301,6 +303,8 @@ public class PedidoFormController implements Initializable {
 		Constraints.setTextFieldDouble(txtPrecoTotal);
 		initializeComboBoxProduto();
 		initializeComboBoxStatus();
+		txtCodigo.setVisible(false);
+		txtCodigoEndereco.setVisible(false);
 	}
 
 	public void updateFormData() {
@@ -336,6 +340,10 @@ public class PedidoFormController implements Initializable {
 		} else {
 			comboBoxStatus.setValue(entidade.getStatus());
 		}
+	}
+	
+	public void setTitulo(String titulo) {
+		labelTitulo.setText(titulo);
 	}
 
 	public void loadAssociatedObjects() {

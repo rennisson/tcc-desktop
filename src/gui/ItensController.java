@@ -109,7 +109,7 @@ public class ItensController implements Initializable, DataChangeListener {
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(event -> createDialogForm(obj, "/gui/ItensForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(event -> createDialogForm(obj, "/gui/ItensForm.fxml", Utils.currentStage(event), "EDITAR ITEM"));
 			}
 		});
 	}
@@ -153,7 +153,7 @@ public class ItensController implements Initializable, DataChangeListener {
 	private void onBtnNovoItemAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
 		Ingrediente obj = new Ingrediente();
-		createDialogForm(obj, "/gui/ItensForm.fxml", parentStage);
+		createDialogForm(obj, "/gui/ItensForm.fxml", parentStage, "NOVO ITEM");
 	}
 	
 	public void updateTableView() {
@@ -167,7 +167,7 @@ public class ItensController implements Initializable, DataChangeListener {
 		initRemoveButtons();
 	}
 	
-	private void createDialogForm(Ingrediente obj, String absoluteName, Stage parentStage) {
+	private void createDialogForm(Ingrediente obj, String absoluteName, Stage parentStage, String titulo) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
@@ -176,6 +176,7 @@ public class ItensController implements Initializable, DataChangeListener {
 			controller.setIngrediente(obj);
 			controller.setIngredienteService(new IngredienteService());
 			controller.subscribeDataChangeListener(this);
+			controller.setTitulo(titulo);
 			controller.updateFormData();
 
 			Stage dialogStage = new Stage();

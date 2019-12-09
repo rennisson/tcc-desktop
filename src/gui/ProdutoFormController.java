@@ -42,6 +42,9 @@ public class ProdutoFormController implements Initializable {
 	private IngredienteService ingredienteService;
 
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
+	
+	@FXML
+	private Label labelTitulo;
 
 	@FXML
 	private TextField txtProduto;
@@ -174,6 +177,10 @@ public class ProdutoFormController implements Initializable {
 			itens.addAll(lista);
 			listItens.setItems(itens);
 		}
+	}
+	
+	public void setTitulo(String titulo) {
+		labelTitulo.setText(titulo);
 	}
 
 	public void loadAssociatedObjects() {

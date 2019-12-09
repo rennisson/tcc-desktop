@@ -35,6 +35,9 @@ public class ItensFormController implements Initializable {
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 	
 	@FXML
+	private Label labelTitulo;
+	
+	@FXML
 	private TextField txtCodigo;
 	
 	@FXML
@@ -157,17 +160,23 @@ public class ItensFormController implements Initializable {
 		Constraints.setTextFieldInteger(txtQuantidade);
 		Constraints.setTextFieldInteger(txtPeso);
 		Constraints.setTextFieldDouble(txtPreco);
+		txtCodigo.setVisible(false);
 	}
 	
 	public void updateFormData() {
 		if (entidade == null) {
 			throw new IllegalStateException("Entidade nula");
 		}
-		txtCodigo.setText(String.valueOf(entidade.getId()));
-		txtNome.setText(entidade.getDescricao());
+		
+		txtCodigo.setText(String.valueOf(entidade.getId()));		
+		txtNome.setText(entidade.getDescricao());	
 		txtPeso.setText(String.valueOf(entidade.getPeso()));
 		txtQuantidade.setText(String.valueOf(entidade.getQuantidade()));
 		txtPreco.setText(String.valueOf(entidade.getPreco()));
+	}
+	
+	public void setTitulo(String titulo) {
+		labelTitulo.setText(titulo);
 	}
 	
 	private void setErrorMessages(Map<String, String> errors) {

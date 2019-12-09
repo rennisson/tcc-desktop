@@ -97,7 +97,7 @@ public class ProdutosController implements Initializable, DataChangeListener {
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(event -> createDialogForm(obj, "/gui/ProdutoForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(event -> createDialogForm(obj, "/gui/ProdutoForm.fxml", Utils.currentStage(event), "EDITAR PRODUTO"));
 			}
 		});
 	}
@@ -141,7 +141,7 @@ public class ProdutosController implements Initializable, DataChangeListener {
 	private void onBtnNovoProdutoAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
 		Produto obj = new Produto();
-		createDialogForm(obj, "/gui/ProdutoForm.fxml", parentStage);
+		createDialogForm(obj, "/gui/ProdutoForm.fxml", parentStage, "NOVO PRODUTO");
 	}
 	
 	@FXML
@@ -182,7 +182,7 @@ public class ProdutosController implements Initializable, DataChangeListener {
 	}
 	
 	
-	private void createDialogForm(Produto obj, String absoluteName, Stage parentStage) {
+	private void createDialogForm(Produto obj, String absoluteName, Stage parentStage, String titulo) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
@@ -192,6 +192,7 @@ public class ProdutosController implements Initializable, DataChangeListener {
 			controller.setServices(new ProdutoService(), new IngredienteService());
 			controller.loadAssociatedObjects();
 			controller.subscribeDataChangeListener(this);
+			controller.setTitulo(titulo);
 			controller.updateFormData();
 
 			Stage dialogStage = new Stage();

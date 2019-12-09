@@ -125,7 +125,7 @@ public class PedidosController implements Initializable, DataChangeListener {
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(event -> createDialogForm(obj, "/gui/PedidoForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(event -> createDialogForm(obj, "/gui/PedidoForm.fxml", Utils.currentStage(event), "EDITAR PEDIDO"));
 			}
 		});
 	}
@@ -168,7 +168,7 @@ public class PedidosController implements Initializable, DataChangeListener {
 	private void onBtnNovoPedidoAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
 		Pedido obj = new Pedido();
-		createDialogForm(obj, "/gui/PedidoForm.fxml", parentStage);
+		createDialogForm(obj, "/gui/PedidoForm.fxml", parentStage, "NOVO PEDIDO");
 	}
 
 	@FXML
@@ -260,7 +260,7 @@ public class PedidosController implements Initializable, DataChangeListener {
 		initRemoveButtons();
 	}
 
-	private void createDialogForm(Pedido obj, String absoluteName, Stage parentStage) {
+	private void createDialogForm(Pedido obj, String absoluteName, Stage parentStage, String titulo) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
@@ -270,6 +270,7 @@ public class PedidosController implements Initializable, DataChangeListener {
 			controller.setServices(new PedidoService(), new EnderecoService(), new ProdutoService());
 			controller.loadAssociatedObjects();
 			controller.subscribeDataChangeListener(this);
+			controller.setTitulo(titulo);
 			controller.updateFormData();
 
 			Stage dialogStage = new Stage();
